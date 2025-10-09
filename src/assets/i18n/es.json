@@ -1,0 +1,252 @@
+{
+  "app": {
+    "title": "TuCash",
+    "welcome": "Bienvenido",
+    "income": "Ingresos",
+    "expense": "Gastos",
+    "balance": "Balance"
+  },
+  "login": {
+    "title": "Inicia sesi\u00F3n",
+    "headline": "Accede a tu cuenta",
+    "subtitle": "Administra tus finanzas con confianza.",
+    "email": "Correo",
+    "password": "Contrase\u00F1a",
+    "signIn": "Entrar",
+    "forgot": "\u00BFOlvidaste tu contrase\u00F1a?",
+    "back": "Volver",
+    "remember": "Recordarme",
+    "showPassword": "Mostrar",
+    "hidePassword": "Ocultar",
+    "footerCopy": "\u00BFNecesitas ayuda?",
+    "footerLink": "Cont\u00E1ctanos",
+    "noAccount": "\u00BFA\u00FAn no tienes cuenta?",
+    "createAccount": "Crear cuenta",
+    "genericError": "No pudimos iniciar sesi\u00F3n. Int\u00E9ntalo nuevamente.",
+    "errors": {
+      "email": "Ingresa un correo v\u00E1lido.",
+      "password": "Ingresa tu contrase\u00F1a.",
+      "invalidCredentials": "Credenciales inv\u00E1lidas."
+    }
+  },
+  "register": {
+    "headline": "Crea tu cuenta",
+    "subtitle": "\u00DAnete a TuCash y controla tus finanzas.",
+    "name": "Nombre completo",
+    "email": "Correo",
+    "password": "Contrase\u00F1a",
+    "confirmPassword": "Confirma tu contrase\u00F1a",
+    "terms": "Acepto los t\u00E9rminos y condiciones",
+    "createAccount": "Crear cuenta",
+    "haveAccount": "\u00BFYa tienes cuenta?",
+    "goToLogin": "Volver a iniciar sesi\u00F3n",
+    "success": "Tu cuenta se cre\u00F3 correctamente. Ahora puedes iniciar sesi\u00F3n.",
+    "genericError": "No pudimos crear la cuenta. Int\u00E9ntalo nuevamente.",
+    "back": "Regresar",
+    "showPassword": "Mostrar",
+    "hidePassword": "Ocultar",
+    "errors": {
+      "name": "Ingresa tu nombre.",
+      "email": "Ingresa un correo v\u00E1lido.",
+      "password": "La contrase\u00F1a debe tener al menos 6 caracteres.",
+      "confirmPassword": "Las contrase\u00F1as no coinciden.",
+      "duplicated": "Ya existe una cuenta con ese correo."
+    }
+  },
+  "home": {
+    "currentAmount": "Monto actual",
+    "incomes": "Ingresos",
+    "expenses": "Egresos",
+    "overview": "Resumen general",
+    "greeting": "Hola, {{ name }}",
+    "guestName": "TuCash",
+    "subtitle": "Esto es lo que ha pasado con tu dinero este mes.",
+    "balance": "Balance actual",
+    "balanceHint": "Ingresos - egresos",
+    "savingsRate": "Tasa de ahorro",
+    "savingsHint": "Porcentaje de ingresos que est\u00E1s conservando.",
+    "entriesCount": "{{count}} movimientos",
+    "recentTransactions": "\u00DAltimas transacciones",
+    "viewAll": "Ver todo",
+    "emptyTransactions": "A\u00FAn no registras movimientos recientes.",
+    "loading": "Cargando tu resumen financiero\u2026",
+    "tryAgain": "Intentar de nuevo",
+    "errors": {
+      "loadData": "No pudimos cargar tus datos. Verifica tu conexi\u00F3n e int\u00E9ntalo otra vez."
+    },
+    "insights": {
+      "title": "Relaci\u00F3n ingresos vs gastos",
+      "subtitle": "Visualiza el peso de tus ingresos frente a tus gastos",
+      "incomeLabel": "Ingresos",
+      "expenseLabel": "Gastos"
+    }
+  },
+  "incomes": {
+    "title": "Mis ingresos",
+    "subtitle": "Balance disponible",
+    "add": "Agregar ingreso",
+    "balanceTitle": "Balance general",
+    "balanceHint": "Ingresos menos gastos acumulados",
+    "categoriesTitle": "Categor\u00EDas frecuentes",
+    "listTitle": "Historial reciente",
+    "empty": "A\u00FAn no registras ingresos.",
+    "loading": "Cargando tus ingresos\u2026",
+    "tryAgain": "Intentar de nuevo",
+    "labels": {
+      "incomes": "Ingresos acumulados",
+      "expenses": "Gastos acumulados"
+    },
+    "errors": {
+      "load": "No pudimos cargar tus ingresos. Intenta nuevamente.",
+      "create": "No pudimos guardar el ingreso. Vuelve a intentarlo.",
+      "noUser": "No encontramos la sesi\u00F3n del usuario."
+    },
+    "categories": {
+      "salary": "Salario",
+      "freelance": "Freelance",
+      "bonus": "Bonos",
+      "rental": "Alquileres",
+      "other": "Otros"
+    },
+    "form": {
+      "title": "Agregar nuevo ingreso",
+      "close": "Cerrar",
+      "description": "Descripci\u00F3n",
+      "amount": "Monto",
+      "category": "Categor\u00EDa",
+      "date": "Fecha",
+      "notes": "Notas",
+      "recurring": "Marcar como ingreso recurrente",
+      "submit": "Guardar ingreso",
+      "saving": "Guardando\u2026",
+      "errors": {
+        "description": "Describe brevemente el ingreso.",
+        "amount": "Ingresa un monto v\u00E1lido mayor a cero."
+      }
+    }
+  },
+  "expenses": {
+    "title": "Mis gastos",
+    "subtitle": "Balance restante",
+    "add": "Agregar gasto",
+    "balanceTitle": "Resumen de gastos",
+    "balanceHint": "Gastos descontados de tus ingresos",
+    "categoriesTitle": "Categor\u00EDas frecuentes",
+    "listTitle": "Gastos recientes",
+    "empty": "A\u00FAn no registras gastos.",
+    "loading": "Cargando tus gastos\u2026",
+    "tryAgain": "Intentar de nuevo",
+    "labels": {
+      "incomes": "Ingresos acumulados",
+      "expenses": "Gastos acumulados"
+    },
+    "errors": {
+      "load": "No pudimos cargar tus gastos. Int\u00E9ntalo nuevamente.",
+      "create": "No pudimos guardar el gasto. Vuelve a intentarlo.",
+      "noUser": "No encontramos la sesi\u00F3n del usuario."
+    },
+    "categories": {
+      "housing": "Vivienda",
+      "transport": "Transporte",
+      "food": "Alimentaci\u00F3n",
+      "utilities": "Servicios",
+      "entertainment": "Entretenimiento",
+      "health": "Salud",
+      "other": "Otros"
+    },
+    "form": {
+      "title": "Agregar nuevo gasto",
+      "description": "Descripci\u00F3n",
+      "amount": "Monto",
+      "category": "Categor\u00EDa",
+      "date": "Fecha",
+      "notes": "Notas",
+      "recurring": "Marcar como gasto recurrente",
+      "submit": "Guardar gasto",
+      "cancel": "Cancelar",
+      "errors": {
+        "description": "Describe brevemente el gasto.",
+        "amount": "Ingresa un monto v\u00E1lido mayor a cero."
+      }
+    }
+  },
+  "goals": {
+    "title": "Metas de ahorro",
+    "subtitle": "Saldo restante por alcanzar:",
+    "add": "Agregar meta",
+    "summary": {
+      "totalGoals": "Metas activas",
+      "totalTarget": "Monto objetivo",
+      "totalSaved": "Monto ahorrado"
+    },
+    "labels": {
+      "deadline": "Fecha objetivo",
+      "noDeadline": "Sin fecha objetivo"
+    },
+    "listTitle": "Metas recientes",
+    "empty": "A\u00FAn no registras metas.",
+    "loading": "Cargando tus metas\u2026",
+    "tryAgain": "Intentar de nuevo",
+    "errors": {
+      "load": "No pudimos cargar tus metas. Int\u00E9ntalo nuevamente.",
+      "create": "No pudimos guardar la meta. Vuelve a intentarlo.",
+      "noUser": "No encontramos la sesi\u00F3n del usuario."
+    },
+    "form": {
+      "title": "Nueva meta",
+      "titleLabel": "Nombre de la meta",
+      "targetAmount": "Monto objetivo",
+      "savedAmount": "Monto ahorrado",
+      "deadline": "Fecha objetivo",
+      "notes": "Notas",
+      "submit": "Guardar meta",
+      "cancel": "Cancelar",
+      "errors": {
+        "title": "Ingresa un nombre para la meta.",
+        "targetAmount": "Ingresa un monto objetivo mayor a cero.",
+        "savedAmount": "Ingresa un monto ahorrado v\u00E1lido."
+      }
+    }
+  },
+  "profile": {
+    "title": "Perfil",
+    "subtitle": "Gestiona tu información personal y preferencias.",
+    "loading": "Cargando tu perfil…",
+    "tryAgain": "Intentar de nuevo",
+    "anonymous": "Usuario invitado",
+    "labels": {
+      "name": "Nombre",
+      "email": "Correo",
+      "password": "Contraseña",
+      "currency": "Moneda"
+    },
+    "actions": {
+      "changeAvatar": "Cambiar foto",
+      "changeName": "Cambiar nombre",
+      "changeEmail": "Cambiar correo",
+      "changePassword": "Cambiar contraseña",
+      "update": "Guardar cambios",
+      "delete": "Eliminar cuenta",
+      "logout": "Cerrar sesión"
+    },
+    "errors": {
+      "load": "No pudimos cargar tu perfil. Intenta nuevamente.",
+      "noUser": "Tu sesión expiró. Inicia sesión otra vez."
+    }
+  },
+  "nav": {
+    "home": "Inicio",
+    "incomes": "Ingresos",
+    "expenses": "Gastos",
+    "goals": "Metas",
+    "profile": "Perfil"
+  },
+  "common": {
+    "comingSoon": "Muy pronto podr\u00E1s gestionar esta secci\u00F3n."
+  }
+}
+
+
+
+
+

@@ -1,0 +1,50 @@
+.lang-switcher {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-family: sans-serif;
+    }
+    .lang-btn {
+      background: white;
+      border: 1px solid #ccc;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .lang-btn .arrow {
+      font-size: 0.8rem;
+      margin-left: 0.2rem;
+    }
+    .lang-dropdown {
+      list-style: none;
+      margin: 0.5rem 0 0;
+      padding: 0;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      position: absolute;
+      right: 0;
+      z-index: 10;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+    .lang-dropdown li {
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .lang-dropdown li:hover {
+      background-color: #f2f2f2;
+    }
+    .flag {
+      width: 20px;
+      height: 14px;
+      
+      object-fit: cover
+    }

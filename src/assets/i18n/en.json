@@ -1,0 +1,218 @@
+{
+  "app": {
+    "title": "TuCash",
+    "welcome": "Welcome",
+    "income": "Income",
+    "expense": "Expenses",
+    "balance": "Balance"
+  },
+  "login": {
+    "title": "Sign in",
+    "headline": "Access your account",
+    "subtitle": "Manage your finances with confidence.",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "forgot": "Forgot your password?",
+    "back": "Go back",
+    "remember": "Remember me",
+    "showPassword": "Show",
+    "hidePassword": "Hide",
+    "footerCopy": "Need help?",
+    "footerLink": "Contact us",
+    "noAccount": "Don't have an account yet?",
+    "createAccount": "Create account",
+    "genericError": "We couldn't sign you in. Please try again.",
+    "errors": {
+      "email": "Enter a valid email address.",
+      "password": "Enter your password.",
+      "invalidCredentials": "Invalid credentials."
+    }
+  },
+  "register": {
+    "headline": "Create your account",
+    "subtitle": "Join TuCash and stay on top of your finances.",
+    "name": "Full name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "terms": "I accept the terms and conditions",
+    "createAccount": "Create account",
+    "haveAccount": "Already have an account?",
+    "goToLogin": "Back to login",
+    "success": "Your account was created successfully. You can sign in now.",
+    "genericError": "We couldn't create the account. Please try again.",
+    "back": "Go back",
+    "showPassword": "Show",
+    "hidePassword": "Hide",
+    "errors": {
+      "name": "Enter your name.",
+      "email": "Enter a valid email address.",
+      "password": "Password must be at least 6 characters.",
+      "confirmPassword": "Passwords do not match.",
+      "duplicated": "An account with that email already exists."
+    }
+  },
+  "home": {
+    "currentAmount": "Current amount",
+    "incomes": "Income",
+    "expenses": "Expenses",
+    "overview": "Overview",
+    "greeting": "Hi, {{ name }}",
+    "guestName": "TuCash",
+    "subtitle": "Here\u2019s what has happened with your money this month.",
+    "balance": "Current balance",
+    "balanceHint": "Income - expenses",
+    "savingsRate": "Savings rate",
+    "savingsHint": "Percentage of your income you are keeping.",
+    "entriesCount": "{{count}} records",
+    "recentTransactions": "Recent transactions",
+    "viewAll": "View all",
+    "emptyTransactions": "You have no recent transactions yet.",
+    "loading": "Loading your financial snapshot\u2026",
+    "tryAgain": "Try again",
+    "errors": {
+      "loadData": "We couldn't load your data. Check your connection and try again."
+    },
+    "insights": {
+      "title": "Income vs expenses",
+      "subtitle": "See how much your expenses weigh against your income",
+      "incomeLabel": "Income",
+      "expenseLabel": "Expenses"
+    }
+  },
+  "incomes": {
+    "title": "My income",
+    "subtitle": "Available balance",
+    "add": "Add income",
+    "balanceTitle": "Overall balance",
+    "balanceHint": "Income minus accumulated expenses",
+    "categoriesTitle": "Frequent categories",
+    "listTitle": "Recent history",
+    "empty": "You don't have income records yet.",
+    "loading": "Loading your income\u2026",
+    "tryAgain": "Try again",
+    "errors": {
+      "load": "We couldn't load your income. Please try again.",
+      "create": "We couldn't save the income. Please try again.",
+      "noUser": "We couldn't find the current session."
+    },
+    "categories": {
+      "salary": "Salary",
+      "freelance": "Freelance",
+      "bonus": "Bonus",
+      "rental": "Rentals",
+      "other": "Other"
+    },
+    "form": {
+      "title": "Add new income",
+      "close": "Close",
+      "description": "Description",
+      "amount": "Amount",
+      "category": "Category",
+      "date": "Date",
+      "notes": "Notes",
+      "recurring": "Mark as recurring income",
+      "submit": "Save income",
+      "saving": "Saving\u2026",
+      "errors": {
+        "description": "Describe the income briefly.",
+        "amount": "Enter a valid amount greater than zero."
+      }
+    }
+  },
+  "expenses": {
+    "title": "My expenses",
+    "subtitle": "Remaining balance",
+    "add": "Add expense",
+    "balanceTitle": "Expense summary",
+    "balanceHint": "Expenses deducted from your income",
+    "categoriesTitle": "Frequent categories",
+    "listTitle": "Recent expenses",
+    "empty": "You don't have expense records yet.",
+    "loading": "Loading your expenses?",
+    "tryAgain": "Try again",
+    "labels": {
+      "incomes": "Total income",
+      "expenses": "Total expenses"
+    },
+    "errors": {
+      "load": "We couldn't load your expenses. Please try again.",
+      "create": "We couldn't save the expense. Please try again.",
+      "noUser": "We couldn't find the current session."
+    },
+    "categories": {
+      "housing": "Housing",
+      "transport": "Transport",
+      "food": "Food",
+      "utilities": "Utilities",
+      "entertainment": "Entertainment",
+      "health": "Health",
+      "other": "Other"
+    },
+    "form": {
+      "title": "Add new expense",
+      "description": "Description",
+      "amount": "Amount",
+      "category": "Category",
+      "date": "Date",
+      "notes": "Notes",
+      "recurring": "Mark as recurring expense",
+      "submit": "Save expense",
+      "cancel": "Cancel",
+      "errors": {
+        "description": "Describe the expense briefly.",
+        "amount": "Enter a valid amount greater than zero."
+      }
+    }
+  },
+  "goals": {
+    "title": "Goals",
+    "add": "Add goal",
+    "progress": "Progress"
+  },
+  "profile": {
+    "title": "Profile",
+    "subtitle": "Manage your personal data and preferences.",
+    "loading": "Loading your profile?",
+    "tryAgain": "Try again",
+    "anonymous": "Invited user",
+    "labels": {
+      "name": "Name",
+      "email": "Email",
+      "password": "Password",
+      "currency": "Currency"
+    },
+    "actions": {
+      "changeAvatar": "Change avatar",
+      "changeName": "Change name",
+      "changeEmail": "Change email",
+      "changePassword": "Change password",
+      "update": "Save changes",
+      "delete": "Delete account",
+      "logout": "Sign out"
+    },
+    "errors": {
+      "load": "We couldn't load your profile. Please try again.",
+      "noUser": "Your session has expired. Please sign in again."
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "incomes": "Income",
+    "expenses": "Expenses",
+    "goals": "Goals",
+    "profile": "Profile"
+  },
+  "common": {
+    "comingSoon": "This section will be available soon."
+  }
+}
+
+
+
+
+
+
+
+

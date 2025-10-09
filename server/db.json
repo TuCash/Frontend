@@ -1,0 +1,92 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Demo User",
+      "email": "demo@tucash.app",
+      "password": "demo123",
+      "createdAt": "2024-01-01T08:00:00.000Z"
+    },
+    {
+      "id": 1760000659577,
+      "name": "prueba",
+      "email": "test@unit",
+      "password": "123456",
+      "createdAt": "2025-10-09T09:04:19.577Z"
+    }
+  ],
+  "incomes": [
+    {
+      "id": 1,
+      "userId": 1,
+      "description": "Salary",
+      "amount": 2500,
+      "date": "2024-10-01"
+    },
+    {
+      "userId": 1,
+      "description": "gasto",
+      "amount": 100,
+      "category": "bonus",
+      "date": "2025-10-09T00:00:00.000Z",
+      "notes": "",
+      "recurring": true,
+      "id": 2
+    },
+    {
+      "userId": 1760000659577,
+      "description": "sueldo",
+      "amount": 1000,
+      "category": "freelance",
+      "date": "2025-10-09T00:00:00.000Z",
+      "notes": "",
+      "recurring": true,
+      "id": 3
+    },
+    {
+      "userId": 1,
+      "description": "sueldo",
+      "amount": 100,
+      "category": "rental",
+      "date": "2025-10-09T00:00:00.000Z",
+      "notes": "",
+      "recurring": false,
+      "id": 4
+    }
+  ],
+  "expenses": [
+    {
+      "id": 1,
+      "userId": 1,
+      "description": "Rent",
+      "amount": 900,
+      "date": "2024-10-05"
+    }
+  ],
+  "goals": [
+    {
+      "id": 1,
+      "userId": 1,
+      "title": "Emergency Fund",
+      "targetAmount": 5000,
+      "savedAmount": 1200
+    },
+    {
+      "userId": 1760000659577,
+      "title": "mi meta",
+      "targetAmount": 50000,
+      "savedAmount": 100,
+      "deadline": "2025-12-20T05:00:00.000Z",
+      "notes": "",
+      "id": 2
+    }
+  ],
+  "profile": [
+    {
+      "id": 1,
+      "userId": 1,
+      "avatar": "",
+      "currency": "USD"
+    }
+  ]
+}

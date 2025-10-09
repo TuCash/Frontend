@@ -1,0 +1,210 @@
+{
+  "app": {
+    "title": "TuCash",
+    "welcome": "Bem-vindo",
+    "income": "Receitas",
+    "expense": "Despesas",
+    "balance": "Saldo"
+  },
+  "login": {
+    "title": "Entrar",
+    "headline": "Acesse sua conta",
+    "subtitle": "Gerencie suas finan\u00E7as com confian\u00E7a.",
+    "email": "Email",
+    "password": "Senha",
+    "signIn": "Entrar",
+    "forgot": "Esqueceu sua senha?",
+    "back": "Voltar",
+    "remember": "Lembrar-me",
+    "showPassword": "Mostrar",
+    "hidePassword": "Ocultar",
+    "footerCopy": "Precisa de ajuda?",
+    "footerLink": "Fale conosco",
+    "noAccount": "Ainda n\u00E3o tem uma conta?",
+    "createAccount": "Criar conta",
+    "genericError": "N\u00E3o foi poss\u00EDvel entrar. Tente novamente.",
+    "errors": {
+      "email": "Informe um email v\u00E1lido.",
+      "password": "Informe sua senha.",
+      "invalidCredentials": "Credenciais inv\u00E1lidas."
+    }
+  },
+  "register": {
+    "headline": "Crie sua conta",
+    "subtitle": "Junte-se \u00E0 TuCash e controle suas finan\u00E7as.",
+    "name": "Nome completo",
+    "email": "Email",
+    "password": "Senha",
+    "confirmPassword": "Confirme sua senha",
+    "terms": "Aceito os termos e condi\u00E7\u00F5es",
+    "createAccount": "Criar conta",
+    "haveAccount": "J\u00E1 tem uma conta?",
+    "goToLogin": "Voltar para login",
+    "success": "Sua conta foi criada com sucesso. Agora voc\u00EA pode entrar.",
+    "genericError": "N\u00E3o foi poss\u00EDvel criar a conta. Tente novamente.",
+    "back": "Voltar",
+    "showPassword": "Mostrar",
+    "hidePassword": "Ocultar",
+    "errors": {
+      "name": "Informe seu nome.",
+      "email": "Informe um email v\u00E1lido.",
+      "password": "A senha deve ter pelo menos 6 caracteres.",
+      "confirmPassword": "As senhas n\u00E3o coincidem.",
+      "duplicated": "J\u00E1 existe uma conta com esse email."
+    }
+  },
+  "home": {
+    "currentAmount": "Valor atual",
+    "incomes": "Receitas",
+    "expenses": "Despesas",
+    "overview": "Vis\u00E3o geral",
+    "greeting": "Ol\u00E1, {{ name }}",
+    "guestName": "TuCash",
+    "subtitle": "Veja o que aconteceu com o seu dinheiro neste m\u00EAs.",
+    "balance": "Saldo atual",
+    "balanceHint": "Receitas - despesas",
+    "savingsRate": "Taxa de economia",
+    "savingsHint": "Percentual da receita que voc\u00EA est\u00E1 guardando.",
+    "entriesCount": "{{count}} movimentos",
+    "recentTransactions": "Transa\u00E7\u00F5es recentes",
+    "viewAll": "Ver todas",
+    "emptyTransactions": "Voc\u00EA ainda n\u00E3o tem transa\u00E7\u00F5es recentes.",
+    "loading": "Carregando seu resumo financeiro\u2026",
+    "tryAgain": "Tentar novamente",
+    "errors": {
+      "loadData": "N\u00E3o foi poss\u00EDvel carregar seus dados. Verifique sua conex\u00E3o e tente novamente."
+    },
+    "insights": {
+      "title": "Receitas vs despesas",
+      "subtitle": "Veja quanto as despesas pesam em rela\u00E7\u00E3o \u00E0s receitas",
+      "incomeLabel": "Receitas",
+      "expenseLabel": "Despesas"
+    }
+  },
+  "incomes": {
+    "title": "Minhas receitas",
+    "subtitle": "Saldo dispon\u00EDvel",
+    "add": "Adicionar receita",
+    "balanceTitle": "Balan\u00E7o geral",
+    "balanceHint": "Receitas menos despesas acumuladas",
+    "categoriesTitle": "Categorias frequentes",
+    "listTitle": "Hist\u00F3rico recente",
+    "empty": "Voc\u00EA ainda n\u00E3o registrou receitas.",
+    "loading": "Carregando suas receitas\u2026",
+    "tryAgain": "Tentar novamente",
+    "errors": {
+      "load": "N\u00E3o foi poss\u00EDvel carregar suas receitas. Tente novamente.",
+      "create": "N\u00E3o foi poss\u00EDvel salvar a receita. Tente novamente.",
+      "noUser": "N\u00E3o encontramos a sess\u00E3o do usu\u00E1rio."
+    },
+    "categories": {
+      "salary": "Sal\u00E1rio",
+      "freelance": "Freelance",
+      "bonus": "B\u00F4nus",
+      "rental": "Alugu\u00E9is",
+      "other": "Outros"
+    },
+    "form": {
+      "title": "Adicionar nova receita",
+      "close": "Fechar",
+      "description": "Descri\u00E7\u00E3o",
+      "amount": "Valor",
+      "category": "Categoria",
+      "date": "Data",
+      "notes": "Notas",
+      "recurring": "Marcar como receita recorrente",
+      "submit": "Salvar receita",
+      "saving": "Salvando\u2026",
+      "errors": {
+        "description": "Descreva rapidamente a receita.",
+        "amount": "Informe um valor v\u00E1lido maior que zero."
+      }
+    }
+  },
+  "expenses": {
+    "title": "Minhas despesas",
+    "subtitle": "Saldo restante",
+    "add": "Adicionar despesa",
+    "balanceTitle": "Resumo de despesas",
+    "balanceHint": "Despesas deduzidas das suas receitas",
+    "categoriesTitle": "Categorias frequentes",
+    "listTitle": "Despesas recentes",
+    "empty": "Voc\u00EA ainda n\u00E3o registrou despesas.",
+    "loading": "Carregando suas despesas\u2026",
+    "tryAgain": "Tentar novamente",
+    "labels": {
+      "incomes": "Receitas acumuladas",
+      "expenses": "Despesas acumuladas"
+    },
+    "errors": {
+      "load": "N\u00E3o foi poss\u00EDvel carregar suas despesas. Tente novamente.",
+      "create": "N\u00E3o foi poss\u00EDvel salvar a despesa. Tente novamente.",
+      "noUser": "N\u00E3o encontramos a sess\u00E3o do usu\u00E1rio."
+    },
+    "categories": {
+      "housing": "Moradia",
+      "transport": "Transporte",
+      "food": "Alimenta\u00E7\u00E3o",
+      "utilities": "Servi\u00E7os",
+      "entertainment": "Entretenimento",
+      "health": "Sa\u00FAde",
+      "other": "Outros"
+    },
+    "form": {
+      "title": "Adicionar nova despesa",
+      "description": "Descri\u00E7\u00E3o",
+      "amount": "Valor",
+      "category": "Categoria",
+      "date": "Data",
+      "notes": "Notas",
+      "recurring": "Marcar como despesa recorrente",
+      "submit": "Salvar despesa",
+      "cancel": "Cancelar",
+      "errors": {
+        "description": "Descreva rapidamente a despesa.",
+        "amount": "Informe um valor v\u00E1lido maior que zero."
+      }
+    }
+  },
+  "goals": {
+    "title": "Metas",
+    "add": "Adicionar meta",
+    "progress": "Progresso"
+  },
+  "profile": {
+    "title": "Perfil",
+    "subtitle": "Gerencie seus dados e preferências.",
+    "loading": "Carregando seu perfil…",
+    "tryAgain": "Tentar novamente",
+    "anonymous": "Usuário convidado",
+    "labels": {
+      "name": "Nome",
+      "email": "Email",
+      "password": "Senha",
+      "currency": "Moeda"
+    },
+    "actions": {
+      "changeAvatar": "Alterar avatar",
+      "changeName": "Alterar nome",
+      "changeEmail": "Alterar email",
+      "changePassword": "Alterar senha",
+      "update": "Salvar alterações",
+      "delete": "Excluir conta",
+      "logout": "Sair"
+    },
+    "errors": {
+      "load": "Não foi possível carregar seu perfil. Tente novamente.",
+      "noUser": "Sua sessão expirou. Entre novamente."
+    }
+  },
+  "nav": {
+    "home": "In\u00EDcio",
+    "incomes": "Receitas",
+    "expenses": "Despesas",
+    "goals": "Metas",
+    "profile": "Perfil"
+  },
+  "common": {
+    "comingSoon": "Esta se\u00E7\u00E3o estar\u00E1 dispon\u00EDvel em breve."
+  }
+}
