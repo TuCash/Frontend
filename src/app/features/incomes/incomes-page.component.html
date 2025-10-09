@@ -1,0 +1,147 @@
+@if (!isLoading && !loadError) {
+  <section class="incomes-page">
+    <header class="incomes-header">
+      <button class="incomes-header__back" type="button" (click)="goBack()">
+        ←
+      </button>
+      <div class="incomes-header__info">
+        <h1>{{ 'incomes.title' | translate }}</h1>
+        <p>
+          {{ 'incomes.subtitle' | translate }}:
+          <strong>{{ formatAmount(totals().balance) }}</strong>
+        </p>
+      </div>
+      <button class="incomes-header__action" type="button" (click)="showCreateForm()">
+        {{ 'incomes.add' | translate }}
+      </button>
+    </header>
+
+    <section class="incomes-balance card">
+      <div class="incomes-balance__title">
+        <p>{{ 'incomes.balanceTitle' | translate }}</p>
+        <span>{{ 'incomes.balanceHint' | translate }}</span>
+      </div>
+      <div class="incomes-balance__value">
+        <strong>{{ formatAmount(totals().balance) }}</strong>
+        <span>{{ formatAmount(totals().totalIncomes) }}</span>
+        <span>- {{ formatAmount(totals().totalExpenses) }}</span>
+      </div>
+    </section>
+
+    <section class="incomes-categories card">
+      <h2>{{ 'incomes.categoriesTitle' | translate }}</h2>
+      <div class="categories-grid">
+        <div class="category-card" *ngFor="let category of categories">
+          <div class="category-card__icon">{{ category.icon }}</div>
+          <div class="category-card__name">
+            {{ category.label | translate }}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="incomes-list card">
+      <header class="incomes-list__header">
+        <h2>{{ 'incomes.listTitle' | translate }}</h2>
+      </header>
+
+      @if (incomes().length) {
+        <ul class="incomes-list__items">
+          <li class="income-item" *ngFor="let income of incomes()">
+            <div class="income-item__icon">
+              {{ categoryIcon(income.category) }}
+            </div>
+            <div class="income-item__details">
+              <p class="income-item__description">{{ income.description }}</p>
+              <p class="income-item__meta">
+                {{ categoryLabel(income.category) | translate }} · {{ formatDate(income.date) }}
+              </p>
+            </div>
+            <div class="income-item__amount">
+              {{ formatAmount(income.amount, true) }}
+            </div>
+          </li>
+        </ul>
+      } @else {
+        <p class="incomes-list__empty">{{ 'incomes.empty' | translate }}</p>
+      }
+    </section>
+
+  </section>
+} @else {
+  <div class="incomes-state">
+    @if (isLoading) {
+      <div class="incomes-state__message">
+        <span class="spinner" aria-hidden="true"></span>
+        <p>{{ 'incomes.loading' | translate }}</p>
+      </div>
+    } @else {
+      <div class="incomes-state__message">
+        <p>{{ loadError | translate }}</p>
+        <button type="button" class="btn btn--primary" (click)="reload()">
+          {{ 'incomes.tryAgain' | translate }}
+        </button>
+      </div>
+    }
+  </div>
+}
+
+@if (showForm) {
+  <div class="income-modal">
+    <div class="income-modal__backdrop" (click)="hideCreateForm()"></div>
+    <section class="income-modal__content card">
+      <header class="income-form__header">
+        <h2>{{ 'incomes.form.title' | translate }}</h2>
+        <button type="button" (click)="hideCreateForm()">{{ 'incomes.form.close' | translate }}</button>
+      </header>
+
+      <form [formGroup]="incomeForm" (ngSubmit)="submitIncome()">
+        <div class="form-field">
+          <label for="description">{{ 'incomes.form.description' | translate }}</label>
+          <input id="description" formControlName="description" type="text" />
+          @if (incomeForm.get('description')?.invalid && incomeForm.get('description')?.touched) {
+            <p class="form-field__error">{{ 'incomes.form.errors.description' | translate }}</p>
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="amount">{{ 'incomes.form.amount' | translate }}</label>
+          <input id="amount" formControlName="amount" type="number" step="0.01" min="0" />
+          @if (incomeForm.get('amount')?.invalid && incomeForm.get('amount')?.touched) {
+            <p class="form-field__error">{{ 'incomes.form.errors.amount' | translate }}</p>
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="category">{{ 'incomes.form.category' | translate }}</label>
+          <select id="category" formControlName="category">
+            <option *ngFor="let category of categories" [value]="category.value">
+              {{ category.label | translate }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="date">{{ 'incomes.form.date' | translate }}</label>
+          <input id="date" formControlName="date" type="date" />
+        </div>
+
+        <div class="form-field">
+          <label for="notes">{{ 'incomes.form.notes' | translate }}</label>
+          <textarea id="notes" formControlName="notes" rows="3"></textarea>
+        </div>
+
+        <div class="form-field form-field--inline">
+          <label class="form-field__checkbox">
+            <input type="checkbox" formControlName="recurring" />
+            <span>{{ 'incomes.form.recurring' | translate }}</span>
+          </label>
+        </div>
+
+        <button class="btn btn--primary income-form__submit" type="submit" [disabled]="incomeForm.invalid || isSubmitting">
+          {{ isSubmitting ? ('incomes.form.saving' | translate) : ('incomes.form.submit' | translate) }}
+        </button>
+      </form>
+    </section>
+  </div>
+}
