@@ -2,7 +2,7 @@ export const environment = {
   production: false,
 
   // 🌐 Base URL para API local o json-server
-  apiBaseUrl: 'http://localhost:3000',
+  apiBaseUrl: 'https://tucashft.onrender.com',
 
   // 📦 Endpoints REST agrupados
   endpoints: {

@@ -3,7 +3,7 @@ export const environment = {
   production: true,
 
   // 🌐 URL del backend real (por ejemplo en producción o staging)
-  apiBaseUrl: 'http://localhost:3000',
+  apiBaseUrl: 'https://tucashft.onrender.com',
 
   endpoints: {
     login: '/auth/login',
