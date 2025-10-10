@@ -61,7 +61,7 @@ export class LoginPageComponent {
   }
 
   onBack(): void {
-    window.history.back();
+    window.location.href = 'https://tucash.github.io/landingPage';
   }
 
   togglePasswordVisibility(): void {
