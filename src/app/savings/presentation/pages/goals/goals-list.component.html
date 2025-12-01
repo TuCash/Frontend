@@ -1,0 +1,120 @@
+@if (isLoading()) {
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>{{ 'goals.loading' | translate }}</p>
+  </div>
+} @else if (loadError()) {
+  <div class="error-state">
+    <p>{{ loadError() | translate }}</p>
+    <button type="button" class="btn-retry" (click)="loadGoals()">
+      {{ 'goals.retry' | translate }}
+    </button>
+  </div>
+} @else {
+  <div class="goals-page">
+    <!-- Header -->
+    <header class="page-header">
+      <h1 class="page-title">{{ 'goals.title' | translate }}</h1>
+      <button type="button" class="btn-add" (click)="openNewGoalModal()">
+        <span class="add-icon">+</span>
+        {{ 'goals.addNew' | translate }}
+      </button>
+    </header>
+
+    <!-- Empty State -->
+    @if (goals().length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon">🎯</div>
+        <h2>{{ 'goals.empty.title' | translate }}</h2>
+        <p>{{ 'goals.empty.message' | translate }}</p>
+        <button type="button" class="btn-primary" (click)="openNewGoalModal()">
+          {{ 'goals.empty.action' | translate }}
+        </button>
+      </div>
+    } @else {
+      <!-- Goals Grid -->
+      <div class="goals-grid">
+        @for (goal of goals(); track goal.id) {
+          <div class="goal-card">
+            <!-- Goal Header -->
+            <div class="goal-header">
+              <div class="goal-info">
+                <h3 class="goal-name">{{ goal.name }}</h3>
+                @if (goal.description) {
+                  <p class="goal-description">{{ goal.description }}</p>
+                }
+              </div>
+              <button
+                type="button"
+                class="btn-delete"
+                (click)="deleteGoal(goal.id)"
+                title="Eliminar meta"
+              >
+                ×
+              </button>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-section">
+              <div class="progress-bar">
+                <div
+                  class="progress-fill"
+                  [class]="getProgressClass(getProgressPercentage(goal))"
+                  [style.width.%]="getProgressPercentage(goal)"
+                ></div>
+              </div>
+              <span class="progress-text">{{ getProgressPercentage(goal) }}%</span>
+            </div>
+
+            <!-- Amount Info -->
+            <div class="amount-section">
+              <div class="amount-current">
+                <span class="amount-label">{{ 'goals.current' | translate }}</span>
+                <span class="amount-value">{{ formatAmount(goal.currentAmount) }}</span>
+              </div>
+              <div class="amount-target">
+                <span class="amount-label">{{ 'goals.target' | translate }}</span>
+                <span class="amount-value">{{ formatAmount(goal.targetAmount) }}</span>
+              </div>
+            </div>
+
+            <!-- Deadline Info -->
+            <div class="deadline-section">
+              <div class="deadline-info">
+                <span class="deadline-icon">📅</span>
+                <span class="deadline-text">
+                  {{ formatDate(goal.deadline) }}
+                </span>
+              </div>
+              @if (getDaysRemaining(goal.deadline) >= 0) {
+                <div class="days-remaining" [class.urgent]="getDaysRemaining(goal.deadline) <= 7">
+                  {{ getDaysRemaining(goal.deadline) }} {{ 'goals.daysRemaining' | translate }}
+                </div>
+              } @else {
+                <div class="days-remaining overdue">
+                  {{ 'goals.overdue' | translate }}
+                </div>
+              }
+            </div>
+
+            <!-- Actions -->
+            <div class="goal-actions">
+              <button
+                type="button"
+                class="btn-secondary"
+                (click)="openEditGoalModal(goal.id)"
+              >
+                {{ 'goals.updateProgress' | translate }}
+              </button>
+              @if (getProgressPercentage(goal) >= 100) {
+                <button type="button" class="btn-celebrate">
+                  🎉 {{ 'goals.celebrate' | translate }}
+                </button>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+}

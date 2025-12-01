@@ -1,0 +1,101 @@
+@if (isLoading()) {
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>{{ 'transactions.loading' | translate }}</p>
+  </div>
+} @else if (loadError()) {
+  <div class="error-state">
+    <p>{{ loadError() | translate }}</p>
+    <button type="button" class="btn-retry" (click)="reload()">
+      {{ 'transactions.tryAgain' | translate }}
+    </button>
+  </div>
+} @else {
+  <div class="transactions-page">
+    <!-- Resumen con gráfico -->
+    <div class="summary-card card">
+      <h2 class="summary-title">{{ 'transactions.summary.title' | translate }}</h2>
+
+      <div class="chart-container">
+        <div class="chart-bar">
+          <div class="bar-income" [style.width.%]="chartData().incomePercent"></div>
+          <div class="bar-expense" [style.width.%]="chartData().expensesPercent"></div>
+        </div>
+
+        <div class="chart-legend">
+          <div class="legend-item">
+            <span class="legend-dot income"></span>
+            <span class="legend-label">{{ 'transactions.totalIncome' | translate }}</span>
+            <span class="legend-value income">S/{{ totalIncome() | number:'1.2-2' }}</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot expense"></span>
+            <span class="legend-label">{{ 'transactions.totalExpenses' | translate }}</span>
+            <span class="legend-value expense">S/{{ totalExpenses() | number:'1.2-2' }}</span>
+          </div>
+        </div>
+
+        <div class="balance-summary">
+          <span class="balance-label">{{ 'transactions.balance' | translate }}</span>
+          <span class="balance-value" [class.positive]="balance() >= 0" [class.negative]="balance() < 0">
+            S/{{ balance() | number:'1.2-2' }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de transacciones agrupadas por fecha -->
+    @if (visibleGroups().length > 0) {
+      <div class="transactions-container">
+        @for (group of visibleGroups(); track group.date) {
+          <div class="date-group">
+            <div class="date-header">
+              <h3 class="date-label">{{ group.dateLabel }}</h3>
+              <div class="date-summary">
+                @if (group.totalIncome > 0) {
+                  <span class="date-income">+S/{{ group.totalIncome | number:'1.2-2' }}</span>
+                }
+                @if (group.totalExpenses > 0) {
+                  <span class="date-expense">-S/{{ group.totalExpenses | number:'1.2-2' }}</span>
+                }
+              </div>
+            </div>
+
+            <div class="transactions-list">
+              @for (tx of group.transactions; track tx.id) {
+                <div class="transaction-item" [class.income]="tx.type === 'INCOME'" [class.expense]="tx.type === 'EXPENSE'">
+                  <span class="tx-icon">{{ getTransactionIcon(tx.type) }}</span>
+
+                  <div class="tx-info">
+                    <div class="tx-description">{{ tx.description || 'Sin descripción' }}</div>
+                    <div class="tx-meta">
+                      <span>{{ tx.categoryName }}</span>
+                      <span class="separator">•</span>
+                      <span>{{ getAccountName(tx.accountId) }}</span>
+                    </div>
+                  </div>
+
+                  <div class="tx-amount" [class.income]="tx.type === 'INCOME'" [class.expense]="tx.type === 'EXPENSE'">
+                    {{ formatAmount(tx.amount, tx.type) }}
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        @if (hasMore()) {
+          <button type="button" class="btn-load-more" (click)="loadMore()">
+            {{ 'transactions.loadMore' | translate }}
+          </button>
+        }
+      </div>
+    } @else {
+      <div class="empty-state card">
+        <span class="empty-icon">📊</span>
+        <h3 class="empty-title">{{ 'transactions.empty.title' | translate }}</h3>
+        <p class="empty-message">{{ 'transactions.empty.message' | translate }}</p>
+      </div>
+    }
+  </div>
+}

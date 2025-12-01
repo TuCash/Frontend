@@ -28,25 +28,16 @@
 
         <a
           class="app-bottom-nav__item"
-          routerLink="/incomes"
+          routerLink="/transactions"
           routerLinkActive="app-bottom-nav__item--active"
         >
-          <span class="app-bottom-nav__icon" aria-hidden="true">⬆️</span>
-          <span class="app-bottom-nav__label">{{ 'nav.incomes' | translate }}</span>
+          <span class="app-bottom-nav__icon" aria-hidden="true">💰</span>
+          <span class="app-bottom-nav__label">{{ 'nav.transactions' | translate }}</span>
         </a>
 
         <a
           class="app-bottom-nav__item"
-          routerLink="/expenses"
-          routerLinkActive="app-bottom-nav__item--active"
-        >
-          <span class="app-bottom-nav__icon" aria-hidden="true">⬇️</span>
-          <span class="app-bottom-nav__label">{{ 'nav.expenses' | translate }}</span>
-        </a>
-
-        <a
-          class="app-bottom-nav__item"
-          routerLink="/goals"
+          routerLink="/savings/goals"
           routerLinkActive="app-bottom-nav__item--active"
         >
           <span class="app-bottom-nav__icon" aria-hidden="true">🎯</span>
@@ -55,11 +46,46 @@
 
         <a
           class="app-bottom-nav__item"
-          routerLink="/profile"
+          routerLink="/savings/budgets"
+          routerLinkActive="app-bottom-nav__item--active"
+        >
+          <span class="app-bottom-nav__icon" aria-hidden="true">📊</span>
+          <span class="app-bottom-nav__label">{{ 'nav.budgets' | translate }}</span>
+        </a>
+
+        <a
+          class="app-bottom-nav__item"
+          routerLink="/iam/profile"
           routerLinkActive="app-bottom-nav__item--active"
         >
           <span class="app-bottom-nav__icon" aria-hidden="true">👤</span>
           <span class="app-bottom-nav__label">{{ 'nav.profile' | translate }}</span>
         </a>
       </nav>
+
+      <!-- FAB Global Contextual -->
+      @if (showBottomNav && getFabOptions().length > 0) {
+        <div class="fab-container" [class.open]="fabMenuOpen()">
+          <!-- Opciones del menú -->
+          @if (fabMenuOpen()) {
+            <div class="fab-menu">
+              @for (option of getFabOptions(); track option.label) {
+                <button
+                  type="button"
+                  [class]="'fab-option ' + option.class"
+                  (click)="handleFabOptionClick(option)"
+                >
+                  <span class="fab-option-icon">{{ option.icon }}</span>
+                  <span class="fab-option-label">{{ option.label | translate }}</span>
+                </button>
+              }
+            </div>
+          }
+
+          <!-- Botón principal -->
+          <button type="button" class="fab" (click)="toggleFabMenu()" [attr.aria-label]="'fab.menu' | translate">
+            <span class="fab-icon" [class.rotated]="fabMenuOpen()">+</span>
+          </button>
+        </div>
+      }
     </div>

@@ -1,0 +1,150 @@
+@if (isLoading()) {
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>{{ 'goals.loading' | translate }}</p>
+  </div>
+} @else if (loadError()) {
+  <div class="error-state">
+    <p>{{ loadError() | translate }}</p>
+    <button type="button" class="btn-retry" (click)="cancel()">
+      {{ 'goals.form.cancel' | translate }}
+    </button>
+  </div>
+} @else {
+  <div class="goal-form-page" [class.modal-mode]="isModal">
+    @if (!isModal) {
+      <!-- Header for non-modal mode -->
+      <header class="form-header">
+        <button type="button" class="btn-back" (click)="cancel()">
+          <span class="back-icon">←</span>
+        </button>
+        <h1 class="form-title">
+          @if (isEditMode()) {
+            {{ 'goals.updateProgress' | translate }}
+          } @else {
+            {{ 'goals.form.title' | translate }}
+          }
+        </h1>
+      </header>
+    }
+
+    <!-- Form -->
+    <form [formGroup]="goalForm" (ngSubmit)="onSubmit()" class="goal-form" [class.card]="!isModal">
+      @if (isModal) {
+        <!-- Modal header -->
+        <div class="modal-header">
+          <h2 class="modal-title">
+            @if (isEditMode()) {
+              {{ 'goals.updateProgress' | translate }}
+            } @else {
+              {{ 'goals.form.title' | translate }}
+            }
+          </h2>
+          <button type="button" class="btn-close" (click)="cancel()" aria-label="Cerrar">×</button>
+        </div>
+      }
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name" class="form-label">{{ 'goals.form.name' | translate }} *</label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          class="form-input"
+          [class.error]="isFieldInvalid('name')"
+          [placeholder]="'goals.form.namePlaceholder' | translate"
+        />
+        @if (getFieldError('name'); as error) {
+          <span class="error-message">{{ error | translate }}</span>
+        }
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label for="description" class="form-label">{{ 'goals.form.description' | translate }}</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          class="form-textarea"
+          rows="3"
+          [placeholder]="'goals.form.descriptionPlaceholder' | translate"
+        ></textarea>
+      </div>
+
+      <!-- Target Amount -->
+      <div class="form-group">
+        <label for="targetAmount" class="form-label">{{ 'goals.form.targetAmount' | translate }} *</label>
+        <div class="input-with-prefix">
+          <span class="input-prefix">S/</span>
+          <input
+            id="targetAmount"
+            type="number"
+            step="0.01"
+            formControlName="targetAmount"
+            class="form-input"
+            [class.error]="isFieldInvalid('targetAmount')"
+            placeholder="0.00"
+          />
+        </div>
+        @if (getFieldError('targetAmount'); as error) {
+          <span class="error-message">{{ error | translate }}</span>
+        }
+      </div>
+
+      <!-- Current Amount (only in edit mode) -->
+      @if (isEditMode()) {
+        <div class="form-group">
+          <label for="currentAmount" class="form-label">{{ 'goals.current' | translate }} *</label>
+          <div class="input-with-prefix">
+            <span class="input-prefix">S/</span>
+            <input
+              id="currentAmount"
+              type="number"
+              step="0.01"
+              formControlName="currentAmount"
+              class="form-input"
+              placeholder="0.00"
+            />
+          </div>
+        </div>
+      }
+
+      <!-- Deadline -->
+      <div class="form-group">
+        <label for="deadline" class="form-label">{{ 'goals.form.deadline' | translate }} *</label>
+        <input
+          id="deadline"
+          type="date"
+          formControlName="deadline"
+          class="form-input"
+          [class.error]="isFieldInvalid('deadline')"
+        />
+        @if (getFieldError('deadline'); as error) {
+          <span class="error-message">{{ error | translate }}</span>
+        }
+      </div>
+
+      <!-- Error de guardado -->
+      @if (saveError()) {
+        <div class="error-banner">
+          {{ saveError() | translate }}
+        </div>
+      }
+
+      <!-- Botones de acción -->
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="cancel()" [disabled]="isSaving()">
+          {{ 'goals.form.cancel' | translate }}
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="isSaving()">
+          @if (isSaving()) {
+            <span class="spinner-small"></span>
+            {{ 'goals.form.saving' | translate }}
+          } @else {
+            {{ 'goals.form.save' | translate }}
+          }
+        </button>
+      </div>
+    </form>
+  </div>
+}

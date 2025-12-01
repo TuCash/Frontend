@@ -1,20 +1,35 @@
-// src/environments/environment.ts
 export const environment = {
   production: true,
 
-  // 🌐 URL del backend real (por ejemplo en producción o staging)
-  apiBaseUrl: 'https://tucashft.onrender.com',
+  // Base URL del backend - Producción (Azure)
+  apiBaseUrl: 'https://tucash-api-ercgh9bsdwg8cqe9.canadacentral-01.azurewebsites.net/api/v1',
 
-  endpoints: {
+  // Endpoints de autenticación (públicos)
+  auth: {
     login: '/auth/login',
     register: '/auth/register',
     forgotPassword: '/auth/forgot-password',
-
-    incomes: '/incomes',
-    expenses: '/expenses',
-    goals: '/goals',
-    profile: '/profile',
+    resetPassword: '/auth/reset-password',
   },
 
+  // Endpoints de recursos protegidos
+  endpoints: {
+    users: '/users',
+    accounts: '/accounts',
+    categories: '/categories',
+    transactions: '/transactions',
+    goals: '/goals',
+    budgets: '/budgets',
+    recurringTransactions: '/recurring-transactions',
+    notifications: '/notifications',
+    reminders: '/reminders',
+    dashboard: {
+      pulse: '/dashboard/pulse',
+      trends: '/dashboard/trends',
+      leaks: '/dashboard/leaks',
+    },
+  },
+
+  // Servicio para logos externos
   logoProviderApiBaseUrl: 'https://logo.clearbit.com/',
 };

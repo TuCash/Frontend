@@ -1,0 +1,124 @@
+<div class="edit-profile-page">
+  <div class="page-header">
+    <button type="button" class="btn-back" (click)="onCancel()">
+      <span class="back-icon">←</span>
+    </button>
+    <h1 class="page-title">{{ 'profile.edit.title' | translate }}</h1>
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>{{ 'profile.edit.loading' | translate }}</p>
+    </div>
+  } @else if (loadError()) {
+    <div class="error-message">
+      <span class="error-icon">⚠</span>
+      {{ loadError() | translate }}
+    </div>
+  } @else {
+    @if (saveSuccess()) {
+      <div class="success-message">
+        <span class="success-icon">✓</span>
+        {{ 'profile.edit.success' | translate }}
+      </div>
+    }
+
+    @if (saveError()) {
+      <div class="error-message">
+        <span class="error-icon">⚠</span>
+        {{ saveError() | translate }}
+      </div>
+    }
+
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="profile-form">
+    <!-- Avatar Section -->
+    <div class="avatar-section">
+      <div class="avatar-preview">
+        <span class="avatar-icon">👤</span>
+      </div>
+      <p class="avatar-hint">{{ 'profile.edit.avatarHint' | translate }}</p>
+    </div>
+
+    <!-- Display Name -->
+    <div class="form-group">
+      <label for="displayName" class="form-label">
+        {{ 'profile.edit.displayName' | translate }} *
+      </label>
+      <input
+        id="displayName"
+        type="text"
+        formControlName="displayName"
+        class="form-input"
+        [class.error]="isFieldInvalid('displayName')"
+        placeholder="{{ 'profile.edit.displayNamePlaceholder' | translate }}"
+      />
+      @if (getFieldError('displayName'); as error) {
+        <span class="error-text">{{ error | translate }}</span>
+      }
+    </div>
+
+    <!-- Email (Read-only) -->
+    <div class="form-group">
+      <label for="email" class="form-label">
+        {{ 'profile.edit.email' | translate }}
+      </label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        class="form-input"
+        readonly
+      />
+      <span class="form-hint">{{ 'profile.edit.emailHint' | translate }}</span>
+    </div>
+
+    <!-- Currency -->
+    <div class="form-group">
+      <label for="currency" class="form-label">
+        {{ 'profile.edit.currency' | translate }} *
+      </label>
+      <select
+        id="currency"
+        formControlName="currency"
+        class="form-select"
+        [class.error]="isFieldInvalid('currency')"
+      >
+        <option value="PEN">🇵🇪 Soles (PEN)</option>
+        <option value="USD">🇺🇸 Dólares (USD)</option>
+        <option value="EUR">🇪🇺 Euros (EUR)</option>
+        <option value="MXN">🇲🇽 Pesos Mexicanos (MXN)</option>
+        <option value="COP">🇨🇴 Pesos Colombianos (COP)</option>
+        <option value="ARS">🇦🇷 Pesos Argentinos (ARS)</option>
+      </select>
+      @if (getFieldError('currency'); as error) {
+        <span class="error-text">{{ error | translate }}</span>
+      }
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="form-actions">
+      <button
+        type="button"
+        class="btn btn-cancel"
+        (click)="onCancel()"
+        [disabled]="isSaving()"
+      >
+        {{ 'profile.edit.cancel' | translate }}
+      </button>
+      <button
+        type="submit"
+        class="btn btn-save"
+        [disabled]="isSaving() || profileForm.invalid"
+      >
+        @if (isSaving()) {
+          <span class="spinner"></span>
+          {{ 'profile.edit.saving' | translate }}
+        } @else {
+          {{ 'profile.edit.save' | translate }}
+        }
+      </button>
+    </div>
+  </form>
+  }
+</div>

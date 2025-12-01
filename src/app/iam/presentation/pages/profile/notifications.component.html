@@ -1,0 +1,162 @@
+<div class="notifications-page">
+  <div class="page-header">
+    <button type="button" class="btn-back" (click)="onBack()">
+      <span class="back-icon">←</span>
+    </button>
+    <h1 class="page-title">{{ 'profile.notifications.title' | translate }}</h1>
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>{{ 'profile.notifications.loading' | translate }}</p>
+    </div>
+  } @else if (loadError()) {
+    <div class="error-message">
+      <span class="error-icon">⚠</span>
+      {{ loadError() | translate }}
+    </div>
+  } @else {
+    @if (saveSuccess()) {
+      <div class="success-message">
+        <span class="success-icon">✓</span>
+        {{ 'profile.notifications.success' | translate }}
+      </div>
+    }
+
+    @if (saveError()) {
+      <div class="error-message">
+        <span class="error-icon">⚠</span>
+        {{ saveError() | translate }}
+      </div>
+    }
+
+    <div class="settings-container">
+      <!-- General Notifications -->
+      <section class="settings-section">
+        <h2 class="section-title">{{ 'profile.notifications.general.title' | translate }}</h2>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <h3 class="setting-label">{{ 'profile.notifications.general.enabled' | translate }}</h3>
+            <p class="setting-description">{{ 'profile.notifications.general.enabledDesc' | translate }}</p>
+          </div>
+          <button
+            type="button"
+            class="toggle-switch"
+            [class.active]="notificationsEnabled()"
+            (click)="toggleNotification('all')"
+            [disabled]="isSaving()"
+          >
+            <span class="toggle-slider"></span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Notification Channels -->
+      <section class="settings-section">
+        <h2 class="section-title">{{ 'profile.notifications.channels.title' | translate }}</h2>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <h3 class="setting-label">
+              <span class="setting-icon">📧</span>
+              {{ 'profile.notifications.channels.email' | translate }}
+            </h3>
+            <p class="setting-description">{{ 'profile.notifications.channels.emailDesc' | translate }}</p>
+          </div>
+          <button
+            type="button"
+            class="toggle-switch"
+            [class.active]="emailNotifications()"
+            (click)="toggleNotification('email')"
+            [disabled]="isSaving() || !notificationsEnabled()"
+          >
+            <span class="toggle-slider"></span>
+          </button>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <h3 class="setting-label">
+              <span class="setting-icon">🔔</span>
+              {{ 'profile.notifications.channels.push' | translate }}
+            </h3>
+            <p class="setting-description">{{ 'profile.notifications.channels.pushDesc' | translate }}</p>
+          </div>
+          <button
+            type="button"
+            class="toggle-switch"
+            [class.active]="pushNotifications()"
+            (click)="toggleNotification('push')"
+            [disabled]="isSaving() || !notificationsEnabled()"
+          >
+            <span class="toggle-slider"></span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Alert Types -->
+      <section class="settings-section">
+        <h2 class="section-title">{{ 'profile.notifications.alerts.title' | translate }}</h2>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <h3 class="setting-label">
+              <span class="setting-icon">💰</span>
+              {{ 'profile.notifications.alerts.budget' | translate }}
+            </h3>
+            <p class="setting-description">{{ 'profile.notifications.alerts.budgetDesc' | translate }}</p>
+          </div>
+          <button
+            type="button"
+            class="toggle-switch"
+            [class.active]="budgetAlerts()"
+            (click)="toggleNotification('budget')"
+            [disabled]="isSaving() || !notificationsEnabled()"
+          >
+            <span class="toggle-slider"></span>
+          </button>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <h3 class="setting-label">
+              <span class="setting-icon">🎯</span>
+              {{ 'profile.notifications.alerts.goal' | translate }}
+            </h3>
+            <p class="setting-description">{{ 'profile.notifications.alerts.goalDesc' | translate }}</p>
+          </div>
+          <button
+            type="button"
+            class="toggle-switch"
+            [class.active]="goalAlerts()"
+            (click)="toggleNotification('goal')"
+            [disabled]="isSaving() || !notificationsEnabled()"
+          >
+            <span class="toggle-slider"></span>
+          </button>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <h3 class="setting-label">
+              <span class="setting-icon">💳</span>
+              {{ 'profile.notifications.alerts.transaction' | translate }}
+            </h3>
+            <p class="setting-description">{{ 'profile.notifications.alerts.transactionDesc' | translate }}</p>
+          </div>
+          <button
+            type="button"
+            class="toggle-switch"
+            [class.active]="transactionAlerts()"
+            (click)="toggleNotification('transaction')"
+            [disabled]="isSaving() || !notificationsEnabled()"
+          >
+            <span class="toggle-slider"></span>
+          </button>
+        </div>
+      </section>
+    </div>
+  }
+</div>

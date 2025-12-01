@@ -1,0 +1,246 @@
+@if (isLoading()) {
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>{{ 'transactions.form.loading' | translate }}</p>
+  </div>
+} @else if (loadError()) {
+  <div class="error-state">
+    <p>{{ loadError() | translate }}</p>
+    <button type="button" class="btn-retry" (click)="loadData()">
+      {{ 'transactions.form.retry' | translate }}
+    </button>
+  </div>
+} @else {
+  <div class="transaction-form-page" [class.modal-mode]="isModal">
+    @if (!isModal) {
+      <header class="form-header">
+        <button type="button" class="btn-back" (click)="cancel()">
+          <span class="back-icon">←</span>
+        </button>
+        <h1 class="form-title">{{ 'transactions.form.title' | translate }}</h1>
+      </header>
+    }
+
+    <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()" class="transaction-form" [class.card]="!isModal">
+      @if (isModal) {
+        <div class="modal-header">
+          <h2 class="modal-title">{{ 'transactions.form.title' | translate }}</h2>
+          <button type="button" class="btn-close" (click)="cancel()" aria-label="Cerrar">×</button>
+        </div>
+      }
+
+      <!-- Tipo de transacción -->
+      <div class="form-group">
+        <label class="form-label">{{ 'transactions.form.type' | translate }}</label>
+        <div class="type-buttons">
+          <button
+            type="button"
+            class="type-btn"
+            [class.active]="selectedType() === 'INCOME'"
+            (click)="transactionForm.patchValue({ type: 'INCOME' })"
+          >
+            <span class="type-icon">⬆️</span>
+            <span>{{ 'transactions.form.income' | translate }}</span>
+          </button>
+          <button
+            type="button"
+            class="type-btn"
+            [class.active]="selectedType() === 'EXPENSE'"
+            (click)="transactionForm.patchValue({ type: 'EXPENSE' })"
+          >
+            <span class="type-icon">⬇️</span>
+            <span>{{ 'transactions.form.expense' | translate }}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Monto -->
+      <div class="form-group">
+        <label for="amount" class="form-label">{{ 'transactions.form.amount' | translate }} *</label>
+        <div class="input-with-prefix">
+          <span class="input-prefix">S/</span>
+          <input
+            id="amount"
+            type="number"
+            step="0.01"
+            formControlName="amount"
+            class="form-input"
+            [class.error]="isFieldInvalid('amount')"
+            placeholder="0.00"
+          />
+        </div>
+        @if (getFieldError('amount'); as error) {
+          <span class="error-message">{{ error | translate }}</span>
+        }
+      </div>
+
+      <!-- Cuenta -->
+      <div class="form-group">
+        <label for="accountId" class="form-label">{{ 'transactions.form.account' | translate }} *</label>
+        <select
+          id="accountId"
+          formControlName="accountId"
+          class="form-select"
+          [class.error]="isFieldInvalid('accountId')"
+        >
+          @for (account of accounts(); track account.id) {
+            <option [value]="account.id">{{ account.name }}</option>
+          }
+        </select>
+        @if (getFieldError('accountId'); as error) {
+          <span class="error-message">{{ error | translate }}</span>
+        }
+      </div>
+
+      <!-- Categoría -->
+      <div class="category-section">
+        @if (!showNewCategoryForm()) {
+          <div class="form-group">
+            <label for="categoryId" class="form-label">{{ 'transactions.form.category' | translate }} *</label>
+            <div class="select-with-button">
+              <select
+                id="categoryId"
+                formControlName="categoryId"
+                class="form-select"
+                [class.error]="isFieldInvalid('categoryId')"
+              >
+                @for (category of filteredCategories(); track category.id) {
+                  <option [value]="category.id">{{ category.icon }} {{ category.name }}</option>
+                }
+              </select>
+              <button type="button" class="btn-add-category" (click)="toggleNewCategoryForm()">
+                +
+              </button>
+            </div>
+            @if (getFieldError('categoryId'); as error) {
+              <span class="error-message">{{ error | translate }}</span>
+            }
+          </div>
+        } @else {
+          <!-- Inline new category form -->
+          <div class="new-category-form">
+            <!-- Icon Selector -->
+            <div class="category-field">
+              <label class="category-field-label">{{ 'transactions.form.selectIcon' | translate }}</label>
+              <div class="icon-selector">
+                @for (icon of availableIcons; track icon) {
+                  <button
+                    type="button"
+                    class="icon-option"
+                    [class.selected]="selectedIcon() === icon"
+                    (click)="selectIcon(icon)"
+                  >
+                    {{ icon }}
+                  </button>
+                }
+              </div>
+            </div>
+
+            <!-- Color Selector -->
+            <div class="category-field">
+              <label class="category-field-label">{{ 'transactions.form.selectColor' | translate }}</label>
+              <div class="color-selector">
+                @for (color of availableColors; track color.value) {
+                  <button
+                    type="button"
+                    class="color-option"
+                    [class.selected]="selectedColor() === color.value"
+                    [style.background-color]="color.value"
+                    [title]="color.name"
+                    (click)="selectColor(color.value)"
+                  >
+                    @if (selectedColor() === color.value) {
+                      <span class="check-icon">✓</span>
+                    }
+                  </button>
+                }
+              </div>
+            </div>
+
+            <!-- Name Input -->
+            <div class="category-field">
+              <label class="category-field-label">{{ 'transactions.form.categoryName' | translate }} *</label>
+              <div class="input-with-button">
+                <input
+                  #categoryNameInput
+                  type="text"
+                  class="form-input"
+                  [placeholder]="'transactions.form.categoryNamePlaceholder' | translate"
+                  [disabled]="isCreatingCategory()"
+                />
+                <button
+                  type="button"
+                  class="btn-confirm"
+                  (click)="createNewCategory(categoryNameInput.value)"
+                  [disabled]="isCreatingCategory()"
+                >
+                  @if (isCreatingCategory()) {
+                    <span class="spinner-small"></span>
+                  } @else {
+                    ✓
+                  }
+                </button>
+              </div>
+              @if (newCategoryError()) {
+                <span class="error-message">{{ newCategoryError() | translate }}</span>
+              }
+            </div>
+
+            <button type="button" class="btn-cancel" (click)="toggleNewCategoryForm()">
+              {{ 'transactions.form.cancelCategory' | translate }}
+            </button>
+          </div>
+        }
+      </div>
+
+      <!-- Descripción -->
+      <div class="form-group">
+        <label for="description" class="form-label">{{ 'transactions.form.description' | translate }}</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          class="form-textarea"
+          rows="3"
+          [placeholder]="'transactions.form.descriptionPlaceholder' | translate"
+        ></textarea>
+      </div>
+
+      <!-- Fecha -->
+      <div class="form-group">
+        <label for="transactionDate" class="form-label">{{ 'transactions.form.date' | translate }} *</label>
+        <input
+          id="transactionDate"
+          type="date"
+          formControlName="transactionDate"
+          class="form-input"
+          [class.error]="isFieldInvalid('transactionDate')"
+        />
+        @if (getFieldError('transactionDate'); as error) {
+          <span class="error-message">{{ error | translate }}</span>
+        }
+      </div>
+
+      <!-- Error de guardado -->
+      @if (saveError()) {
+        <div class="error-banner">
+          {{ saveError() | translate }}
+        </div>
+      }
+
+      <!-- Botones de acción -->
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="cancel()" [disabled]="isSaving()">
+          {{ 'transactions.form.cancel' | translate }}
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="isSaving()">
+          @if (isSaving()) {
+            <span class="spinner-small"></span>
+            {{ 'transactions.form.saving' | translate }}
+          } @else {
+            {{ 'transactions.form.save' | translate }}
+          }
+        </button>
+      </div>
+    </form>
+  </div>
+}

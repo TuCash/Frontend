@@ -22,6 +22,13 @@
     "typeCheckHostBindings": true,
     "strictTemplates": true
   },
+  "[markdown]": {
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": true,
+    "strings": true
+    },
+  },
   "files": [],
   "references": [
     {

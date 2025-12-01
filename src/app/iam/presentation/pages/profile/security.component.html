@@ -1,0 +1,144 @@
+<div class="security-page">
+  <div class="page-header">
+    <button type="button" class="btn-back" (click)="onCancel()">
+      <span class="back-icon">←</span>
+    </button>
+    <h1 class="page-title">{{ 'profile.security.title' | translate }}</h1>
+  </div>
+
+  @if (saveSuccess()) {
+    <div class="success-message">
+      <span class="success-icon">✓</span>
+      {{ 'profile.security.success' | translate }}
+    </div>
+  }
+
+  @if (saveError()) {
+    <div class="error-message">
+      <span class="error-icon">⚠</span>
+      {{ saveError() | translate }}
+    </div>
+  }
+
+  <form [formGroup]="securityForm" (ngSubmit)="onSubmit()" class="security-form">
+    <!-- Info Section -->
+    <div class="info-section">
+      <p class="info-text">{{ 'profile.security.hint' | translate }}</p>
+    </div>
+
+    <!-- Current Password -->
+    <div class="form-group">
+      <label for="currentPassword" class="form-label">
+        {{ 'profile.security.currentPassword' | translate }} *
+      </label>
+      <div class="password-input-wrapper">
+        <input
+          id="currentPassword"
+          [type]="showCurrentPassword() ? 'text' : 'password'"
+          formControlName="currentPassword"
+          class="form-input"
+          [class.error]="isFieldInvalid('currentPassword')"
+          placeholder="{{ 'profile.security.currentPasswordPlaceholder' | translate }}"
+        />
+        <button
+          type="button"
+          class="btn-toggle-password"
+          (click)="togglePasswordVisibility('current')"
+        >
+          {{ showCurrentPassword() ? '👁️' : '👁️‍🗨️' }}
+        </button>
+      </div>
+      @if (getFieldError('currentPassword'); as error) {
+        <span class="error-text">{{ error | translate }}</span>
+      }
+    </div>
+
+    <!-- New Password -->
+    <div class="form-group">
+      <label for="newPassword" class="form-label">
+        {{ 'profile.security.newPassword' | translate }} *
+      </label>
+      <div class="password-input-wrapper">
+        <input
+          id="newPassword"
+          [type]="showNewPassword() ? 'text' : 'password'"
+          formControlName="newPassword"
+          class="form-input"
+          [class.error]="isFieldInvalid('newPassword')"
+          placeholder="{{ 'profile.security.newPasswordPlaceholder' | translate }}"
+        />
+        <button
+          type="button"
+          class="btn-toggle-password"
+          (click)="togglePasswordVisibility('new')"
+        >
+          {{ showNewPassword() ? '👁️' : '👁️‍🗨️' }}
+        </button>
+      </div>
+      @if (getFieldError('newPassword'); as error) {
+        <span class="error-text">{{ error | translate }}</span>
+      }
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="form-group">
+      <label for="confirmPassword" class="form-label">
+        {{ 'profile.security.confirmPassword' | translate }} *
+      </label>
+      <div class="password-input-wrapper">
+        <input
+          id="confirmPassword"
+          [type]="showConfirmPassword() ? 'text' : 'password'"
+          formControlName="confirmPassword"
+          class="form-input"
+          [class.error]="isFieldInvalid('confirmPassword')"
+          placeholder="{{ 'profile.security.confirmPasswordPlaceholder' | translate }}"
+        />
+        <button
+          type="button"
+          class="btn-toggle-password"
+          (click)="togglePasswordVisibility('confirm')"
+        >
+          {{ showConfirmPassword() ? '👁️' : '👁️‍🗨️' }}
+        </button>
+      </div>
+      @if (getFieldError('confirmPassword'); as error) {
+        <span class="error-text">{{ error | translate }}</span>
+      }
+    </div>
+
+    <!-- Security Tips -->
+    <div class="security-tips">
+      <h3 class="tips-title">{{ 'profile.security.tips.title' | translate }}</h3>
+      <ul class="tips-list">
+        <li>{{ 'profile.security.tips.length' | translate }}</li>
+        <li>{{ 'profile.security.tips.mix' | translate }}</li>
+        <li>{{ 'profile.security.tips.avoid' | translate }}</li>
+      </ul>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="form-actions">
+      <button
+        type="button"
+        class="btn btn-cancel"
+        (click)="onCancel()"
+        [disabled]="isSaving()"
+      >
+        {{ 'profile.security.cancel' | translate }}
+      </button>
+      <button
+        type="submit"
+        class="btn btn-save"
+        [disabled]="isSaving() || securityForm.invalid"
+      >
+        @if (isSaving()) {
+          <span class="spinner"></span>
+          {{ 'profile.security.saving' | translate }}
+        } @else {
+          {{ 'profile.security.save' | translate }}
+        }
+      </button>
+    </div>
+  </form>
+</div>

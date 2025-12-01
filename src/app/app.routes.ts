@@ -1,47 +1,86 @@
+/**
+ * TuCash Application - Main Routes
+ * Rutas principales que cargan los bounded contexts
+ */
+
 import { Routes } from '@angular/router';
-import { authGuard } from './core/auth/auth.guard';
+import { authGuard } from './shared/infrastructure/guards/auth.guard';
 
 export const routes: Routes = [
+  // IAM Bounded Context (Login, Register)
   {
-    path: 'login',
-    loadChildren: () =>
-      import('./features/auth/login/login.routes').then(m => m.loginRoutes),
+    path: 'auth',
+    loadChildren: () => import('./iam/presentation/iam.routes').then((m) => m.IAM_ROUTES),
   },
+
+  // IAM Profile (Protected)
   {
-    path: 'register',
-    loadChildren: () =>
-      import('./features/auth/register/register.routes').then(m => m.registerRoutes),
+    path: 'iam',
+    loadChildren: () => import('./iam/presentation/iam.routes').then((m) => m.IAM_ROUTES),
+    canActivate: [authGuard],
   },
+
+  // Dashboard Bounded Context
   {
     path: 'home',
     loadChildren: () =>
-      import('./features/home/home.routes').then(m => m.homeRoutes),
+      import('./dashboard/presentation/dashboard.routes').then((m) => m.DASHBOARD_ROUTES),
     canActivate: [authGuard],
   },
+
+  // Transactions Bounded Context
   {
-    path: 'incomes',
+    path: 'transactions',
     loadChildren: () =>
-      import('./features/incomes/incomes.routes').then(m => m.incomesRoutes),
+      import('./transactions/presentation/transactions.routes').then(
+        (m) => m.TRANSACTIONS_ROUTES
+      ),
     canActivate: [authGuard],
   },
+
+  // Savings Bounded Context
   {
-    path: 'expenses',
+    path: 'savings',
     loadChildren: () =>
-      import('./features/expenses/expenses.routes').then(m => m.expensesRoutes),
+      import('./savings/presentation/savings.routes').then((m) => m.SAVINGS_ROUTES),
     canActivate: [authGuard],
   },
+
+  // Automation Bounded Context
   {
-    path: 'goals',
+    path: 'automation',
     loadChildren: () =>
-      import('./features/goals/goals.routes').then(m => m.goalsRoutes),
+      import('./automation/presentation/automation.routes').then((m) => m.AUTOMATION_ROUTES),
     canActivate: [authGuard],
   },
+
+  // Notifications Bounded Context
   {
-    path: 'profile',
+    path: 'notifications',
     loadChildren: () =>
-      import('./features/profile/profile.routes').then(m => m.profileRoutes),
+      import('./notifications/presentation/notifications.routes').then(
+        (m) => m.NOTIFICATIONS_ROUTES
+      ),
     canActivate: [authGuard],
   },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' }
+
+  // Reminders Bounded Context
+  {
+    path: 'reminders',
+    loadChildren: () =>
+      import('./reminders/presentation/reminders.routes').then((m) => m.REMINDERS_ROUTES),
+    canActivate: [authGuard],
+  },
+
+  // Legacy routes redirects (temporal para compatibilidad)
+  { path: 'login', redirectTo: '/auth/login', pathMatch: 'full' },
+  { path: 'register', redirectTo: '/auth/register', pathMatch: 'full' },
+  { path: 'incomes', redirectTo: '/transactions', pathMatch: 'full' },
+  { path: 'expenses', redirectTo: '/transactions', pathMatch: 'full' },
+  { path: 'goals', redirectTo: '/savings/goals', pathMatch: 'full' },
+  { path: 'profile', redirectTo: '/iam/profile', pathMatch: 'full' },
+
+  // Default route
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/auth/login' },
 ];

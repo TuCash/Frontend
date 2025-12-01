@@ -1,0 +1,65 @@
+<form [formGroup]="accountForm" (ngSubmit)="onSubmit()" class="account-form">
+  <!-- Modal Header -->
+  @if (isModal) {
+    <div class="modal-header">
+      <h2 class="modal-title">{{ 'accounts.form.title' | translate }}</h2>
+      <button type="button" class="btn-close" (click)="cancel()" aria-label="Cerrar">×</button>
+    </div>
+  }
+
+  <!-- Nombre de cuenta -->
+  <div class="form-group">
+    <label for="accountName" class="form-label">{{ 'accounts.form.name' | translate }} *</label>
+    <input
+      id="accountName"
+      type="text"
+      formControlName="name"
+      class="form-input"
+      [class.invalid]="isFieldInvalid('name')"
+      [placeholder]="'accounts.form.namePlaceholder' | translate"
+    />
+    @if (getFieldError('name'); as error) {
+      <span class="form-error">{{ error | translate }}</span>
+    }
+  </div>
+
+  <!-- Moneda -->
+  <div class="form-group">
+    <label for="currency" class="form-label">{{ 'accounts.form.currency' | translate }} *</label>
+    <select
+      id="currency"
+      formControlName="currency"
+      class="form-select"
+      [class.invalid]="isFieldInvalid('currency')"
+    >
+      <option value="PEN">Soles (S/)</option>
+      <option value="USD">Dólares ($)</option>
+      <option value="EUR">Euros (€)</option>
+    </select>
+    @if (getFieldError('currency'); as error) {
+      <span class="form-error">{{ error | translate }}</span>
+    }
+  </div>
+
+  <!-- Error de guardado -->
+  @if (saveError()) {
+    <div class="save-error">
+      {{ saveError() | translate }}
+    </div>
+  }
+
+  <!-- Botones de acción -->
+  <div class="form-actions">
+    <button type="button" class="btn-cancel" (click)="cancel()" [disabled]="isSaving()">
+      {{ 'accounts.form.cancel' | translate }}
+    </button>
+    <button type="submit" class="btn-submit" [disabled]="isSaving()">
+      @if (isSaving()) {
+        <span class="btn-spinner"></span>
+        <span>{{ 'accounts.form.saving' | translate }}</span>
+      } @else {
+        <span>{{ 'accounts.form.save' | translate }}</span>
+      }
+    </button>
+  </div>
+</form>

@@ -1,0 +1,103 @@
+<div class="reminders-page">
+  <div class="page-header">
+    <button type="button" class="btn-back" (click)="onBack()">
+      <span class="back-icon">←</span>
+    </button>
+    <h1 class="page-title">{{ 'profile.reminders.title' | translate }}</h1>
+  </div>
+
+  @if (saveSuccess()) {
+    <div class="success-message">
+      <span class="success-icon">✓</span>
+      {{ 'profile.reminders.success' | translate }}
+    </div>
+  }
+
+  <div class="settings-container">
+    <section class="settings-section">
+      <h2 class="section-title">{{ 'profile.reminders.periodic.title' | translate }}</h2>
+
+      <div class="setting-item">
+        <div class="setting-info">
+          <h3 class="setting-label">
+            <span class="setting-icon">☀️</span>
+            {{ 'profile.reminders.periodic.daily' | translate }}
+          </h3>
+          <p class="setting-description">{{ 'profile.reminders.periodic.dailyDesc' | translate }}</p>
+        </div>
+        <button type="button" class="toggle-switch" [class.active]="dailyReminder()" (click)="toggleReminder('daily')">
+          <span class="toggle-slider"></span>
+        </button>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-info">
+          <h3 class="setting-label">
+            <span class="setting-icon">📅</span>
+            {{ 'profile.reminders.periodic.weekly' | translate }}
+          </h3>
+          <p class="setting-description">{{ 'profile.reminders.periodic.weeklyDesc' | translate }}</p>
+        </div>
+        <button type="button" class="toggle-switch" [class.active]="weeklyReport()" (click)="toggleReminder('weekly')">
+          <span class="toggle-slider"></span>
+        </button>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-info">
+          <h3 class="setting-label">
+            <span class="setting-icon">📊</span>
+            {{ 'profile.reminders.periodic.monthly' | translate }}
+          </h3>
+          <p class="setting-description">{{ 'profile.reminders.periodic.monthlyDesc' | translate }}</p>
+        </div>
+        <button type="button" class="toggle-switch" [class.active]="monthlyReport()" (click)="toggleReminder('monthly')">
+          <span class="toggle-slider"></span>
+        </button>
+      </div>
+    </section>
+
+    <section class="settings-section">
+      <h2 class="section-title">{{ 'profile.reminders.custom.title' | translate }}</h2>
+
+      <div class="setting-item">
+        <div class="setting-info">
+          <h3 class="setting-label">
+            <span class="setting-icon">⚠️</span>
+            {{ 'profile.reminders.custom.budget' | translate }}
+          </h3>
+          <p class="setting-description">{{ 'profile.reminders.custom.budgetDesc' | translate }}</p>
+        </div>
+        <button type="button" class="toggle-switch" [class.active]="budgetWarnings()" (click)="toggleReminder('budget')">
+          <span class="toggle-slider"></span>
+        </button>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-info">
+          <h3 class="setting-label">
+            <span class="setting-icon">🎯</span>
+            {{ 'profile.reminders.custom.goal' | translate }}
+          </h3>
+          <p class="setting-description">{{ 'profile.reminders.custom.goalDesc' | translate }}</p>
+        </div>
+        <button type="button" class="toggle-switch" [class.active]="goalDeadlines()" (click)="toggleReminder('goal')">
+          <span class="toggle-slider"></span>
+        </button>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-info">
+          <h3 class="setting-label">
+            <span class="setting-icon">💵</span>
+            {{ 'profile.reminders.custom.bill' | translate }}
+          </h3>
+          <p class="setting-description">{{ 'profile.reminders.custom.billDesc' | translate }}</p>
+        </div>
+        <button type="button" class="toggle-switch" [class.active]="billReminders()" (click)="toggleReminder('bill')">
+          <span class="toggle-slider"></span>
+        </button>
+      </div>
+    </section>
+  </div>
+</div>

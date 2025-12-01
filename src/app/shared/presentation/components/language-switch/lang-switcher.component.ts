@@ -1,7 +1,7 @@
 // lang-switcher.component.ts con flecha indicadora y banderas redondeadas mejoradas
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LanguageService } from '../../../../core/i18n/language.service';
+import { LanguageService } from '../../../language.service';
 
 @Component({
   selector: 'app-lang-switcher',

@@ -1,20 +1,35 @@
 export const environment = {
   production: false,
 
-  // 🌐 Base URL para API local o json-server
-  apiBaseUrl: 'https://tucashft.onrender.com',
+  // Base URL del backend - Desarrollo local
+  apiBaseUrl: 'http://localhost:8080/api/v1',
 
-  // 📦 Endpoints REST agrupados
-  endpoints: {
+  // Endpoints de autenticación (públicos)
+  auth: {
     login: '/auth/login',
     register: '/auth/register',
     forgotPassword: '/auth/forgot-password',
-    incomes: '/incomes',
-    expenses: '/expenses',
-    goals: '/goals',
-    profile: '/profile',
+    resetPassword: '/auth/reset-password',
   },
 
-  // 🖼 Servicio para logos externos
+  // Endpoints de recursos protegidos
+  endpoints: {
+    users: '/users',
+    accounts: '/accounts',
+    categories: '/categories',
+    transactions: '/transactions',
+    goals: '/goals',
+    budgets: '/budgets',
+    recurringTransactions: '/recurring-transactions',
+    notifications: '/notifications',
+    reminders: '/reminders',
+    dashboard: {
+      pulse: '/dashboard/pulse',
+      trends: '/dashboard/trends',
+      leaks: '/dashboard/leaks',
+    },
+  },
+
+  // Servicio para logos externos
   logoProviderApiBaseUrl: 'https://logo.clearbit.com/',
 };

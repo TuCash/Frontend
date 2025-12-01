@@ -1,0 +1,134 @@
+@if (isLoading()) {
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>{{ 'budgets.loading' | translate }}</p>
+  </div>
+} @else if (loadError()) {
+  <div class="error-state">
+    <p>{{ loadError() | translate }}</p>
+    <button type="button" class="btn-retry" (click)="cancel()">
+      {{ 'budgets.form.cancel' | translate }}
+    </button>
+  </div>
+} @else {
+  <div class="budget-form-page" [class.modal-mode]="isModal">
+    <!-- Form -->
+    <form [formGroup]="budgetForm" (ngSubmit)="onSubmit()" class="budget-form">
+      @if (isModal) {
+        <!-- Modal header -->
+        <div class="modal-header">
+          <h2 class="modal-title">{{ 'budgets.form.title' | translate }}</h2>
+          <button type="button" class="btn-close" (click)="cancel()" aria-label="Cerrar">×</button>
+        </div>
+      }
+
+      <!-- Category -->
+      <div class="form-group">
+        <label for="categoryId" class="form-label">{{ 'budgets.form.category' | translate }} *</label>
+        <select
+          id="categoryId"
+          formControlName="categoryId"
+          class="form-select"
+          [class.error]="isFieldInvalid('categoryId')"
+        >
+          @for (category of categories(); track category.id) {
+            <option [value]="category.id">{{ category.icon }} {{ category.name }}</option>
+          }
+        </select>
+        @if (getFieldError('categoryId'); as error) {
+          <span class="error-message">{{ error | translate }}</span>
+        }
+      </div>
+
+      <!-- Limit Amount -->
+      <div class="form-group">
+        <label for="limitAmount" class="form-label">{{ 'budgets.form.limitAmount' | translate }} *</label>
+        <div class="input-with-prefix">
+          <span class="input-prefix">S/</span>
+          <input
+            id="limitAmount"
+            type="number"
+            step="0.01"
+            formControlName="limitAmount"
+            class="form-input"
+            [class.error]="isFieldInvalid('limitAmount')"
+            placeholder="0.00"
+          />
+        </div>
+        @if (getFieldError('limitAmount'); as error) {
+          <span class="error-message">{{ error | translate }}</span>
+        }
+      </div>
+
+      <!-- Period -->
+      <div class="form-group">
+        <label class="form-label">{{ 'budgets.form.period' | translate }} *</label>
+        <div class="period-buttons">
+          @for (period of periods; track period.value) {
+            <button
+              type="button"
+              class="period-btn"
+              [class.active]="selectedPeriod() === period.value"
+              (click)="budgetForm.patchValue({ period: period.value })"
+            >
+              {{ period.label }}
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- Date Range -->
+      <div class="date-range-group">
+        <div class="form-group">
+          <label for="startDate" class="form-label">{{ 'budgets.form.startDate' | translate }} *</label>
+          <input
+            id="startDate"
+            type="date"
+            formControlName="startDate"
+            class="form-input"
+            [class.error]="isFieldInvalid('startDate')"
+          />
+          @if (getFieldError('startDate'); as error) {
+            <span class="error-message">{{ error | translate }}</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="endDate" class="form-label">{{ 'budgets.form.endDate' | translate }} *</label>
+          <input
+            id="endDate"
+            type="date"
+            formControlName="endDate"
+            class="form-input"
+            [class.error]="isFieldInvalid('endDate')"
+          />
+          @if (getFieldError('endDate'); as error) {
+            <span class="error-message">{{ error | translate }}</span>
+          }
+        </div>
+      </div>
+
+      <!-- Error de guardado -->
+      @if (saveError()) {
+        <div class="error-banner">
+          {{ saveError() | translate }}
+        </div>
+      }
+
+      <!-- Botones de acción -->
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="cancel()" [disabled]="isSaving()">
+          {{ 'budgets.form.cancel' | translate }}
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="isSaving()">
+          @if (isSaving()) {
+            <span class="spinner-small"></span>
+            {{ 'budgets.form.saving' | translate }}
+          } @else {
+            {{ 'budgets.form.save' | translate }}
+          }
+        </button>
+      </div>
+    </form>
+  </div>
+}

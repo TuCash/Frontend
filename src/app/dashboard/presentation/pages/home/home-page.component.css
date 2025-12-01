@@ -1,0 +1,369 @@
+/* Loading & Error States */
+.loading-state,
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 1rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e0e0e0;
+  border-top-color: #2ab27b;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.btn-retry {
+  padding: 0.75rem 1.5rem;
+  background: #2ab27b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Sections */
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1d2a3a;
+  margin: 0 0 1rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.btn-view-all {
+  font-size: 0.9rem;
+  color: #2ab27b;
+  font-weight: 600;
+}
+
+/* Balance Section */
+.balance-section {
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+}
+
+.balance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.balance-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.balance-label {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.balance-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1d2a3a;
+}
+
+.balance-total .balance-amount {
+  color: #2ab27b;
+}
+
+.balance-income .balance-amount {
+  color: #2ab27b;
+}
+
+.balance-expense .balance-amount {
+  color: #ef4444;
+}
+
+/* Accounts Section */
+.accounts-section {
+  margin-bottom: 1.5rem;
+}
+
+.accounts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.account-card {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.account-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.account-icon {
+  font-size: 1.5rem;
+}
+
+.account-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1d2a3a;
+}
+
+.account-balance {
+  display: flex;
+  flex-direction: column;
+}
+
+.account-amount {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2ab27b;
+}
+
+/* Empty State */
+.empty-state {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.empty-icon {
+  font-size: 3rem;
+}
+
+.empty-text {
+  color: #64748b;
+  margin: 0;
+}
+
+/* Leaks Section */
+.leaks-section {
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+}
+
+.leaks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.leak-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.leak-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.leak-icon {
+  font-size: 1.5rem;
+}
+
+.leak-name {
+  font-weight: 600;
+  color: #1d2a3a;
+}
+
+.leak-bar-container {
+  height: 8px;
+  background: #f1f5f9;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.leak-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.leak-amount {
+  font-weight: 600;
+  color: #64748b;
+}
+
+/* Comparison Section */
+.comparison-section {
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+}
+
+.comparison-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.chart-bar {
+  display: flex;
+  width: 100%;
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.bar-income {
+  background: #2ab27b;
+  transition: width 0.3s ease;
+}
+
+.bar-expense {
+  background: #ef4444;
+  transition: width 0.3s ease;
+}
+
+.chart-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+.legend-income {
+  background: #2ab27b;
+}
+
+.legend-expense {
+  background: #ef4444;
+}
+
+.legend-label {
+  flex: 1;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.legend-value {
+  font-weight: 600;
+  color: #1d2a3a;
+}
+
+/* Recent Transactions */
+.recent-transactions-section {
+  margin-bottom: 1.5rem;
+}
+
+.transactions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.transaction-card {
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.transaction-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.25rem;
+}
+
+.transaction-icon.transaction-income {
+  background: #d1fae5;
+}
+
+.transaction-icon.transaction-expense {
+  background: #fee2e2;
+}
+
+.transaction-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.transaction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.transaction-category {
+  font-weight: 600;
+  color: #1d2a3a;
+}
+
+.transaction-amount {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.transaction-amount.transaction-income {
+  color: #2ab27b;
+}
+
+.transaction-amount.transaction-expense {
+  color: #ef4444;
+}
+
+.transaction-meta {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.transaction-description {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .balance-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .accounts-grid {
+    grid-template-columns: 1fr;
+  }
+}

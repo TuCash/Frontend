@@ -1,0 +1,157 @@
+@if (isLoading()) {
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>Cargando...</p>
+  </div>
+} @else if (loadError()) {
+  <div class="error-state">
+    <p>{{ loadError() | translate }}</p>
+    <button type="button" class="btn-retry" (click)="cancel()">Cerrar</button>
+  </div>
+} @else {
+  <div class="contribution-modal">
+    <!-- Header -->
+    <div class="modal-header">
+      <h2 class="modal-title">{{ goalName }}</h2>
+      <button type="button" class="btn-close" (click)="cancel()" aria-label="Cerrar">×</button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button
+        type="button"
+        class="tab"
+        [class.active]="activeTab() === 'add'"
+        (click)="setActiveTab('add')"
+      >
+        Añadir aporte
+      </button>
+      <button
+        type="button"
+        class="tab"
+        [class.active]="activeTab() === 'history'"
+        (click)="setActiveTab('history')"
+      >
+        Historial ({{ contributions().length }})
+      </button>
+    </div>
+
+    <!-- Add Contribution Tab -->
+    @if (activeTab() === 'add') {
+      <form [formGroup]="contributionForm" (ngSubmit)="onSubmit()" class="contribution-form">
+        <!-- Account Selection -->
+        <div class="form-group">
+          <label for="accountId" class="form-label">Cuenta origen *</label>
+          <select
+            id="accountId"
+            formControlName="accountId"
+            class="form-select"
+            [class.error]="isFieldInvalid('accountId')"
+          >
+            <option [ngValue]="null" disabled>Selecciona una cuenta</option>
+            @for (account of accounts(); track account.id) {
+              <option [ngValue]="account.id">
+                {{ account.name }} - {{ formatAmount(account.balance) }}
+              </option>
+            }
+          </select>
+          @if (getFieldError('accountId'); as error) {
+            <span class="error-message">{{ error | translate }}</span>
+          }
+        </div>
+
+        <!-- Amount -->
+        <div class="form-group">
+          <label for="amount" class="form-label">Monto a aportar *</label>
+          <div class="input-with-prefix">
+            <span class="input-prefix">S/</span>
+            <input
+              id="amount"
+              type="number"
+              step="0.01"
+              formControlName="amount"
+              class="form-input"
+              [class.error]="isFieldInvalid('amount')"
+              placeholder="0.00"
+            />
+          </div>
+          @if (getFieldError('amount'); as error) {
+            <span class="error-message">{{ error | translate }}</span>
+          }
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+          <label for="description" class="form-label">Descripción (opcional)</label>
+          <input
+            id="description"
+            type="text"
+            formControlName="description"
+            class="form-input"
+            placeholder="Ej: Aporte quincenal"
+          />
+        </div>
+
+        <!-- Error Message -->
+        @if (saveError()) {
+          <div class="error-banner">
+            {{ saveError() | translate }}
+          </div>
+        }
+
+        <!-- Actions -->
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" (click)="cancel()" [disabled]="isSaving()">
+            Cancelar
+          </button>
+          <button type="submit" class="btn-primary" [disabled]="isSaving()">
+            @if (isSaving()) {
+              <span class="spinner-small"></span>
+              Guardando...
+            } @else {
+              Añadir aporte
+            }
+          </button>
+        </div>
+      </form>
+    }
+
+    <!-- History Tab -->
+    @if (activeTab() === 'history') {
+      <div class="contributions-history">
+        @if (contributions().length === 0) {
+          <div class="empty-history">
+            <p>No hay aportes registrados para esta meta.</p>
+          </div>
+        } @else {
+          <ul class="contributions-list">
+            @for (contribution of contributions(); track contribution.id) {
+              <li class="contribution-item" [class.reverted]="contribution.type === 'INCOME'">
+                <div class="contribution-info">
+                  <span class="contribution-amount" [class.income]="contribution.type === 'INCOME'">
+                    {{ contribution.type === 'INCOME' ? '+' : '-' }}{{ formatAmount(contribution.amount) }}
+                  </span>
+                  <span class="contribution-account">{{ contribution.accountName }}</span>
+                  @if (contribution.description) {
+                    <span class="contribution-description">{{ contribution.description }}</span>
+                  }
+                  <span class="contribution-date">{{ formatDate(contribution.transactionDate) }}</span>
+                </div>
+                @if (contribution.type === 'EXPENSE') {
+                  <button
+                    type="button"
+                    class="btn-revert"
+                    (click)="revertContribution(contribution.id)"
+                    title="Revertir aporte"
+                  >
+                    ↩️
+                  </button>
+                }
+              </li>
+            }
+          </ul>
+        }
+      </div>
+    }
+  </div>
+}

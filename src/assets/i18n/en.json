@@ -48,7 +48,7 @@
     "errors": {
       "name": "Enter your name.",
       "email": "Enter a valid email address.",
-      "password": "Password must be at least 6 characters.",
+      "password": "Password must be at least 8 characters.",
       "confirmPassword": "Passwords do not match.",
       "duplicated": "An account with that email already exists."
     }
@@ -60,7 +60,7 @@
     "overview": "Overview",
     "greeting": "Hi, {{ name }}",
     "guestName": "TuCash",
-    "subtitle": "Here\u2019s what has happened with your money this month.",
+    "subtitle": "Here's what happened with your money",
     "balance": "Current balance",
     "balanceHint": "Income - expenses",
     "savingsRate": "Savings rate",
@@ -69,7 +69,7 @@
     "recentTransactions": "Recent transactions",
     "viewAll": "View all",
     "emptyTransactions": "You have no recent transactions yet.",
-    "loading": "Loading your financial snapshot\u2026",
+    "loading": "Loading your financial snapshot…",
     "tryAgain": "Try again",
     "errors": {
       "loadData": "We couldn't load your data. Check your connection and try again."
@@ -79,6 +79,33 @@
       "subtitle": "See how much your expenses weigh against your income",
       "incomeLabel": "Income",
       "expenseLabel": "Expenses"
+    },
+    "totalBalance": "Total Balance",
+    "newTransaction": "New transaction",
+    "filters": {
+      "today": "Today",
+      "week": "Week",
+      "month": "Month",
+      "year": "Year"
+    },
+    "accounts": {
+      "title": "My Accounts",
+      "empty": "You have no registered accounts",
+      "ctaTitle": "Create your first account",
+      "ctaSubtitle": "Start tracking your income and expenses"
+    },
+    "comparison": {
+      "title": "Income vs Expenses"
+    },
+    "categoryLeaks": {
+      "title": "Where do you spend the most?",
+      "subtitle": "Categories with highest expenses"
+    },
+    "quickActions": {
+      "addIncome": "Add Income",
+      "incomeHint": "Register your income quickly",
+      "addExpense": "Add Expense",
+      "expenseHint": "Register your expenses instantly"
     }
   },
   "incomes": {
@@ -90,7 +117,7 @@
     "categoriesTitle": "Frequent categories",
     "listTitle": "Recent history",
     "empty": "You don't have income records yet.",
-    "loading": "Loading your income\u2026",
+    "loading": "Loading your income…",
     "tryAgain": "Try again",
     "errors": {
       "load": "We couldn't load your income. Please try again.",
@@ -114,7 +141,7 @@
       "notes": "Notes",
       "recurring": "Mark as recurring income",
       "submit": "Save income",
-      "saving": "Saving\u2026",
+      "saving": "Saving…",
       "errors": {
         "description": "Describe the income briefly.",
         "amount": "Enter a valid amount greater than zero."
@@ -172,47 +199,109 @@
     "progress": "Progress"
   },
   "profile": {
-    "title": "Profile",
-    "subtitle": "Manage your personal data and preferences.",
-    "loading": "Loading your profile?",
-    "tryAgain": "Try again",
-    "anonymous": "Invited user",
-    "labels": {
-      "name": "Name",
-      "email": "Email",
-      "password": "Password",
-      "currency": "Currency"
+    "logout": "Log Out",
+    "account": {
+      "title": "Account",
+      "editProfile": "Edit Profile",
+      "security": "Security & Password"
     },
-    "actions": {
-      "changeAvatar": "Change avatar",
-      "changeName": "Change name",
-      "changeEmail": "Change email",
-      "changePassword": "Change password",
-      "update": "Save changes",
-      "delete": "Delete account",
-      "logout": "Sign out"
+    "preferences": {
+      "title": "Preferences",
+      "notifications": "Notifications",
+      "reminders": "Reminders",
+      "theme": "Theme & Appearance",
+      "language": "Language"
     },
-    "errors": {
-      "load": "We couldn't load your profile. Please try again.",
-      "noUser": "Your session has expired. Please sign in again."
+    "help": {
+      "title": "Help & Support",
+      "about": "About TuCash",
+      "support": "Contact Support"
+    },
+    "logoutConfirm": {
+      "title": "Log out?",
+      "message": "Are you sure you want to log out?",
+      "cancel": "Cancel",
+      "confirm": "Yes, log out"
     }
   },
   "nav": {
     "home": "Home",
+    "transactions": "Transactions",
+    "goals": "Goals",
+    "budgets": "Budgets",
+    "notifications": "Notifications",
     "incomes": "Income",
     "expenses": "Expenses",
-    "goals": "Goals",
     "profile": "Profile"
   },
   "common": {
     "comingSoon": "This section will be available soon."
+  },
+  "fab": {
+    "menu": "Actions menu",
+    "newTransaction": "New Transaction",
+    "newAccount": "New Account",
+    "newGoal": "New Goal",
+    "newBudget": "New Budget",
+    "newIncome": "New Income",
+    "newExpense": "New Expense"
+  },
+  "transactions": {
+    "title": "Transactions",
+    "loading": "Loading transactions…",
+    "tryAgain": "Try again",
+    "totalIncome": "Total income",
+    "totalExpenses": "Total expenses",
+    "balance": "Balance",
+    "count": "{{count}} transactions",
+    "loadMore": "Load more transactions",
+    "summary": {
+      "title": "Monthly summary"
+    },
+    "errors": {
+      "load": "We couldn't load transactions",
+      "loadAccounts": "We couldn't load accounts"
+    },
+    "filters": {
+      "title": "Filters",
+      "clear": "Clear",
+      "type": "Type",
+      "all": "All",
+      "income": "Income",
+      "expense": "Expenses",
+      "account": "Account",
+      "allAccounts": "All accounts",
+      "search": "Search",
+      "searchPlaceholder": "Search by description or category..."
+    },
+    "empty": {
+      "title": "No transactions",
+      "message": "You don't have transactions yet. Start by adding your first transaction.",
+      "action": "Add transaction"
+    },
+    "form": {
+      "title": "New Transaction",
+      "loading": "Loading form…",
+      "retry": "Retry",
+      "type": "Transaction type",
+      "income": "Income",
+      "expense": "Expense",
+      "amount": "Amount",
+      "account": "Account",
+      "category": "Category",
+      "description": "Description",
+      "descriptionPlaceholder": "e.g., Grocery shopping",
+      "date": "Date",
+      "cancel": "Cancel",
+      "save": "Save transaction",
+      "saving": "Saving…",
+      "errors": {
+        "required": "This field is required",
+        "minAmount": "Amount must be greater than 0",
+        "loadAccounts": "We couldn't load accounts",
+        "loadCategories": "We couldn't load categories",
+        "save": "We couldn't save the transaction. Please try again."
+      }
+    }
   }
 }
-
-
-
-
-
-
-
-

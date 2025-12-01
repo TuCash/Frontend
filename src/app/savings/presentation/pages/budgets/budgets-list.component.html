@@ -1,0 +1,114 @@
+@if (isLoading()) {
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>{{ 'budgets.loading' | translate }}</p>
+  </div>
+} @else if (loadError()) {
+  <div class="error-state">
+    <p>{{ loadError() | translate }}</p>
+    <button type="button" class="btn-retry" (click)="loadBudgets()">
+      {{ 'budgets.retry' | translate }}
+    </button>
+  </div>
+} @else {
+  <div class="budgets-page">
+    <!-- Header -->
+    <header class="page-header">
+      <h1 class="page-title">{{ 'budgets.title' | translate }}</h1>
+      <button type="button" class="btn-add" (click)="openNewBudgetModal()">
+        <span class="add-icon">+</span>
+        {{ 'budgets.addNew' | translate }}
+      </button>
+    </header>
+
+    <!-- Empty State -->
+    @if (budgets().length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon">📊</div>
+        <h2>{{ 'budgets.empty.title' | translate }}</h2>
+        <p>{{ 'budgets.empty.message' | translate }}</p>
+        <button type="button" class="btn-primary" (click)="openNewBudgetModal()">
+          {{ 'budgets.empty.action' | translate }}
+        </button>
+      </div>
+    } @else {
+      <!-- Budgets Grid -->
+      <div class="budgets-grid">
+        @for (budget of budgets(); track budget.id) {
+          <div class="budget-card">
+            <!-- Budget Header -->
+            <div class="budget-header">
+              <div class="budget-info">
+                <h3 class="budget-category">
+                  <span class="category-icon">{{ getCategoryIcon(budget.categoryId) }}</span>
+                  {{ getCategoryName(budget.categoryId) }}
+                </h3>
+                <span class="budget-period">{{ getPeriodLabel(budget.period) }}</span>
+              </div>
+              <button
+                type="button"
+                class="btn-delete"
+                (click)="deleteBudget(budget.id)"
+                title="Eliminar presupuesto"
+              >
+                ×
+              </button>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-section">
+              <div class="progress-bar">
+                <div
+                  class="progress-fill"
+                  [class]="getProgressClass(getSpentPercentage(budget))"
+                  [style.width.%]="getSpentPercentage(budget)"
+                ></div>
+              </div>
+              <span class="progress-text">{{ getSpentPercentage(budget) }}%</span>
+            </div>
+
+            <!-- Amount Info -->
+            <div class="amount-section">
+              <div class="amount-spent">
+                <span class="amount-label">{{ 'budgets.spent' | translate }}</span>
+                <span class="amount-value">{{ formatAmount(budget.spent) }}</span>
+              </div>
+              <div class="amount-limit">
+                <span class="amount-label">{{ 'budgets.limit' | translate }}</span>
+                <span class="amount-value">{{ formatAmount(budget.limitAmount) }}</span>
+              </div>
+            </div>
+
+            <!-- Remaining Amount -->
+            <div class="remaining-section">
+              <div class="remaining-info">
+                <span class="remaining-label">{{ 'budgets.remaining' | translate }}:</span>
+                <span class="remaining-amount" [class.exceeded]="getSpentPercentage(budget) >= 100">
+                  {{ formatAmount(getRemainingAmount(budget)) }}
+                </span>
+              </div>
+            </div>
+
+            <!-- Period Info -->
+            <div class="period-section">
+              <div class="period-dates">
+                <span class="period-date">{{ formatDate(budget.startDate) }}</span>
+                <span class="period-separator">→</span>
+                <span class="period-date">{{ formatDate(budget.endDate) }}</span>
+              </div>
+              @if (getDaysRemaining(budget.endDate) >= 0) {
+                <div class="days-remaining" [class.urgent]="getDaysRemaining(budget.endDate) <= 3">
+                  {{ getDaysRemaining(budget.endDate) }} {{ 'budgets.daysRemaining' | translate }}
+                </div>
+              } @else {
+                <div class="days-remaining expired">
+                  {{ 'budgets.expired' | translate }}
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+}

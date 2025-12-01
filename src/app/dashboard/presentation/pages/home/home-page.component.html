@@ -1,0 +1,146 @@
+@if (isLoading()) {
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>{{ 'home.loading' | translate }}</p>
+  </div>
+} @else if (loadError()) {
+  <div class="error-state">
+    <p>{{ loadError() | translate }}</p>
+    <button type="button" class="btn-retry" (click)="reload()">
+      {{ 'home.retry' | translate }}
+    </button>
+  </div>
+} @else {
+  <!-- Balance Total -->
+  <section class="balance-section card">
+    <h2 class="section-title">{{ 'home.balance.title' | translate }}</h2>
+    <div class="balance-grid">
+      <div class="balance-item balance-total">
+        <span class="balance-label">{{ 'home.balance.total' | translate }}</span>
+        <span class="balance-amount">{{ currency() }}{{ totalAccountBalance() | number:'1.2-2' }}</span>
+      </div>
+      <div class="balance-item balance-income">
+        <span class="balance-label">{{ 'home.balance.income' | translate }}</span>
+        <span class="balance-amount">+{{ currency() }}{{ totalIncome() | number:'1.2-2' }}</span>
+      </div>
+      <div class="balance-item balance-expense">
+        <span class="balance-label">{{ 'home.balance.expenses' | translate }}</span>
+        <span class="balance-amount">-{{ currency() }}{{ totalExpenses() | number:'1.2-2' }}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cuentas -->
+  <section class="accounts-section">
+    <h2 class="section-title">{{ 'home.accounts.title' | translate }}</h2>
+    @if (accounts().length === 0) {
+      <div class="empty-state card">
+        <div class="empty-icon">💳</div>
+        <p class="empty-text">{{ 'home.accounts.empty' | translate }}</p>
+      </div>
+    } @else {
+      <div class="accounts-grid">
+        @for (account of accounts(); track account.id) {
+          <div class="account-card card">
+            <div class="account-header">
+              <span class="account-icon">💳</span>
+              <span class="account-name">{{ account.name }}</span>
+            </div>
+            <div class="account-balance">
+              <span class="account-amount">{{ currency() }}{{ account.balance | number:'1.2-2' }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </section>
+
+  <!-- Gráficas de categorías (Leaks) -->
+  @if (categoryLeaks().length > 0) {
+    <section class="leaks-section card">
+      <h2 class="section-title">{{ 'home.leaks.title' | translate }}</h2>
+      <div class="leaks-list">
+        @for (leak of categoryLeaks(); track leak.categoryId) {
+          <div class="leak-item">
+            <div class="leak-info">
+              <span class="leak-icon">{{ leak.categoryIcon }}</span>
+              <span class="leak-name">{{ leak.categoryName }}</span>
+            </div>
+            <div class="leak-bar-container">
+              <div class="leak-bar" [style.width.%]="leak.percentage" [style.background-color]="leak.color"></div>
+            </div>
+            <div class="leak-amount">{{ currency() }}{{ leak.amount | number:'1.2-2' }}</div>
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+  <!-- Comparativo de ingresos vs egresos -->
+  @if (totalIncome() > 0 || totalExpenses() > 0) {
+    <section class="comparison-section card">
+      <h2 class="section-title">{{ 'home.comparison.title' | translate }}</h2>
+      <div class="comparison-chart">
+        <div class="chart-bar">
+          <div class="bar-income" [style.width.%]="chartData().incomesPercent"></div>
+          <div class="bar-expense" [style.width.%]="chartData().expensesPercent"></div>
+        </div>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <span class="legend-color legend-income"></span>
+            <span class="legend-label">{{ 'home.comparison.income' | translate }}</span>
+            <span class="legend-value">{{ chartData().incomesPercent }}%</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color legend-expense"></span>
+            <span class="legend-label">{{ 'home.comparison.expenses' | translate }}</span>
+            <span class="legend-value">{{ chartData().expensesPercent }}%</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- Últimas 5 transacciones -->
+  <section class="recent-transactions-section">
+    <div class="section-header">
+      <h2 class="section-title">{{ 'home.recentTransactions.title' | translate }}</h2>
+      @if (recentTransactions().length > 0) {
+        <a routerLink="/transactions" class="btn-view-all">
+          {{ 'home.recentTransactions.viewAll' | translate }}
+        </a>
+      }
+    </div>
+
+    @if (recentTransactions().length === 0) {
+      <div class="empty-state card">
+        <div class="empty-icon">💰</div>
+        <p class="empty-text">{{ 'home.recentTransactions.empty' | translate }}</p>
+      </div>
+    } @else {
+      <div class="transactions-list">
+        @for (transaction of recentTransactions(); track transaction.id) {
+          <div class="transaction-card card">
+            <div class="transaction-icon" [class]="getTransactionClass(transaction.type)">
+              {{ getTransactionIcon(transaction.type) }}
+            </div>
+            <div class="transaction-details">
+              <div class="transaction-header">
+                <span class="transaction-category">{{ transaction.categoryName }}</span>
+                <span class="transaction-amount" [class]="getTransactionClass(transaction.type)">
+                  {{ transaction.type === 'INCOME' ? '+' : '-' }}{{ currency() }}{{ transaction.amount | number:'1.2-2' }}
+                </span>
+              </div>
+              <div class="transaction-meta">
+                @if (transaction.description) {
+                  <span class="transaction-description">{{ transaction.description }}</span>
+                }
+                <span class="transaction-date">{{ formatDate(transaction.transactionDate) }}</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </section>
+}
