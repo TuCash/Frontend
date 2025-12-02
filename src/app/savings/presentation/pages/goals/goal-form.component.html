@@ -91,24 +91,6 @@
         }
       </div>
 
-      <!-- Current Amount (only in edit mode) -->
-      @if (isEditMode()) {
-        <div class="form-group">
-          <label for="currentAmount" class="form-label">{{ 'goals.current' | translate }} *</label>
-          <div class="input-with-prefix">
-            <span class="input-prefix">S/</span>
-            <input
-              id="currentAmount"
-              type="number"
-              step="0.01"
-              formControlName="currentAmount"
-              class="form-input"
-              placeholder="0.00"
-            />
-          </div>
-        </div>
-      }
-
       <!-- Deadline -->
       <div class="form-group">
         <label for="deadline" class="form-label">{{ 'goals.form.deadline' | translate }} *</label>

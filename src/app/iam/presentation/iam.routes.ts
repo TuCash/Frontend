@@ -37,6 +37,21 @@ export const IAM_ROUTES: Routes = [
       import('./pages/profile/notifications.component').then((m) => m.NotificationsComponent),
   },
   {
+    path: 'profile/reminders',
+    loadComponent: () =>
+      import('./pages/profile/reminders.component').then((m) => m.RemindersComponent),
+  },
+  {
+    path: 'profile/theme',
+    loadComponent: () =>
+      import('./pages/profile/theme.component').then((m) => m.ThemeComponent),
+  },
+  {
+    path: 'profile/language',
+    loadComponent: () =>
+      import('./pages/profile/language.component').then((m) => m.LanguageComponent),
+  },
+  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full',

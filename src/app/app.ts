@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { ModalService } from './shared/infrastructure/services/modal.service';
 import { TransactionFormComponent } from './transactions/presentation/pages/transaction-form/transaction-form.component';
 import { AccountFormComponent } from './transactions/presentation/pages/account-form/account-form.component';
+import { NotificationBadgeComponent } from './notifications';
 
 type FabActionType = 'modal' | 'route';
 
@@ -25,7 +26,15 @@ interface FabOption {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, TranslatePipe, LangSwitcherComponent, CommonModule],
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
+    TranslatePipe,
+    LangSwitcherComponent,
+    NotificationBadgeComponent,
+    CommonModule,
+  ],
   templateUrl: './app.html',
 })
 export class App {

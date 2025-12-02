@@ -183,6 +183,9 @@
     "overdue": "Vencida",
     "updateProgress": "Actualizar progreso",
     "celebrate": "Celebrar",
+    "addContribution": "Añadir aporte",
+    "edit": "Editar",
+    "deleteTitle": "Eliminar meta",
     "empty": {
       "title": "No tienes metas de ahorro",
       "message": "Comienza a establecer tus metas financieras para alcanzar tus objetivos.",
@@ -207,6 +210,28 @@
         "minAmount": "El monto debe ser mayor a 0",
         "save": "No pudimos guardar la meta. Inténtalo nuevamente."
       }
+    },
+    "contribution": {
+      "title": "Añadir aporte",
+      "tabAdd": "Añadir aporte",
+      "tabHistory": "Historial",
+      "sourceAccount": "Cuenta origen",
+      "selectAccount": "Selecciona una cuenta",
+      "amount": "Monto a aportar",
+      "description": "Descripción (opcional)",
+      "descriptionPlaceholder": "Ej: Aporte quincenal",
+      "cancel": "Cancelar",
+      "save": "Añadir aporte",
+      "saving": "Guardando...",
+      "close": "Cerrar",
+      "loading": "Cargando...",
+      "emptyHistory": "No hay aportes registrados para esta meta.",
+      "revertTitle": "Revertir aporte",
+      "errors": {
+        "required": "Este campo es requerido",
+        "minAmount": "El monto debe ser mayor a 0",
+        "save": "No pudimos guardar el aporte. Inténtalo nuevamente."
+      }
     }
   },
   "budgets": {
@@ -219,6 +244,7 @@
     "remaining": "Restante",
     "daysRemaining": "días restantes",
     "expired": "Vencido",
+    "deleteTitle": "Eliminar presupuesto",
     "empty": {
       "title": "No tienes presupuestos",
       "message": "Comienza a controlar tus gastos creando presupuestos por categoría.",
@@ -227,9 +253,16 @@
     "errors": {
       "loadBudgets": "No pudimos cargar tus presupuestos. Inténtalo nuevamente."
     },
+    "periods": {
+      "weekly": "Semanal",
+      "biweekly": "Quincenal",
+      "monthly": "Mensual",
+      "yearly": "Anual"
+    },
     "form": {
       "title": "Nuevo Presupuesto",
       "category": "Categoría",
+      "selectCategory": "Selecciona una categoría",
       "limitAmount": "Límite de gasto",
       "period": "Período",
       "startDate": "Fecha inicio",
@@ -349,6 +382,44 @@
         "load": "No pudimos cargar tu configuración",
         "save": "No pudimos guardar los cambios"
       }
+    },
+    "reminders": {
+      "title": "Recordatorios",
+      "success": "Configuración guardada",
+      "periodic": {
+        "title": "Recordatorios periódicos",
+        "daily": "Recordatorio diario",
+        "dailyDesc": "Recibe un resumen de tus finanzas cada día",
+        "weekly": "Reporte semanal",
+        "weeklyDesc": "Resumen semanal de ingresos y gastos",
+        "monthly": "Reporte mensual",
+        "monthlyDesc": "Análisis completo de tu mes financiero"
+      },
+      "custom": {
+        "title": "Alertas personalizadas",
+        "budget": "Alertas de presupuesto",
+        "budgetDesc": "Aviso cuando te acerques al límite de tu presupuesto",
+        "goal": "Fechas límite de metas",
+        "goalDesc": "Recordatorios de metas próximas a vencer",
+        "bill": "Recordatorios de pagos",
+        "billDesc": "Aviso de facturas y pagos pendientes"
+      }
+    },
+    "theme": {
+      "title": "Tema y Apariencia",
+      "success": "Tema actualizado",
+      "selectTheme": "Selecciona un tema",
+      "light": "Claro",
+      "dark": "Oscuro",
+      "system": "Automático (Sistema)",
+      "preview": "Vista previa",
+      "previewBalance": "Balance total"
+    },
+    "language": {
+      "title": "Idioma",
+      "success": "Idioma actualizado",
+      "selectLanguage": "Selecciona tu idioma",
+      "hint": "El cambio de idioma se aplicará inmediatamente a toda la aplicación."
     }
   },
   "nav": {
@@ -360,6 +431,36 @@
     "incomes": "Ingresos",
     "expenses": "Gastos",
     "profile": "Perfil"
+  },
+  "notifications": {
+    "title": "Notificaciones",
+    "markAllAsRead": "Marcar todo como leído",
+    "viewAll": "Ver todas las notificaciones",
+    "loading": "Cargando...",
+    "empty": {
+      "title": "Sin notificaciones",
+      "message": "No tienes notificaciones pendientes"
+    },
+    "time": {
+      "now": "Ahora",
+      "minutesAgo": "Hace {{count}} min",
+      "hoursAgo": "Hace {{count}}h",
+      "daysAgo": "Hace {{count}}d"
+    },
+    "types": {
+      "warning": "Advertencia",
+      "budgetAlert": "Alerta de presupuesto",
+      "goalAchieved": "Meta alcanzada",
+      "reminder": "Recordatorio",
+      "success": "Éxito",
+      "error": "Error",
+      "info": "Información"
+    },
+    "aria": {
+      "badge": "Notificaciones",
+      "dismiss": "Marcar como leída",
+      "close": "Cerrar"
+    }
   },
   "common": {
     "comingSoon": "Muy pronto podrás gestionar esta sección."

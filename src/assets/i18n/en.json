@@ -194,9 +194,110 @@
     }
   },
   "goals": {
-    "title": "Goals",
-    "add": "Add goal",
-    "progress": "Progress"
+    "title": "My Goals",
+    "addNew": "New Goal",
+    "loading": "Loading your goals…",
+    "retry": "Try again",
+    "current": "Current",
+    "target": "Target",
+    "daysRemaining": "days remaining",
+    "overdue": "Overdue",
+    "updateProgress": "Update progress",
+    "celebrate": "Celebrate",
+    "addContribution": "Add contribution",
+    "edit": "Edit",
+    "deleteTitle": "Delete goal",
+    "empty": {
+      "title": "No savings goals",
+      "message": "Start setting your financial goals to achieve your objectives.",
+      "action": "Create my first goal"
+    },
+    "errors": {
+      "loadGoals": "We couldn't load your goals. Please try again."
+    },
+    "form": {
+      "title": "New Goal",
+      "name": "Goal name",
+      "namePlaceholder": "E.g.: Trip to Europe, New car...",
+      "description": "Description",
+      "descriptionPlaceholder": "Details about your goal...",
+      "targetAmount": "Target amount",
+      "deadline": "Deadline",
+      "cancel": "Cancel",
+      "save": "Save goal",
+      "saving": "Saving…",
+      "errors": {
+        "required": "This field is required",
+        "minAmount": "Amount must be greater than 0",
+        "save": "We couldn't save the goal. Please try again."
+      }
+    },
+    "contribution": {
+      "title": "Add contribution",
+      "tabAdd": "Add contribution",
+      "tabHistory": "History",
+      "sourceAccount": "Source account",
+      "selectAccount": "Select an account",
+      "amount": "Amount to contribute",
+      "description": "Description (optional)",
+      "descriptionPlaceholder": "E.g.: Biweekly contribution",
+      "cancel": "Cancel",
+      "save": "Add contribution",
+      "saving": "Saving...",
+      "close": "Close",
+      "loading": "Loading...",
+      "emptyHistory": "No contributions registered for this goal.",
+      "revertTitle": "Revert contribution",
+      "errors": {
+        "required": "This field is required",
+        "minAmount": "Amount must be greater than 0",
+        "save": "We couldn't save the contribution. Please try again."
+      }
+    }
+  },
+  "budgets": {
+    "title": "My Budgets",
+    "addNew": "New Budget",
+    "loading": "Loading your budgets…",
+    "retry": "Try again",
+    "spent": "Spent",
+    "limit": "Limit",
+    "remaining": "Remaining",
+    "daysRemaining": "days remaining",
+    "expired": "Expired",
+    "deleteTitle": "Delete budget",
+    "empty": {
+      "title": "No budgets",
+      "message": "Start controlling your spending by creating budgets by category.",
+      "action": "Create my first budget"
+    },
+    "errors": {
+      "loadBudgets": "We couldn't load your budgets. Please try again."
+    },
+    "periods": {
+      "weekly": "Weekly",
+      "biweekly": "Biweekly",
+      "monthly": "Monthly",
+      "yearly": "Yearly"
+    },
+    "form": {
+      "title": "New Budget",
+      "category": "Category",
+      "selectCategory": "Select a category",
+      "limitAmount": "Spending limit",
+      "period": "Period",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "cancel": "Cancel",
+      "save": "Save budget",
+      "saving": "Saving…",
+      "errors": {
+        "required": "This field is required",
+        "minAmount": "Amount must be greater than 0",
+        "loadCategories": "We couldn't load categories",
+        "save": "We couldn't save the budget. Please try again."
+      }
+    }
   },
   "profile": {
     "logout": "Log Out",
@@ -222,6 +323,124 @@
       "message": "Are you sure you want to log out?",
       "cancel": "Cancel",
       "confirm": "Yes, log out"
+    },
+    "edit": {
+      "title": "Edit Profile",
+      "loading": "Loading your information...",
+      "displayName": "Full name",
+      "displayNamePlaceholder": "Enter your name",
+      "email": "Email",
+      "emailHint": "Email cannot be modified",
+      "currency": "Preferred currency",
+      "avatarHint": "Profile picture (coming soon)",
+      "cancel": "Cancel",
+      "save": "Save changes",
+      "saving": "Saving...",
+      "success": "Profile updated successfully",
+      "errors": {
+        "required": "This field is required",
+        "minLength": "Must be at least 2 characters",
+        "noUser": "User not found",
+        "load": "We couldn't load your information",
+        "save": "We couldn't save changes. Please try again."
+      }
+    },
+    "security": {
+      "title": "Security & Password",
+      "hint": "For your security, please enter your current password before changing it.",
+      "currentPassword": "Current password",
+      "currentPasswordPlaceholder": "Enter your current password",
+      "newPassword": "New password",
+      "newPasswordPlaceholder": "Enter your new password",
+      "confirmPassword": "Confirm password",
+      "confirmPasswordPlaceholder": "Confirm your new password",
+      "cancel": "Cancel",
+      "save": "Change password",
+      "saving": "Saving...",
+      "success": "Password updated successfully",
+      "tips": {
+        "title": "Security tips",
+        "length": "Use at least 8 characters",
+        "mix": "Combine letters, numbers and symbols",
+        "avoid": "Avoid using easy-to-guess personal information"
+      },
+      "errors": {
+        "required": "This field is required",
+        "minLength": "Password must be at least 8 characters",
+        "passwordMismatch": "Passwords do not match",
+        "noUser": "User not found",
+        "wrongPassword": "Current password is incorrect",
+        "save": "We couldn't change the password. Please try again."
+      }
+    },
+    "notifications": {
+      "title": "Notifications",
+      "loading": "Loading settings...",
+      "success": "Settings saved",
+      "general": {
+        "title": "General",
+        "enabled": "Enable notifications",
+        "enabledDesc": "Receive alerts about your financial activity"
+      },
+      "channels": {
+        "title": "Notification channels",
+        "email": "Email",
+        "emailDesc": "Receive notifications by email",
+        "push": "Push notifications",
+        "pushDesc": "Receive real-time alerts on your device"
+      },
+      "alerts": {
+        "title": "Alert types",
+        "budget": "Budget alerts",
+        "budgetDesc": "Notifications when you approach or exceed your budget",
+        "goal": "Goal alerts",
+        "goalDesc": "Notifications about your savings goals progress",
+        "transaction": "Transaction alerts",
+        "transactionDesc": "Notifications every time you register a transaction"
+      },
+      "errors": {
+        "noUser": "User not found",
+        "load": "We couldn't load your settings",
+        "save": "We couldn't save changes"
+      }
+    },
+    "reminders": {
+      "title": "Reminders",
+      "success": "Settings saved",
+      "periodic": {
+        "title": "Periodic reminders",
+        "daily": "Daily reminder",
+        "dailyDesc": "Receive a daily summary of your finances",
+        "weekly": "Weekly report",
+        "weeklyDesc": "Weekly summary of income and expenses",
+        "monthly": "Monthly report",
+        "monthlyDesc": "Complete analysis of your financial month"
+      },
+      "custom": {
+        "title": "Custom alerts",
+        "budget": "Budget alerts",
+        "budgetDesc": "Alert when you approach your budget limit",
+        "goal": "Goal deadlines",
+        "goalDesc": "Reminders of upcoming goal deadlines",
+        "bill": "Payment reminders",
+        "billDesc": "Alert for bills and pending payments"
+      }
+    },
+    "theme": {
+      "title": "Theme & Appearance",
+      "success": "Theme updated",
+      "selectTheme": "Select a theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "Automatic (System)",
+      "preview": "Preview",
+      "previewBalance": "Total balance"
+    },
+    "language": {
+      "title": "Language",
+      "success": "Language updated",
+      "selectLanguage": "Select your language",
+      "hint": "Language change will be applied immediately throughout the app."
     }
   },
   "nav": {
@@ -233,6 +452,36 @@
     "incomes": "Income",
     "expenses": "Expenses",
     "profile": "Profile"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "markAllAsRead": "Mark all as read",
+    "viewAll": "View all notifications",
+    "loading": "Loading...",
+    "empty": {
+      "title": "No notifications",
+      "message": "You have no pending notifications"
+    },
+    "time": {
+      "now": "Now",
+      "minutesAgo": "{{count}} min ago",
+      "hoursAgo": "{{count}}h ago",
+      "daysAgo": "{{count}}d ago"
+    },
+    "types": {
+      "warning": "Warning",
+      "budgetAlert": "Budget alert",
+      "goalAchieved": "Goal achieved",
+      "reminder": "Reminder",
+      "success": "Success",
+      "error": "Error",
+      "info": "Information"
+    },
+    "aria": {
+      "badge": "Notifications",
+      "dismiss": "Mark as read",
+      "close": "Close"
+    }
   },
   "common": {
     "comingSoon": "This section will be available soon."

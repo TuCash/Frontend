@@ -1,0 +1,48 @@
+<div class="language-page">
+  <div class="page-header">
+    <button type="button" class="btn-back" (click)="onBack()">
+      <span class="back-icon">←</span>
+    </button>
+    <h1 class="page-title">{{ 'profile.language.title' | translate }}</h1>
+  </div>
+
+  @if (saveSuccess()) {
+    <div class="success-message">
+      <span class="success-icon">✓</span>
+      {{ 'profile.language.success' | translate }}
+    </div>
+  }
+
+  <div class="settings-container">
+    <section class="settings-section">
+      <h2 class="section-title">{{ 'profile.language.selectLanguage' | translate }}</h2>
+
+      <div class="language-options">
+        @for (lang of languages; track lang.code) {
+          <button
+            type="button"
+            class="language-option"
+            [class.active]="currentLanguage() === lang.code"
+            (click)="selectLanguage(lang.code)"
+          >
+            <span class="language-flag">{{ lang.flag }}</span>
+            <div class="language-info">
+              <span class="language-native">{{ lang.nativeName }}</span>
+              <span class="language-name">{{ lang.name }}</span>
+            </div>
+            @if (currentLanguage() === lang.code) {
+              <span class="check-icon">✓</span>
+            }
+          </button>
+        }
+      </div>
+    </section>
+
+    <section class="settings-section info-section">
+      <div class="info-content">
+        <span class="info-icon">ℹ️</span>
+        <p class="info-text">{{ 'profile.language.hint' | translate }}</p>
+      </div>
+    </section>
+  </div>
+</div>

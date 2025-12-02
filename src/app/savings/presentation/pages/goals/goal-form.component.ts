@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SavingsCommandService } from '../../../application/internal/commandservices/savings-command.service';
 import { SavingsQueryService } from '../../../application/internal/queryservices/savings-query.service';
 import { CreateGoalCommand } from '../../../domain/model/commands/create-goal.command';
-import { UpdateGoalProgressCommand } from '../../../domain/model/commands/update-goal-progress.command';
+import { UpdateGoalCommand } from '../../../domain/model/commands/update-goal.command';
 import { getTodayFormatted } from '../../../../shared/utils/date.utils';
 
 @Component({
@@ -76,11 +76,11 @@ export class GoalFormComponent implements OnInit {
           deadline: goal.deadline.split('T')[0], // Format date for input
         });
 
-        // Disable fields that shouldn't be edited in edit mode
+        // En modo edición: solo se puede modificar targetAmount y deadline
+        // name y description quedan deshabilitados
         this.goalForm.get('name')?.disable();
         this.goalForm.get('description')?.disable();
-        this.goalForm.get('targetAmount')?.disable();
-        this.goalForm.get('deadline')?.disable();
+        // targetAmount y deadline quedan habilitados para editar
 
         this.isLoading.set(false);
       },
@@ -94,10 +94,10 @@ export class GoalFormComponent implements OnInit {
 
   private setDisabledState(): void {
     if (this.isEditMode()) {
+      // Solo deshabilitar name y description
+      // targetAmount y deadline se pueden editar
       this.goalForm.get('name')?.disable();
       this.goalForm.get('description')?.disable();
-      this.goalForm.get('targetAmount')?.disable();
-      this.goalForm.get('deadline')?.disable();
     }
   }
 
@@ -113,13 +113,14 @@ export class GoalFormComponent implements OnInit {
     const formValue = this.goalForm.value;
 
     if (this.isEditMode()) {
-      // Update progress
-      const command = new UpdateGoalProgressCommand(
+      // Update goal (targetAmount and deadline only)
+      const command = new UpdateGoalCommand(
         this.goalId!,
-        formValue.currentAmount
+        formValue.targetAmount,
+        formValue.deadline
       );
 
-      this.savingsCommandService.handleUpdateGoalProgress(command).subscribe({
+      this.savingsCommandService.handleUpdateGoal(command).subscribe({
         next: () => {
           this.isSaving.set(false);
 

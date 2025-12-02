@@ -5,7 +5,12 @@
             <img class="app-logo" src="assets/logo.png" alt="TuCash logo" />
             <h1 class="app-title">{{ 'app.title' | translate }}</h1>
           </div>
-          <app-lang-switcher />
+          <div class="app-header__actions">
+            @if (showBottomNav) {
+              <app-notification-badge />
+            }
+            <app-lang-switcher />
+          </div>
         </div>
       </header>
 

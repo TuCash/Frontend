@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { CreateGoalCommand } from '../../../domain/model/commands/create-goal.command';
+import { UpdateGoalCommand } from '../../../domain/model/commands/update-goal.command';
 import { UpdateGoalProgressCommand } from '../../../domain/model/commands/update-goal-progress.command';
 import { CelebrateGoalCommand } from '../../../domain/model/commands/celebrate-goal.command';
 import { ContributeToGoalCommand } from '../../../domain/model/commands/contribute-to-goal.command';
@@ -33,6 +34,16 @@ export class SavingsCommandService {
       targetAmount: command.targetAmount,
       deadline: command.deadline,
     });
+  }
+
+  handleUpdateGoal(command: UpdateGoalCommand): Observable<GoalResource> {
+    return this.http.put<GoalResource>(
+      `${this.baseUrl}${environment.endpoints.goals}/${command.goalId}`,
+      {
+        targetAmount: command.targetAmount,
+        deadline: command.deadline,
+      }
+    );
   }
 
   handleUpdateGoalProgress(command: UpdateGoalProgressCommand): Observable<GoalResource> {

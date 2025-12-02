@@ -167,9 +167,110 @@
     }
   },
   "goals": {
-    "title": "Metas",
-    "add": "Adicionar meta",
-    "progress": "Progresso"
+    "title": "Minhas Metas",
+    "addNew": "Nova Meta",
+    "loading": "Carregando suas metas…",
+    "retry": "Tentar novamente",
+    "current": "Atual",
+    "target": "Objetivo",
+    "daysRemaining": "dias restantes",
+    "overdue": "Vencida",
+    "updateProgress": "Atualizar progresso",
+    "celebrate": "Celebrar",
+    "addContribution": "Adicionar aporte",
+    "edit": "Editar",
+    "deleteTitle": "Excluir meta",
+    "empty": {
+      "title": "Sem metas de economia",
+      "message": "Comece a definir suas metas financeiras para alcançar seus objetivos.",
+      "action": "Criar minha primeira meta"
+    },
+    "errors": {
+      "loadGoals": "Não foi possível carregar suas metas. Tente novamente."
+    },
+    "form": {
+      "title": "Nova Meta",
+      "name": "Nome da meta",
+      "namePlaceholder": "Ex: Viagem à Europa, Carro novo...",
+      "description": "Descrição",
+      "descriptionPlaceholder": "Detalhes sobre sua meta...",
+      "targetAmount": "Valor objetivo",
+      "deadline": "Data limite",
+      "cancel": "Cancelar",
+      "save": "Salvar meta",
+      "saving": "Salvando…",
+      "errors": {
+        "required": "Este campo é obrigatório",
+        "minAmount": "O valor deve ser maior que 0",
+        "save": "Não foi possível salvar a meta. Tente novamente."
+      }
+    },
+    "contribution": {
+      "title": "Adicionar aporte",
+      "tabAdd": "Adicionar aporte",
+      "tabHistory": "Histórico",
+      "sourceAccount": "Conta origem",
+      "selectAccount": "Selecione uma conta",
+      "amount": "Valor a contribuir",
+      "description": "Descrição (opcional)",
+      "descriptionPlaceholder": "Ex: Aporte quinzenal",
+      "cancel": "Cancelar",
+      "save": "Adicionar aporte",
+      "saving": "Salvando...",
+      "close": "Fechar",
+      "loading": "Carregando...",
+      "emptyHistory": "Nenhum aporte registrado para esta meta.",
+      "revertTitle": "Reverter aporte",
+      "errors": {
+        "required": "Este campo é obrigatório",
+        "minAmount": "O valor deve ser maior que 0",
+        "save": "Não foi possível salvar o aporte. Tente novamente."
+      }
+    }
+  },
+  "budgets": {
+    "title": "Meus Orçamentos",
+    "addNew": "Novo Orçamento",
+    "loading": "Carregando seus orçamentos…",
+    "retry": "Tentar novamente",
+    "spent": "Gasto",
+    "limit": "Limite",
+    "remaining": "Restante",
+    "daysRemaining": "dias restantes",
+    "expired": "Expirado",
+    "deleteTitle": "Excluir orçamento",
+    "empty": {
+      "title": "Sem orçamentos",
+      "message": "Comece a controlar seus gastos criando orçamentos por categoria.",
+      "action": "Criar meu primeiro orçamento"
+    },
+    "errors": {
+      "loadBudgets": "Não foi possível carregar seus orçamentos. Tente novamente."
+    },
+    "periods": {
+      "weekly": "Semanal",
+      "biweekly": "Quinzenal",
+      "monthly": "Mensal",
+      "yearly": "Anual"
+    },
+    "form": {
+      "title": "Novo Orçamento",
+      "category": "Categoria",
+      "selectCategory": "Selecione uma categoria",
+      "limitAmount": "Limite de gasto",
+      "period": "Período",
+      "startDate": "Data início",
+      "endDate": "Data fim",
+      "cancel": "Cancelar",
+      "save": "Salvar orçamento",
+      "saving": "Salvando…",
+      "errors": {
+        "required": "Este campo é obrigatório",
+        "minAmount": "O valor deve ser maior que 0",
+        "loadCategories": "Não foi possível carregar as categorias",
+        "save": "Não foi possível salvar o orçamento. Tente novamente."
+      }
+    }
   },
   "profile": {
     "title": "Perfil",
@@ -177,6 +278,30 @@
     "loading": "Carregando seu perfil…",
     "tryAgain": "Tentar novamente",
     "anonymous": "Usuário convidado",
+    "logout": "Sair",
+    "account": {
+      "title": "Conta",
+      "editProfile": "Editar Perfil",
+      "security": "Segurança e Senha"
+    },
+    "preferences": {
+      "title": "Preferências",
+      "notifications": "Notificações",
+      "reminders": "Lembretes",
+      "theme": "Tema e Aparência",
+      "language": "Idioma"
+    },
+    "help": {
+      "title": "Ajuda e Suporte",
+      "about": "Sobre o TuCash",
+      "support": "Contatar Suporte"
+    },
+    "logoutConfirm": {
+      "title": "Sair?",
+      "message": "Tem certeza de que deseja sair?",
+      "cancel": "Cancelar",
+      "confirm": "Sim, sair"
+    },
     "labels": {
       "name": "Nome",
       "email": "Email",
@@ -189,8 +314,125 @@
       "changeEmail": "Alterar email",
       "changePassword": "Alterar senha",
       "update": "Salvar alterações",
-      "delete": "Excluir conta",
-      "logout": "Sair"
+      "delete": "Excluir conta"
+    },
+    "edit": {
+      "title": "Editar Perfil",
+      "loading": "Carregando suas informações...",
+      "displayName": "Nome completo",
+      "displayNamePlaceholder": "Digite seu nome",
+      "email": "Email",
+      "emailHint": "O email não pode ser modificado",
+      "currency": "Moeda preferida",
+      "avatarHint": "Foto de perfil (em breve)",
+      "cancel": "Cancelar",
+      "save": "Salvar alterações",
+      "saving": "Salvando...",
+      "success": "Perfil atualizado com sucesso",
+      "errors": {
+        "required": "Este campo é obrigatório",
+        "minLength": "Deve ter pelo menos 2 caracteres",
+        "noUser": "Usuário não encontrado",
+        "load": "Não foi possível carregar suas informações",
+        "save": "Não foi possível salvar as alterações. Tente novamente."
+      }
+    },
+    "security": {
+      "title": "Segurança e Senha",
+      "hint": "Por sua segurança, digite sua senha atual antes de alterá-la.",
+      "currentPassword": "Senha atual",
+      "currentPasswordPlaceholder": "Digite sua senha atual",
+      "newPassword": "Nova senha",
+      "newPasswordPlaceholder": "Digite sua nova senha",
+      "confirmPassword": "Confirmar senha",
+      "confirmPasswordPlaceholder": "Confirme sua nova senha",
+      "cancel": "Cancelar",
+      "save": "Alterar senha",
+      "saving": "Salvando...",
+      "success": "Senha atualizada com sucesso",
+      "tips": {
+        "title": "Dicas de segurança",
+        "length": "Use pelo menos 8 caracteres",
+        "mix": "Combine letras, números e símbolos",
+        "avoid": "Evite usar informações pessoais fáceis de adivinhar"
+      },
+      "errors": {
+        "required": "Este campo é obrigatório",
+        "minLength": "A senha deve ter pelo menos 8 caracteres",
+        "passwordMismatch": "As senhas não coincidem",
+        "noUser": "Usuário não encontrado",
+        "wrongPassword": "A senha atual está incorreta",
+        "save": "Não foi possível alterar a senha. Tente novamente."
+      }
+    },
+    "notifications": {
+      "title": "Notificações",
+      "loading": "Carregando configurações...",
+      "success": "Configurações salvas",
+      "general": {
+        "title": "Geral",
+        "enabled": "Ativar notificações",
+        "enabledDesc": "Receba alertas sobre sua atividade financeira"
+      },
+      "channels": {
+        "title": "Canais de notificação",
+        "email": "Email",
+        "emailDesc": "Receba notificações por email",
+        "push": "Notificações push",
+        "pushDesc": "Receba alertas em tempo real no seu dispositivo"
+      },
+      "alerts": {
+        "title": "Tipos de alertas",
+        "budget": "Alertas de orçamento",
+        "budgetDesc": "Notificações quando você se aproximar ou exceder seu orçamento",
+        "goal": "Alertas de metas",
+        "goalDesc": "Notificações sobre o progresso de suas metas de economia",
+        "transaction": "Alertas de transações",
+        "transactionDesc": "Notificações toda vez que você registrar uma transação"
+      },
+      "errors": {
+        "noUser": "Usuário não encontrado",
+        "load": "Não foi possível carregar suas configurações",
+        "save": "Não foi possível salvar as alterações"
+      }
+    },
+    "reminders": {
+      "title": "Lembretes",
+      "success": "Configurações salvas",
+      "periodic": {
+        "title": "Lembretes periódicos",
+        "daily": "Lembrete diário",
+        "dailyDesc": "Receba um resumo diário de suas finanças",
+        "weekly": "Relatório semanal",
+        "weeklyDesc": "Resumo semanal de receitas e despesas",
+        "monthly": "Relatório mensal",
+        "monthlyDesc": "Análise completa do seu mês financeiro"
+      },
+      "custom": {
+        "title": "Alertas personalizados",
+        "budget": "Alertas de orçamento",
+        "budgetDesc": "Aviso quando você se aproximar do limite do orçamento",
+        "goal": "Prazos de metas",
+        "goalDesc": "Lembretes de metas próximas ao vencimento",
+        "bill": "Lembretes de pagamentos",
+        "billDesc": "Aviso de contas e pagamentos pendentes"
+      }
+    },
+    "theme": {
+      "title": "Tema e Aparência",
+      "success": "Tema atualizado",
+      "selectTheme": "Selecione um tema",
+      "light": "Claro",
+      "dark": "Escuro",
+      "system": "Automático (Sistema)",
+      "preview": "Pré-visualização",
+      "previewBalance": "Saldo total"
+    },
+    "language": {
+      "title": "Idioma",
+      "success": "Idioma atualizado",
+      "selectLanguage": "Selecione seu idioma",
+      "hint": "A alteração de idioma será aplicada imediatamente em todo o aplicativo."
     },
     "errors": {
       "load": "Não foi possível carregar seu perfil. Tente novamente.",
@@ -198,11 +440,44 @@
     }
   },
   "nav": {
-    "home": "In\u00EDcio",
+    "home": "Início",
     "incomes": "Receitas",
     "expenses": "Despesas",
     "goals": "Metas",
+    "budgets": "Orçamentos",
+    "transactions": "Transações",
+    "notifications": "Notificações",
     "profile": "Perfil"
+  },
+  "notifications": {
+    "title": "Notificações",
+    "markAllAsRead": "Marcar tudo como lido",
+    "viewAll": "Ver todas as notificações",
+    "loading": "Carregando...",
+    "empty": {
+      "title": "Sem notificações",
+      "message": "Você não tem notificações pendentes"
+    },
+    "time": {
+      "now": "Agora",
+      "minutesAgo": "Há {{count}} min",
+      "hoursAgo": "Há {{count}}h",
+      "daysAgo": "Há {{count}}d"
+    },
+    "types": {
+      "warning": "Aviso",
+      "budgetAlert": "Alerta de orçamento",
+      "goalAchieved": "Meta alcançada",
+      "reminder": "Lembrete",
+      "success": "Sucesso",
+      "error": "Erro",
+      "info": "Informação"
+    },
+    "aria": {
+      "badge": "Notificações",
+      "dismiss": "Marcar como lida",
+      "close": "Fechar"
+    }
   },
   "common": {
     "comingSoon": "Esta se\u00E7\u00E3o estar\u00E1 dispon\u00EDvel em breve."

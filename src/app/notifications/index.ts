@@ -19,9 +19,13 @@ export * from './domain/model/queries/get-unread-notifications.query';
 // Application - Services
 export * from './application/internal/commandservices/notification-command.service';
 export * from './application/internal/queryservices/notification-query.service';
+export * from './application/internal/queryservices/notification-polling.service';
 
 // Presentation - Resources
-export * from './presentation/resources/notification.resource';
+export type { NotificationResource, PagedResponse } from './presentation/resources/notification.resource';
+
+// Presentation - Components
+export * from './presentation/components/notification-badge/notification-badge.component';
 
 // Presentation - Routes
 export * from './presentation/notifications.routes';

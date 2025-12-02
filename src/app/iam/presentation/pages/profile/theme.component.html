@@ -1,0 +1,52 @@
+<div class="theme-page">
+  <div class="page-header">
+    <button type="button" class="btn-back" (click)="onBack()">
+      <span class="back-icon">←</span>
+    </button>
+    <h1 class="page-title">{{ 'profile.theme.title' | translate }}</h1>
+  </div>
+
+  @if (saveSuccess()) {
+    <div class="success-message">
+      <span class="success-icon">✓</span>
+      {{ 'profile.theme.success' | translate }}
+    </div>
+  }
+
+  <div class="settings-container">
+    <section class="settings-section">
+      <h2 class="section-title">{{ 'profile.theme.selectTheme' | translate }}</h2>
+
+      <div class="theme-options">
+        @for (theme of themes; track theme.id) {
+          <button
+            type="button"
+            class="theme-option"
+            [class.active]="currentTheme() === theme.id"
+            (click)="selectTheme(theme.id)"
+          >
+            <span class="theme-icon">{{ theme.icon }}</span>
+            <span class="theme-label">{{ theme.labelKey | translate }}</span>
+            @if (currentTheme() === theme.id) {
+              <span class="check-icon">✓</span>
+            }
+          </button>
+        }
+      </div>
+    </section>
+
+    <section class="settings-section preview-section">
+      <h2 class="section-title">{{ 'profile.theme.preview' | translate }}</h2>
+      <div class="theme-preview" [attr.data-preview-theme]="currentTheme()">
+        <div class="preview-header">
+          <span class="preview-logo">💰</span>
+          <span class="preview-title">TuCash</span>
+        </div>
+        <div class="preview-card">
+          <span class="preview-balance">S/ 1,234.56</span>
+          <span class="preview-label">{{ 'profile.theme.previewBalance' | translate }}</span>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

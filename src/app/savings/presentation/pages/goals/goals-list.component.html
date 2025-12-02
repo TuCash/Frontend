@@ -48,7 +48,7 @@
                 type="button"
                 class="btn-delete"
                 (click)="deleteGoal(goal.id)"
-                title="Eliminar meta"
+                [title]="'goals.deleteTitle' | translate"
               >
                 ×
               </button>
@@ -101,10 +101,17 @@
             <div class="goal-actions">
               <button
                 type="button"
+                class="btn-primary"
+                (click)="openContributionModal(goal)"
+              >
+                💰 {{ 'goals.addContribution' | translate }}
+              </button>
+              <button
+                type="button"
                 class="btn-secondary"
                 (click)="openEditGoalModal(goal.id)"
               >
-                {{ 'goals.updateProgress' | translate }}
+                ✏️ {{ 'goals.edit' | translate }}
               </button>
               @if (getProgressPercentage(goal) >= 100) {
                 <button type="button" class="btn-celebrate">
