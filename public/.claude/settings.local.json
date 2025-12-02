@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs:*)",
+      "Bash(npm start)",
+      "Bash(taskkill:*)",
+      "Bash(tree:*)",
+      "Bash(find:*)",
+      "Bash(/tmp/home-page.component.html.bak)",
+      "Bash(/tmp/home-page.component.css.bak)",
+      "Bash(chmod:*)",
+      "Bash(bash:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(npm run build:*)",
+      "Bash(cat:*)",
+      "Bash(npm install:*)",
+      "Bash(git checkout:*)",
+      "Bash(dir /s /b \"D:\\OPEN SOURCE\\TF\")",
+      "Bash(./mvnw clean package:*)",
+      "Bash(mvn --version:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

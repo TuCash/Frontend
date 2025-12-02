@@ -1,13 +1,14 @@
-// ============================================
-// Notification Service
-// Gestión de notificaciones
-// ============================================
+/**
+ * Notifications Bounded Context - Infrastructure Layer
+ * Notification Repository Service
+ * Gestión de notificaciones via HTTP
+ */
 
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { Notification } from '../../../shared/models/api.types';
+import { NotificationResource, PagedResponse } from '../../presentation/resources/notification.resource';
 
 @Injectable({ providedIn: 'root' })
 export class NotificationService {
@@ -16,30 +17,46 @@ export class NotificationService {
 
   /**
    * Obtiene todas las notificaciones del usuario
+   * Backend puede devolver array o respuesta paginada
    */
-  getAll(): Observable<Notification[]> {
-    return this.http.get<Notification[]>(this.baseUrl);
+  getAll(): Observable<NotificationResource[]> {
+    return this.http.get<NotificationResource[] | PagedResponse<NotificationResource>>(this.baseUrl).pipe(
+      map((response) => {
+        if (Array.isArray(response)) {
+          return response;
+        }
+        // Handle Spring Boot paginated response
+        return response.content || [];
+      })
+    );
   }
 
   /**
    * Obtiene solo notificaciones no leídas
    */
-  getUnread(): Observable<Notification[]> {
-    return this.http.get<Notification[]>(`${this.baseUrl}/unread`);
+  getUnread(): Observable<NotificationResource[]> {
+    return this.http.get<NotificationResource[] | PagedResponse<NotificationResource>>(`${this.baseUrl}/unread`).pipe(
+      map((response) => {
+        if (Array.isArray(response)) {
+          return response;
+        }
+        return response.content || [];
+      })
+    );
   }
 
   /**
    * Obtiene una notificación por ID
    */
-  getById(id: number): Observable<Notification> {
-    return this.http.get<Notification>(`${this.baseUrl}/${id}`);
+  getById(id: number): Observable<NotificationResource> {
+    return this.http.get<NotificationResource>(`${this.baseUrl}/${id}`);
   }
 
   /**
    * Marca una notificación como leída
    */
-  markAsRead(id: number): Observable<Notification> {
-    return this.http.patch<Notification>(`${this.baseUrl}/${id}/read`, {});
+  markAsRead(id: number): Observable<NotificationResource> {
+    return this.http.patch<NotificationResource>(`${this.baseUrl}/${id}/read`, {});
   }
 
   /**

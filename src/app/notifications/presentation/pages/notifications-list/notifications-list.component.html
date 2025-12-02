@@ -1,0 +1,146 @@
+<div class="notifications-page">
+  <div class="page-header">
+    <button type="button" class="btn-back" (click)="onBack()">
+      <span class="back-icon">&larr;</span>
+    </button>
+    <div class="header-content">
+      <h1 class="page-title">{{ 'notificationsList.title' | translate }}</h1>
+      <p class="page-subtitle">{{ 'notificationsList.subtitle' | translate: { count: totalCount() } }}</p>
+    </div>
+    @if (!isLoading() && totalCount() > 0) {
+      <div class="header-actions">
+        @if (unreadCount() > 0) {
+          <button type="button" class="btn-action btn-mark-all" (click)="markAllAsRead()">
+            <span>&check;</span>
+            {{ 'notificationsList.markAllAsRead' | translate }}
+          </button>
+        }
+        @if (readCount() > 0) {
+          <button type="button" class="btn-action btn-clear" (click)="deleteAllRead()">
+            <span>&times;</span>
+            {{ 'notificationsList.clearRead' | translate }}
+          </button>
+        }
+      </div>
+    }
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>{{ 'notificationsList.loading' | translate }}</p>
+    </div>
+  } @else if (error()) {
+    <div class="error-state">
+      <span class="error-icon">&#x26A0;</span>
+      <p>{{ error() | translate }}</p>
+      <button type="button" class="btn-retry" (click)="loadNotifications()">
+        {{ 'notificationsList.retry' | translate }}
+      </button>
+    </div>
+  } @else if (totalCount() === 0) {
+    <div class="empty-state">
+      <span class="empty-icon">&#x1F514;</span>
+      <h3>{{ 'notificationsList.empty.title' | translate }}</h3>
+      <p>{{ 'notificationsList.empty.message' | translate }}</p>
+    </div>
+  } @else {
+    <!-- Filters -->
+    <div class="filters-section">
+      <button
+        type="button"
+        class="filter-btn"
+        [class.active]="currentFilter() === 'all'"
+        (click)="setFilter('all')"
+      >
+        {{ 'notificationsList.filters.all' | translate }}
+        <span class="count">{{ totalCount() }}</span>
+      </button>
+      <button
+        type="button"
+        class="filter-btn"
+        [class.active]="currentFilter() === 'unread'"
+        (click)="setFilter('unread')"
+      >
+        {{ 'notificationsList.filters.unread' | translate }}
+        <span class="count">{{ unreadCount() }}</span>
+      </button>
+      <button
+        type="button"
+        class="filter-btn"
+        [class.active]="currentFilter() === 'read'"
+        (click)="setFilter('read')"
+      >
+        {{ 'notificationsList.filters.read' | translate }}
+        <span class="count">{{ readCount() }}</span>
+      </button>
+    </div>
+
+    <!-- Grouped Notifications -->
+    @if (filteredNotifications().length === 0) {
+      <div class="empty-state">
+        <span class="empty-icon">&#x2705;</span>
+        <h3>{{ 'notificationsList.noResults.title' | translate }}</h3>
+        <p>{{ 'notificationsList.noResults.message' | translate }}</p>
+      </div>
+    } @else {
+      @for (group of groupedNotifications(); track group.date) {
+        <div class="date-separator">
+          <span>{{ group.label }}</span>
+        </div>
+        <div class="notifications-list">
+          @for (notification of group.notifications; track notification.id) {
+            <div
+              class="notification-card"
+              [class.unread]="!notification.isRead"
+              [class]="'type-' + notification.type.toString().toLowerCase()"
+              (click)="onNotificationClick(notification)"
+            >
+              <span class="notification-icon">{{ getIcon(notification.type.toString()) }}</span>
+              <div class="notification-content">
+                <h3 class="notification-title">{{ notification.title }}</h3>
+                <p class="notification-message">{{ notification.message }}</p>
+                <div class="notification-meta">
+                  <span class="notification-time">{{ formatTime(notification.createdAt) }}</span>
+                  <span class="notification-type-badge">
+                    {{ 'notifications.types.' + notification.type.toString().toLowerCase() | translate }}
+                  </span>
+                </div>
+              </div>
+              <div class="notification-actions">
+                @if (!notification.isRead) {
+                  <button
+                    type="button"
+                    class="btn-icon"
+                    (click)="markAsRead(notification); $event.stopPropagation()"
+                    [attr.aria-label]="'notificationsList.markAsRead' | translate"
+                    title="{{ 'notificationsList.markAsRead' | translate }}"
+                  >
+                    &#x2713;
+                  </button>
+                }
+                <button
+                  type="button"
+                  class="btn-icon btn-delete"
+                  (click)="deleteNotification(notification, $event)"
+                  [attr.aria-label]="'notificationsList.delete' | translate"
+                  title="{{ 'notificationsList.delete' | translate }}"
+                >
+                  &times;
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    }
+
+    @if (hasMore()) {
+      <div class="load-more-section">
+        <button type="button" class="btn-load-more" (click)="loadMore()">
+          {{ 'notificationsList.loadMore' | translate }}
+        </button>
+      </div>
+    }
+  }
+</div>

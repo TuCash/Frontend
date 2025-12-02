@@ -470,8 +470,8 @@
     },
     "types": {
       "warning": "Warning",
-      "budgetAlert": "Budget alert",
-      "goalAchieved": "Goal achieved",
+      "budget_alert": "Budget alert",
+      "goal_achieved": "Goal achieved",
       "reminder": "Reminder",
       "success": "Success",
       "error": "Error",
@@ -481,6 +481,34 @@
       "badge": "Notifications",
       "dismiss": "Mark as read",
       "close": "Close"
+    }
+  },
+  "notificationsList": {
+    "title": "Notifications",
+    "subtitle": "{{count}} notifications",
+    "loading": "Loading notifications...",
+    "retry": "Try again",
+    "markAllAsRead": "Mark as read",
+    "clearRead": "Clear read",
+    "delete": "Delete",
+    "loadMore": "Load more",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "filters": {
+      "all": "All",
+      "unread": "Unread",
+      "read": "Read"
+    },
+    "empty": {
+      "title": "No notifications",
+      "message": "You have no notifications at the moment"
+    },
+    "noResults": {
+      "title": "No results",
+      "message": "No notifications match this filter"
+    },
+    "errors": {
+      "load": "We couldn't load notifications"
     }
   },
   "common": {

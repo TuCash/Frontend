@@ -449,8 +449,8 @@
     },
     "types": {
       "warning": "Advertencia",
-      "budgetAlert": "Alerta de presupuesto",
-      "goalAchieved": "Meta alcanzada",
+      "budget_alert": "Alerta de presupuesto",
+      "goal_achieved": "Meta alcanzada",
       "reminder": "Recordatorio",
       "success": "Éxito",
       "error": "Error",
@@ -460,6 +460,34 @@
       "badge": "Notificaciones",
       "dismiss": "Marcar como leída",
       "close": "Cerrar"
+    }
+  },
+  "notificationsList": {
+    "title": "Notificaciones",
+    "subtitle": "{{count}} notificaciones",
+    "loading": "Cargando notificaciones...",
+    "retry": "Intentar de nuevo",
+    "markAllAsRead": "Marcar como leída",
+    "clearRead": "Eliminar leídas",
+    "delete": "Eliminar",
+    "loadMore": "Cargar más",
+    "today": "Hoy",
+    "yesterday": "Ayer",
+    "filters": {
+      "all": "Todas",
+      "unread": "No leídas",
+      "read": "Leídas"
+    },
+    "empty": {
+      "title": "Sin notificaciones",
+      "message": "No tienes notificaciones por el momento"
+    },
+    "noResults": {
+      "title": "Sin resultados",
+      "message": "No hay notificaciones con este filtro"
+    },
+    "errors": {
+      "load": "No pudimos cargar las notificaciones"
     }
   },
   "common": {

@@ -26,6 +26,7 @@ import { GetAllCategoriesQuery } from '../../../domain/model/queries/get-all-cat
 import { AccountResource } from '../../resources/account.resource';
 import { CategoryResource } from '../../resources/category.resource';
 import { getTodayFormatted } from '../../../../shared/utils/date.utils';
+import { NotificationPollingService } from '../../../../notifications/application/internal/queryservices/notification-polling.service';
 
 type TransactionType = 'INCOME' | 'EXPENSE' | 'TRANSFER';
 
@@ -53,6 +54,7 @@ export class TransactionFormComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly transactionCommandService = inject(TransactionCommandService);
   private readonly transactionQueryService = inject(TransactionQueryService);
+  private readonly notificationPollingService = inject(NotificationPollingService);
 
   // Modal support
   isModal = false;
@@ -264,6 +266,9 @@ export class TransactionFormComponent implements OnInit {
       .subscribe({
         next: () => {
           this.isSaving.set(false);
+
+          // Refresh notifications to catch any budget alerts triggered by this transaction
+          this.notificationPollingService.refresh();
 
           // If modal, call success callback
           if (this.isModal && this.onSuccess) {
