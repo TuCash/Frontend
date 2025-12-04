@@ -67,6 +67,7 @@ export class EditProfileComponent implements OnInit {
     this.profileForm = this.fb.group({
       displayName: [user.displayName || '', [Validators.required, Validators.minLength(2)]],
       email: [{ value: user.email || '', disabled: true }], // Email no editable
+      photoUrl: [user.photoUrl || ''],
       currency: [user.currency || 'PEN', [Validators.required]],
     });
   }
@@ -114,7 +115,7 @@ export class EditProfileComponent implements OnInit {
     const command = new UpdateUserCommand(
       this.userResource.id,
       this.profileForm.value.displayName,
-      undefined, // photoUrl
+      this.profileForm.value.photoUrl || undefined,
       this.profileForm.value.currency,
       undefined, // theme
       undefined  // locale
@@ -127,6 +128,8 @@ export class EditProfileComponent implements OnInit {
         // Update localStorage with new user data
         const authData = JSON.parse(localStorage.getItem('auth_user') || '{}');
         authData.displayName = updatedUser.displayName;
+        authData.photoUrl = updatedUser.photoUrl;
+        authData.currency = updatedUser.currency;
         localStorage.setItem('auth_user', JSON.stringify(authData));
 
         this.isSaving.set(false);

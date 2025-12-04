@@ -1,7 +1,11 @@
 <div class="profile-page">
   <div class="profile-header">
     <div class="profile-avatar">
-      <span class="avatar-icon">👤</span>
+      @if (user && user.photoUrl) {
+        <img [src]="user.photoUrl" alt="Profile" class="avatar-image" />
+      } @else {
+        <span class="avatar-icon">👤</span>
+      }
     </div>
     <h1 class="profile-name">{{ user?.displayName || 'Usuario' }}</h1>
     <p class="profile-email">{{ user?.email }}</p>

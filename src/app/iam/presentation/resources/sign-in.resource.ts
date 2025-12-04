@@ -13,4 +13,6 @@ export interface SignInResponse {
   email: string;
   displayName: string;
   token: string;
+  photoUrl?: string;
+  currency?: string;
 }

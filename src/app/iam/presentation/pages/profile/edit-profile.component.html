@@ -35,9 +35,24 @@
     <!-- Avatar Section -->
     <div class="avatar-section">
       <div class="avatar-preview">
-        <span class="avatar-icon">👤</span>
+        @if (profileForm.get('photoUrl')?.value) {
+          <img [src]="profileForm.get('photoUrl')?.value" alt="Profile" class="avatar-image" />
+        } @else {
+          <span class="avatar-icon">👤</span>
+        }
       </div>
-      <p class="avatar-hint">{{ 'profile.edit.avatarHint' | translate }}</p>
+      <!-- Photo URL Input -->
+      <div class="photo-url-group">
+        <label for="photoUrl" class="form-label-small">{{ 'profile.edit.photoUrl' | translate }}</label>
+        <input
+          id="photoUrl"
+          type="url"
+          formControlName="photoUrl"
+          class="form-input form-input-small"
+          [placeholder]="'profile.edit.photoUrlPlaceholder' | translate"
+        />
+        <span class="form-hint">{{ 'profile.edit.photoUrlHint' | translate }}</span>
+      </div>
     </div>
 
     <!-- Display Name -->
@@ -84,12 +99,9 @@
         class="form-select"
         [class.error]="isFieldInvalid('currency')"
       >
-        <option value="PEN">🇵🇪 Soles (PEN)</option>
-        <option value="USD">🇺🇸 Dólares (USD)</option>
-        <option value="EUR">🇪🇺 Euros (EUR)</option>
-        <option value="MXN">🇲🇽 Pesos Mexicanos (MXN)</option>
-        <option value="COP">🇨🇴 Pesos Colombianos (COP)</option>
-        <option value="ARS">🇦🇷 Pesos Argentinos (ARS)</option>
+        <option value="PEN">🇵🇪 Sol Peruano (S/)</option>
+        <option value="USD">🇺🇸 Dólar Estadounidense ($)</option>
+        <option value="EUR">🇪🇺 Euro (€)</option>
       </select>
       @if (getFieldError('currency'); as error) {
         <span class="error-text">{{ error | translate }}</span>
