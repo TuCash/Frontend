@@ -579,9 +579,19 @@
       "errors": {
         "required": "This field is required",
         "minLength": "Name must be at least 3 characters",
-        "save": "We couldn't save the account. Please try again."
+        "save": "We couldn't save the account. Please try again.",
+        "load": "We couldn't load the account. Please try again.",
+        "notFound": "Account not found"
       }
     }
+  },
+  "accountDetail": {
+    "balance": "Available balance",
+    "summary": "Summary",
+    "income": "Income",
+    "expenses": "Expenses",
+    "transactions": "Transactions",
+    "emptyTransactions": "No transactions in this account"
   },
   "transactions": {
     "title": "Transactions",

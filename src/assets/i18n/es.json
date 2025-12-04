@@ -558,9 +558,19 @@
       "errors": {
         "required": "Este campo es requerido",
         "minLength": "El nombre debe tener al menos 3 caracteres",
-        "save": "No pudimos guardar la cuenta. Inténtalo nuevamente."
+        "save": "No pudimos guardar la cuenta. Inténtalo nuevamente.",
+        "load": "No pudimos cargar la cuenta. Inténtalo nuevamente.",
+        "notFound": "Cuenta no encontrada"
       }
     }
+  },
+  "accountDetail": {
+    "balance": "Saldo disponible",
+    "summary": "Resumen",
+    "income": "Ingresos",
+    "expenses": "Egresos",
+    "transactions": "Transacciones",
+    "emptyTransactions": "No hay transacciones en esta cuenta"
   },
   "transactions": {
     "title": "Transacciones",

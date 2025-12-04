@@ -11,23 +11,28 @@
     </button>
   </div>
 } @else {
-  <!-- Balance Total -->
-  <section class="balance-section card">
+  <!-- Balances por Moneda -->
+  <section class="balance-section">
     <h2 class="section-title">{{ 'home.balance.title' | translate }}</h2>
-    <div class="balance-grid">
-      <div class="balance-item balance-total">
-        <span class="balance-label">{{ 'home.balance.total' | translate }}</span>
-        <span class="balance-amount">{{ currency() }}{{ totalAccountBalance() | number:'1.2-2' }}</span>
+    @if (balancesByCurrency().length === 0) {
+      <div class="balance-card card">
+        <div class="balance-item balance-total">
+          <span class="balance-label">{{ 'home.balance.total' | translate }}</span>
+          <span class="balance-amount">S/0.00</span>
+        </div>
       </div>
-      <div class="balance-item balance-income">
-        <span class="balance-label">{{ 'home.balance.income' | translate }}</span>
-        <span class="balance-amount">+{{ currency() }}{{ totalIncome() | number:'1.2-2' }}</span>
+    } @else {
+      <div class="balance-cards-grid">
+        @for (balance of balancesByCurrency(); track balance.currency) {
+          <div class="balance-card card">
+            <div class="balance-currency-header">
+              <span class="balance-currency-tag">{{ balance.currency }}</span>
+            </div>
+            <div class="balance-amount-large">{{ balance.symbol }}{{ balance.total | number:'1.2-2' }}</div>
+          </div>
+        }
       </div>
-      <div class="balance-item balance-expense">
-        <span class="balance-label">{{ 'home.balance.expenses' | translate }}</span>
-        <span class="balance-amount">-{{ currency() }}{{ totalExpenses() | number:'1.2-2' }}</span>
-      </div>
-    </div>
+    }
   </section>
 
   <!-- Cuentas -->
@@ -41,15 +46,16 @@
     } @else {
       <div class="accounts-grid">
         @for (account of accounts(); track account.id) {
-          <div class="account-card card">
+          <button type="button" class="account-card card" (click)="navigateToAccount(account.id)">
             <div class="account-header">
               <span class="account-icon">💳</span>
               <span class="account-name">{{ account.name }}</span>
+              <span class="account-currency-badge">{{ account.currency }}</span>
             </div>
             <div class="account-balance">
-              <span class="account-amount">{{ currency() }}{{ account.balance | number:'1.2-2' }}</span>
+              <span class="account-amount">{{ getCurrencySymbol(account.currency) }}{{ account.balance | number:'1.2-2' }}</span>
             </div>
-          </div>
+          </button>
         }
       </div>
     }
@@ -128,7 +134,7 @@
               <div class="transaction-header">
                 <span class="transaction-category">{{ transaction.categoryName }}</span>
                 <span class="transaction-amount" [class]="getTransactionClass(transaction.type)">
-                  {{ transaction.type === 'INCOME' ? '+' : '-' }}{{ currency() }}{{ transaction.amount | number:'1.2-2' }}
+                  {{ transaction.type === 'INCOME' ? '+' : '-' }}{{ getTransactionCurrency(transaction.accountId) }}{{ transaction.amount | number:'1.2-2' }}
                 </span>
               </div>
               <div class="transaction-meta">

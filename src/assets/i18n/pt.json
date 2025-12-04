@@ -575,9 +575,19 @@
       "errors": {
         "required": "Este campo é obrigatório",
         "minLength": "O nome deve ter pelo menos 3 caracteres",
-        "save": "Não foi possível salvar a conta. Tente novamente."
+        "save": "Não foi possível salvar a conta. Tente novamente.",
+        "load": "Não foi possível carregar a conta. Tente novamente.",
+        "notFound": "Conta não encontrada"
       }
     }
+  },
+  "accountDetail": {
+    "balance": "Saldo disponível",
+    "summary": "Resumo",
+    "income": "Receitas",
+    "expenses": "Despesas",
+    "transactions": "Transações",
+    "emptyTransactions": "Não há transações nesta conta"
   },
   "transactions": {
     "title": "Transações",

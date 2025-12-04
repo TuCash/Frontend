@@ -1,0 +1,129 @@
+<!-- Header -->
+<header class="detail-header">
+  <button type="button" class="btn-back" (click)="goBack()">
+    <span class="back-icon">←</span>
+    <span>{{ 'common.back' | translate }}</span>
+  </button>
+</header>
+
+@if (isLoading()) {
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>{{ 'common.loading' | translate }}</p>
+  </div>
+} @else if (loadError()) {
+  <div class="error-state">
+    <p>{{ loadError() | translate }}</p>
+    <button type="button" class="btn-retry" (click)="reload()">
+      {{ 'home.tryAgain' | translate }}
+    </button>
+  </div>
+} @else if (account()) {
+  <!-- Account Info Card -->
+  <section class="account-info card">
+    <div class="account-header-detail">
+      <div class="account-icon-large">💳</div>
+      <div class="account-details">
+        <h1 class="account-name">{{ account()!.name }}</h1>
+        <span class="account-currency-tag">{{ account()!.currency }}</span>
+      </div>
+    </div>
+    <div class="account-balance-large">
+      <span class="balance-label">{{ 'accountDetail.balance' | translate }}</span>
+      <span class="balance-amount">{{ currencySymbol() }}{{ account()!.balance | number:'1.2-2' }}</span>
+    </div>
+  </section>
+
+  <!-- Summary Section -->
+  <section class="summary-section card">
+    <h2 class="section-title">{{ 'accountDetail.summary' | translate }}</h2>
+    <div class="summary-grid">
+      <div class="summary-item summary-income">
+        <span class="summary-label">{{ 'accountDetail.income' | translate }}</span>
+        <span class="summary-amount">+{{ currencySymbol() }}{{ totalIncome() | number:'1.2-2' }}</span>
+      </div>
+      <div class="summary-item summary-expense">
+        <span class="summary-label">{{ 'accountDetail.expenses' | translate }}</span>
+        <span class="summary-amount">-{{ currencySymbol() }}{{ totalExpenses() | number:'1.2-2' }}</span>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    @if (totalIncome() > 0 || totalExpenses() > 0) {
+      <div class="chart-container">
+        <div class="chart-bar">
+          <div class="bar-income" [style.width.%]="chartData().incomePercent"></div>
+          <div class="bar-expense" [style.width.%]="chartData().expensesPercent"></div>
+        </div>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <span class="legend-color legend-income"></span>
+            <span class="legend-percent">{{ chartData().incomePercent }}%</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color legend-expense"></span>
+            <span class="legend-percent">{{ chartData().expensesPercent }}%</span>
+          </div>
+        </div>
+      </div>
+    }
+  </section>
+
+  <!-- Transactions List -->
+  <section class="transactions-section">
+    <h2 class="section-title">{{ 'accountDetail.transactions' | translate }}</h2>
+
+    @if (transactions().length === 0) {
+      <div class="empty-state card">
+        <div class="empty-icon">📋</div>
+        <p class="empty-text">{{ 'accountDetail.emptyTransactions' | translate }}</p>
+      </div>
+    } @else {
+      <div class="transactions-list">
+        @for (group of visibleGroups(); track group.date) {
+          <div class="transaction-group">
+            <div class="group-header">
+              <span class="group-date">{{ group.dateLabel }}</span>
+              <div class="group-summary">
+                @if (group.totalIncome > 0) {
+                  <span class="group-income">+{{ currencySymbol() }}{{ group.totalIncome | number:'1.2-2' }}</span>
+                }
+                @if (group.totalExpenses > 0) {
+                  <span class="group-expense">-{{ currencySymbol() }}{{ group.totalExpenses | number:'1.2-2' }}</span>
+                }
+              </div>
+            </div>
+
+            @for (tx of group.transactions; track tx.id) {
+              <div class="transaction-card card">
+                <div class="transaction-icon" [class.income]="tx.type === 'INCOME'" [class.expense]="tx.type === 'EXPENSE'">
+                  {{ getTransactionIcon(tx.type) }}
+                </div>
+                <div class="transaction-details">
+                  <div class="transaction-main">
+                    <span class="transaction-category">{{ tx.categoryName }}</span>
+                    <span class="transaction-amount" [class.income]="tx.type === 'INCOME'" [class.expense]="tx.type === 'EXPENSE'">
+                      {{ formatAmount(tx.amount, tx.type) }}
+                    </span>
+                  </div>
+                  <div class="transaction-meta">
+                    @if (tx.description) {
+                      <span class="transaction-description">{{ tx.description }}</span>
+                    }
+                    <span class="transaction-time">{{ formatTime(tx.transactionDate) }}</span>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        }
+
+        @if (hasMore()) {
+          <button type="button" class="btn-load-more" (click)="loadMore()">
+            {{ 'transactions.loadMore' | translate }}
+          </button>
+        }
+      </div>
+    }
+  </section>
+}

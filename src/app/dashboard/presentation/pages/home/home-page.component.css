@@ -56,7 +56,44 @@
 /* Balance Section */
 .balance-section {
   margin-bottom: 1.5rem;
-  padding: 1.5rem;
+}
+
+.balance-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.balance-card {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.balance-currency-header {
+  display: flex;
+  align-items: center;
+}
+
+.balance-currency-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #2ab27b 0%, #1d9967 100%);
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.balance-amount-large {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2ab27b;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .balance-grid {
@@ -112,33 +149,77 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  cursor: pointer;
+  border: none;
+  text-align: left;
+  width: 100%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+}
+
+.account-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(42, 178, 123, 0.15);
+}
+
+.account-card:active {
+  transform: translateY(0);
 }
 
 .account-header {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  min-width: 0;
 }
 
 .account-icon {
   font-size: 1.5rem;
+  flex-shrink: 0;
 }
 
 .account-name {
   font-size: 0.95rem;
   font-weight: 600;
   color: #1d2a3a;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.account-currency-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  flex-shrink: 0;
 }
 
 .account-balance {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .account-amount {
   font-size: 1.25rem;
   font-weight: 700;
   color: #2ab27b;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* For very large numbers, reduce font size */
+@media (max-width: 480px) {
+  .account-amount {
+    font-size: 1.1rem;
+  }
 }
 
 /* Empty State */

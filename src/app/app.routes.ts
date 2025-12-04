@@ -38,6 +38,16 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
 
+  // Accounts (part of Transactions BC)
+  {
+    path: 'accounts/:id',
+    loadComponent: () =>
+      import('./transactions/presentation/pages/account-detail/account-detail.component').then(
+        (m) => m.AccountDetailComponent
+      ),
+    canActivate: [authGuard],
+  },
+
   // Savings Bounded Context
   {
     path: 'savings',

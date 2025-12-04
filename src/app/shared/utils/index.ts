@@ -5,3 +5,4 @@
 
 export * from './date.utils';
 export * from './error.handler';
+export * from './currency.utils';

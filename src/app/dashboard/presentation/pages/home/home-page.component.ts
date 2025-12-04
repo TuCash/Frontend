@@ -23,6 +23,7 @@ import { GetAllAccountsQuery } from '../../../../transactions/domain/model/queri
 import { GetAllTransactionsQuery } from '../../../../transactions/domain/model/queries/get-all-transactions.query';
 
 import { formatDateForAPI, getFirstDayOfMonth, getTodayFormatted, getFirstDayOfMonthsAgo } from '../../../../shared/utils/date.utils';
+import { getCurrencySymbol } from '../../../../shared/utils/currency.utils';
 import { AccountResource } from '../../../../transactions/presentation/resources/account.resource';
 import { TransactionResource } from '../../../../transactions/presentation/resources/transaction.resource';
 import { DashboardPulseResource, CategoryLeakResource } from '../../../presentation/resources/dashboard.resource';
@@ -69,6 +70,31 @@ export class HomePageComponent implements OnInit, OnDestroy {
   readonly totalAccountBalance = computed(() =>
     this.accounts().reduce((sum, acc) => sum + acc.balance, 0)
   );
+
+  // Balances grouped by currency
+  readonly balancesByCurrency = computed(() => {
+    const accounts = this.accounts();
+    const grouped = new Map<string, { currency: string; symbol: string; total: number }>();
+
+    accounts.forEach(acc => {
+      const currency = acc.currency || 'PEN';
+      if (!grouped.has(currency)) {
+        grouped.set(currency, {
+          currency,
+          symbol: getCurrencySymbol(currency),
+          total: 0
+        });
+      }
+      grouped.get(currency)!.total += acc.balance;
+    });
+
+    // Sort by currency code (PEN first, then alphabetically)
+    return Array.from(grouped.values()).sort((a, b) => {
+      if (a.currency === 'PEN') return -1;
+      if (b.currency === 'PEN') return 1;
+      return a.currency.localeCompare(b.currency);
+    });
+  });
 
   // Chart data
   readonly chartData = computed(() => {
@@ -377,5 +403,27 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   getTransactionClass(type: string): string {
     return type === 'INCOME' ? 'transaction-income' : 'transaction-expense';
+  }
+
+  /**
+   * Get currency symbol for a given currency code
+   */
+  getCurrencySymbol(currencyCode: string): string {
+    return getCurrencySymbol(currencyCode);
+  }
+
+  /**
+   * Get currency symbol for a transaction based on its account
+   */
+  getTransactionCurrency(accountId: number): string {
+    const account = this.accounts().find(a => a.id === accountId);
+    return getCurrencySymbol(account?.currency || 'PEN');
+  }
+
+  /**
+   * Navigate to account detail page
+   */
+  navigateToAccount(accountId: number): void {
+    this.router.navigate(['/accounts', accountId]);
   }
 }

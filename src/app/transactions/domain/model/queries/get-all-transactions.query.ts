@@ -10,6 +10,7 @@ export class GetAllTransactionsQuery {
     public fromDate?: string,
     public toDate?: string,
     public page: number = 0,
-    public size: number = 20
+    public size: number = 20,
+    public accountId?: number
   ) {}
 }

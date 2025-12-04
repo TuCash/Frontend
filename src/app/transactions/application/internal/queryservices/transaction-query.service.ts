@@ -81,6 +81,7 @@ export class TransactionQueryService {
 
     if (query.type) params = params.set('type', query.type);
     if (query.categoryId) params = params.set('categoryId', query.categoryId.toString());
+    if (query.accountId) params = params.set('accountId', query.accountId.toString());
     if (query.fromDate) params = params.set('fromDate', query.fromDate);
     if (query.toDate) params = params.set('toDate', query.toDate);
     params = params.set('page', query.page.toString());
