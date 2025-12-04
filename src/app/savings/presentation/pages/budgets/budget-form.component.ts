@@ -5,7 +5,7 @@
 
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SavingsCommandService } from '../../../application/internal/commandservices/savings-command.service';
@@ -13,7 +13,7 @@ import { TransactionQueryService } from '../../../../transactions/application/in
 import { CreateBudgetCommand } from '../../../domain/model/commands/create-budget.command';
 import { GetAllCategoriesQuery } from '../../../../transactions/domain/model/queries/get-all-categories.query';
 import { CategoryResource } from '../../../../transactions/presentation/resources/category.resource';
-import { getTodayFormatted, getFirstDayOfMonth, getLastDayOfMonth } from '../../../../shared/utils/date.utils';
+import { getTodayFormatted, getTomorrowFormatted, getFirstDayOfMonth, getLastDayOfMonth } from '../../../../shared/utils/date.utils';
 
 @Component({
   selector: 'app-budget-form',
@@ -40,6 +40,10 @@ export class BudgetFormComponent implements OnInit {
   readonly categories = signal<CategoryResource[]>([]);
   readonly selectedPeriod = signal<string>('MONTHLY');
 
+  // Minimum dates for validation
+  readonly minStartDate = getTodayFormatted();
+  readonly minEndDate = getTomorrowFormatted();
+
   budgetForm!: FormGroup;
 
   readonly periods = [
@@ -58,8 +62,8 @@ export class BudgetFormComponent implements OnInit {
       categoryId: [null, Validators.required],
       limitAmount: [null, [Validators.required, Validators.min(0.01)]],
       period: ['MONTHLY', Validators.required],
-      startDate: [getFirstDayOfMonth(), Validators.required],
-      endDate: [getLastDayOfMonth(), Validators.required],
+      startDate: [getTodayFormatted(), [Validators.required, this.minDateValidator()]],
+      endDate: [getLastDayOfMonth(), [Validators.required, this.minDateValidator(), this.endDateValidator()]],
     });
 
     // Listen to period changes to update dates
@@ -67,6 +71,45 @@ export class BudgetFormComponent implements OnInit {
       this.selectedPeriod.set(period);
       this.updateDatesByPeriod(period);
     });
+
+    // Revalidate endDate when startDate changes
+    this.budgetForm.get('startDate')?.valueChanges.subscribe(() => {
+      this.budgetForm.get('endDate')?.updateValueAndValidity();
+    });
+  }
+
+  /**
+   * Validator to ensure date is not in the past
+   */
+  private minDateValidator() {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) return null;
+
+      const selectedDate = control.value;
+      const today = getTodayFormatted();
+
+      if (selectedDate < today) {
+        return { minDate: true };
+      }
+      return null;
+    };
+  }
+
+  /**
+   * Validator to ensure end date is after start date
+   */
+  private endDateValidator() {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value || !this.budgetForm) return null;
+
+      const endDate = control.value;
+      const startDate = this.budgetForm.get('startDate')?.value;
+
+      if (startDate && endDate <= startDate) {
+        return { endDateBeforeStart: true };
+      }
+      return null;
+    };
   }
 
   private updateDatesByPeriod(period: string): void {
@@ -175,6 +218,12 @@ export class BudgetFormComponent implements OnInit {
       }
       if (field.errors?.['min']) {
         return 'budgets.form.errors.minAmount';
+      }
+      if (field.errors?.['minDate']) {
+        return 'budgets.form.errors.minDate';
+      }
+      if (field.errors?.['endDateBeforeStart']) {
+        return 'budgets.form.errors.endDateBeforeStart';
       }
     }
     return null;

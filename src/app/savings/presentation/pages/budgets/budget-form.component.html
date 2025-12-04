@@ -77,7 +77,7 @@
         </div>
       </div>
 
-      <!-- Date Range -->
+        <!-- Date Range -->
       <div class="date-range-group">
         <div class="form-group">
           <label for="startDate" class="form-label">{{ 'budgets.form.startDate' | translate }} *</label>
@@ -87,6 +87,7 @@
             formControlName="startDate"
             class="form-input"
             [class.error]="isFieldInvalid('startDate')"
+            [min]="minStartDate"
           />
           @if (getFieldError('startDate'); as error) {
             <span class="error-message">{{ error | translate }}</span>
@@ -101,12 +102,14 @@
             formControlName="endDate"
             class="form-input"
             [class.error]="isFieldInvalid('endDate')"
+            [min]="minEndDate"
           />
           @if (getFieldError('endDate'); as error) {
             <span class="error-message">{{ error | translate }}</span>
           }
         </div>
       </div>
+      <span class="form-hint date-hint">{{ 'budgets.form.dateHint' | translate }}</span>
 
       <!-- Error de guardado -->
       @if (saveError()) {

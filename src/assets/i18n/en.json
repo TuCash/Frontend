@@ -223,12 +223,14 @@
       "descriptionPlaceholder": "Details about your goal...",
       "targetAmount": "Target amount",
       "deadline": "Deadline",
+      "deadlineHint": "Date must be after today",
       "cancel": "Cancel",
       "save": "Save goal",
       "saving": "Saving…",
       "errors": {
         "required": "This field is required",
         "minAmount": "Amount must be greater than 0",
+        "minDate": "Deadline must be in the future",
         "save": "We couldn't save the goal. Please try again."
       }
     },
@@ -288,12 +290,15 @@
       "period": "Period",
       "startDate": "Start date",
       "endDate": "End date",
+      "dateHint": "Dates must be from today onwards",
       "cancel": "Cancel",
       "save": "Save budget",
       "saving": "Saving…",
       "errors": {
         "required": "This field is required",
         "minAmount": "Amount must be greater than 0",
+        "minDate": "Date cannot be in the past",
+        "endDateBeforeStart": "End date must be after start date",
         "loadCategories": "We couldn't load categories",
         "save": "We couldn't save the budget. Please try again."
       }

@@ -5,14 +5,14 @@
 
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SavingsCommandService } from '../../../application/internal/commandservices/savings-command.service';
 import { SavingsQueryService } from '../../../application/internal/queryservices/savings-query.service';
 import { CreateGoalCommand } from '../../../domain/model/commands/create-goal.command';
 import { UpdateGoalCommand } from '../../../domain/model/commands/update-goal.command';
-import { getTodayFormatted } from '../../../../shared/utils/date.utils';
+import { getTodayFormatted, getTomorrowFormatted } from '../../../../shared/utils/date.utils';
 
 @Component({
   selector: 'app-goal-form',
@@ -37,9 +37,12 @@ export class GoalFormComponent implements OnInit {
   readonly isSaving = signal(false);
   readonly loadError = signal('');
   readonly saveError = signal('');
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  readonly isEditMode = signal(false);
+  readonly isEditMode = signal(false);
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  goalForm!: FormGroup;
+  // Minimum date for deadline (tomorrow)
+  readonly minDate = getTomorrowFormatted();
+
+  goalForm!: FormGroup;
 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ngOnInit(): void {
     this.initForm();
@@ -58,8 +61,25 @@ export class GoalFormComponent implements OnInit {
       description: [''],
       targetAmount: [null, [Validators.required, Validators.min(0.01)]],
       currentAmount: [0],
-      deadline: [getTodayFormatted(), Validators.required],
+      deadline: [this.minDate, [Validators.required, this.minDateValidator()]],
     });
+  }
+
+  /**
+   * Custom validator to ensure deadline is not in the past
+   */
+  private minDateValidator() {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) return null;
+
+      const selectedDate = control.value;
+      const today = getTodayFormatted();
+
+      if (selectedDate <= today) {
+        return { minDate: true };
+      }
+      return null;
+    };
   }
 
   private loadGoal(id: number): void {
@@ -180,6 +200,9 @@ export class GoalFormComponent implements OnInit {
       }
       if (field.errors?.['minlength']) {
         return 'goals.form.errors.required';
+      }
+      if (field.errors?.['minDate']) {
+        return 'goals.form.errors.minDate';
       }
     }
     return null;

@@ -33,6 +33,16 @@ export function getTodayFormatted(): string {
 }
 
 /**
+ * Obtiene la fecha de mañana en formato yyyy-MM-dd
+ * @returns String con la fecha de mañana
+ */
+export function getTomorrowFormatted(): string {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  return formatDateForAPI(tomorrow);
+}
+
+/**
  * Obtiene el primer día del mes actual en formato yyyy-MM-dd
  * @returns String con el primer día del mes
  */

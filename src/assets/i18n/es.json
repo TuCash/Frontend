@@ -202,12 +202,14 @@
       "descriptionPlaceholder": "Detalles de tu meta...",
       "targetAmount": "Monto objetivo",
       "deadline": "Fecha límite",
+      "deadlineHint": "La fecha debe ser posterior a hoy",
       "cancel": "Cancelar",
       "save": "Guardar meta",
       "saving": "Guardando…",
       "errors": {
         "required": "Este campo es requerido",
         "minAmount": "El monto debe ser mayor a 0",
+        "minDate": "La fecha límite debe ser en el futuro",
         "save": "No pudimos guardar la meta. Inténtalo nuevamente."
       }
     },
@@ -267,12 +269,15 @@
       "period": "Período",
       "startDate": "Fecha inicio",
       "endDate": "Fecha fin",
+      "dateHint": "Las fechas deben ser de hoy en adelante",
       "cancel": "Cancelar",
       "save": "Guardar presupuesto",
       "saving": "Guardando…",
       "errors": {
         "required": "Este campo es requerido",
         "minAmount": "El monto debe ser mayor a 0",
+        "minDate": "La fecha no puede ser en el pasado",
+        "endDateBeforeStart": "La fecha fin debe ser posterior a la fecha inicio",
         "loadCategories": "No pudimos cargar las categorías",
         "save": "No pudimos guardar el presupuesto. Inténtalo nuevamente."
       }

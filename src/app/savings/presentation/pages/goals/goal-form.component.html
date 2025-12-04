@@ -100,7 +100,9 @@
           formControlName="deadline"
           class="form-input"
           [class.error]="isFieldInvalid('deadline')"
+          [min]="minDate"
         />
+        <span class="form-hint">{{ 'goals.form.deadlineHint' | translate }}</span>
         @if (getFieldError('deadline'); as error) {
           <span class="error-message">{{ error | translate }}</span>
         }

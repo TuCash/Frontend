@@ -196,12 +196,14 @@
       "descriptionPlaceholder": "Detalhes sobre sua meta...",
       "targetAmount": "Valor objetivo",
       "deadline": "Data limite",
+      "deadlineHint": "A data deve ser posterior a hoje",
       "cancel": "Cancelar",
       "save": "Salvar meta",
       "saving": "Salvando…",
       "errors": {
         "required": "Este campo é obrigatório",
         "minAmount": "O valor deve ser maior que 0",
+        "minDate": "A data limite deve ser no futuro",
         "save": "Não foi possível salvar a meta. Tente novamente."
       }
     },
@@ -261,12 +263,15 @@
       "period": "Período",
       "startDate": "Data início",
       "endDate": "Data fim",
+      "dateHint": "As datas devem ser de hoje em diante",
       "cancel": "Cancelar",
       "save": "Salvar orçamento",
       "saving": "Salvando…",
       "errors": {
         "required": "Este campo é obrigatório",
         "minAmount": "O valor deve ser maior que 0",
+        "minDate": "A data não pode ser no passado",
+        "endDateBeforeStart": "A data fim deve ser posterior à data início",
         "loadCategories": "Não foi possível carregar as categorias",
         "save": "Não foi possível salvar o orçamento. Tente novamente."
       }
