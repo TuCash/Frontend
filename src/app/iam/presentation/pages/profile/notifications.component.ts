@@ -30,13 +30,10 @@ export class NotificationsComponent implements OnInit {
   readonly saveSuccess = signal(false);
   readonly loadError = signal('');
 
-  // Notification settings
+  // Notification settings (supported by backend)
   readonly notificationsEnabled = signal(true);
   readonly emailNotifications = signal(true);
   readonly pushNotifications = signal(false);
-  readonly budgetAlerts = signal(true);
-  readonly goalAlerts = signal(true);
-  readonly transactionAlerts = signal(false);
 
   userId?: number;
 
@@ -56,19 +53,17 @@ export class NotificationsComponent implements OnInit {
 
     this.iamQueryService.handle(new GetUserByIdQuery(authUser.id)).subscribe({
       next: (user) => {
-        console.log('✅ User preferences loaded:', user);
+        console.log('User preferences loaded:', user);
 
         // Set notification preferences from user data
-        // Note: These fields might not exist in UserResource yet
-        // For now, we'll use default values
-        this.notificationsEnabled.set(true);
-        this.emailNotifications.set(true);
-        this.pushNotifications.set(false);
+        this.notificationsEnabled.set(user.notificationsEnabled ?? true);
+        this.emailNotifications.set(user.emailNotifications ?? true);
+        this.pushNotifications.set(user.pushNotifications ?? false);
 
         this.isLoading.set(false);
       },
       error: (error) => {
-        console.error('❌ Error loading preferences:', error);
+        console.error('Error loading preferences:', error);
         this.loadError.set('profile.notifications.errors.load');
         this.isLoading.set(false);
       },
@@ -85,15 +80,6 @@ export class NotificationsComponent implements OnInit {
         break;
       case 'push':
         this.pushNotifications.update((v) => !v);
-        break;
-      case 'budget':
-        this.budgetAlerts.update((v) => !v);
-        break;
-      case 'goal':
-        this.goalAlerts.update((v) => !v);
-        break;
-      case 'transaction':
-        this.transactionAlerts.update((v) => !v);
         break;
     }
 
@@ -123,7 +109,7 @@ export class NotificationsComponent implements OnInit {
 
     this.iamCommandService.handleUpdatePreferences(command).subscribe({
       next: () => {
-        console.log('✅ Preferences updated');
+        console.log('Preferences updated');
         this.isSaving.set(false);
         this.saveSuccess.set(true);
 
@@ -133,7 +119,7 @@ export class NotificationsComponent implements OnInit {
         }, 2000);
       },
       error: (error) => {
-        console.error('❌ Error updating preferences:', error);
+        console.error('Error updating preferences:', error);
         this.saveError.set('profile.notifications.errors.save');
         this.isSaving.set(false);
       },

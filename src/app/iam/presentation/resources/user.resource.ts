@@ -11,6 +11,9 @@ export interface UserResource {
   currency: string;
   theme: string;
   locale: string;
+  notificationsEnabled: boolean;
+  emailNotifications: boolean;
+  pushNotifications: boolean;
   createdAt: string;
   updatedAt: string;
 }

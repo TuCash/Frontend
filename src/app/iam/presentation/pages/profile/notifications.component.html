@@ -95,68 +95,6 @@
           </button>
         </div>
       </section>
-
-      <!-- Alert Types -->
-      <section class="settings-section">
-        <h2 class="section-title">{{ 'profile.notifications.alerts.title' | translate }}</h2>
-
-        <div class="setting-item">
-          <div class="setting-info">
-            <h3 class="setting-label">
-              <span class="setting-icon">💰</span>
-              {{ 'profile.notifications.alerts.budget' | translate }}
-            </h3>
-            <p class="setting-description">{{ 'profile.notifications.alerts.budgetDesc' | translate }}</p>
-          </div>
-          <button
-            type="button"
-            class="toggle-switch"
-            [class.active]="budgetAlerts()"
-            (click)="toggleNotification('budget')"
-            [disabled]="isSaving() || !notificationsEnabled()"
-          >
-            <span class="toggle-slider"></span>
-          </button>
-        </div>
-
-        <div class="setting-item">
-          <div class="setting-info">
-            <h3 class="setting-label">
-              <span class="setting-icon">🎯</span>
-              {{ 'profile.notifications.alerts.goal' | translate }}
-            </h3>
-            <p class="setting-description">{{ 'profile.notifications.alerts.goalDesc' | translate }}</p>
-          </div>
-          <button
-            type="button"
-            class="toggle-switch"
-            [class.active]="goalAlerts()"
-            (click)="toggleNotification('goal')"
-            [disabled]="isSaving() || !notificationsEnabled()"
-          >
-            <span class="toggle-slider"></span>
-          </button>
-        </div>
-
-        <div class="setting-item">
-          <div class="setting-info">
-            <h3 class="setting-label">
-              <span class="setting-icon">💳</span>
-              {{ 'profile.notifications.alerts.transaction' | translate }}
-            </h3>
-            <p class="setting-description">{{ 'profile.notifications.alerts.transactionDesc' | translate }}</p>
-          </div>
-          <button
-            type="button"
-            class="toggle-switch"
-            [class.active]="transactionAlerts()"
-            (click)="toggleNotification('transaction')"
-            [disabled]="isSaving() || !notificationsEnabled()"
-          >
-            <span class="toggle-slider"></span>
-          </button>
-        </div>
-      </section>
     </div>
   }
 </div>
