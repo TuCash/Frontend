@@ -508,6 +508,138 @@
     }
   },
   "common": {
-    "comingSoon": "Esta se\u00E7\u00E3o estar\u00E1 dispon\u00EDvel em breve."
+    "comingSoon": "Esta seção estará disponível em breve.",
+    "back": "Voltar",
+    "saving": "Salvando...",
+    "loading": "Carregando..."
+  },
+  "onboarding": {
+    "optional": "Opcional",
+    "steps": {
+      "welcome": "Boas-vindas",
+      "account": "Conta",
+      "transaction": "Transação",
+      "summary": "Pronto"
+    },
+    "welcome": {
+      "title": "Bem-vindo ao TuCash, {{name}}!",
+      "subtitle": "Seu assistente financeiro pessoal",
+      "feature1": "Gerencie todas as suas contas em um só lugar",
+      "feature2": "Registre receitas e despesas facilmente",
+      "feature3": "Defina metas de economia",
+      "feature4": "Controle seus orçamentos por categoria",
+      "cta": "Começar"
+    },
+    "account": {
+      "title": "Crie sua primeira conta",
+      "subtitle": "Adicione uma conta bancária, carteira ou dinheiro"
+    },
+    "transaction": {
+      "title": "Registre sua primeira transação",
+      "subtitle": "Comece a controlar suas finanças",
+      "skip": "Pular esta etapa",
+      "skipHint": "Você pode fazer isso depois pelo botão +",
+      "noCategories": "Pressione + para criar sua primeira categoria"
+    },
+    "summary": {
+      "title": "Tudo pronto!",
+      "subtitle": "Agora você pode começar a usar o TuCash",
+      "accountCreated": "Conta criada:",
+      "transactionCreated": "Primeira transação registrada",
+      "transactionSkipped": "Transação pulada (você pode fazer depois)",
+      "suggestionsTitle": "O que você pode fazer agora?",
+      "suggestion1": "Explore seu painel financeiro",
+      "suggestion2": "Defina uma meta de economia",
+      "suggestion3": "Crie um orçamento mensal",
+      "cta": "Explorar TuCash"
+    }
+  },
+  "fab": {
+    "menu": "Menu de ações",
+    "newTransaction": "Nova Transação",
+    "newAccount": "Nova Conta",
+    "newGoal": "Nova Meta",
+    "newBudget": "Novo Orçamento",
+    "newIncome": "Nova Receita",
+    "newExpense": "Nova Despesa"
+  },
+  "accounts": {
+    "form": {
+      "title": "Nova Conta",
+      "name": "Nome da conta",
+      "namePlaceholder": "Ex: Conta poupança, Cartão de débito...",
+      "currency": "Moeda",
+      "cancel": "Cancelar",
+      "save": "Salvar conta",
+      "saving": "Salvando…",
+      "errors": {
+        "required": "Este campo é obrigatório",
+        "minLength": "O nome deve ter pelo menos 3 caracteres",
+        "save": "Não foi possível salvar a conta. Tente novamente."
+      }
+    }
+  },
+  "transactions": {
+    "title": "Transações",
+    "loading": "Carregando transações…",
+    "tryAgain": "Tentar novamente",
+    "totalIncome": "Total de receitas",
+    "totalExpenses": "Total de despesas",
+    "balance": "Saldo",
+    "count": "{{count}} transações",
+    "loadMore": "Ver mais transações",
+    "types": {
+      "income": "Receita",
+      "expense": "Despesa"
+    },
+    "summary": {
+      "title": "Resumo do mês"
+    },
+    "errors": {
+      "load": "Não foi possível carregar as transações",
+      "loadAccounts": "Não foi possível carregar as contas"
+    },
+    "filters": {
+      "title": "Filtros",
+      "clear": "Limpar",
+      "type": "Tipo",
+      "all": "Todas",
+      "income": "Receitas",
+      "expense": "Despesas",
+      "account": "Conta",
+      "allAccounts": "Todas as contas",
+      "search": "Buscar",
+      "searchPlaceholder": "Buscar por descrição ou categoria..."
+    },
+    "empty": {
+      "title": "Sem transações",
+      "message": "Você ainda não tem transações. Comece adicionando sua primeira transação.",
+      "action": "Adicionar transação"
+    },
+    "form": {
+      "title": "Nova Transação",
+      "loading": "Carregando formulário…",
+      "retry": "Tentar novamente",
+      "type": "Tipo de transação",
+      "income": "Receita",
+      "expense": "Despesa",
+      "amount": "Valor",
+      "account": "Conta",
+      "category": "Categoria",
+      "selectCategory": "Selecione uma categoria",
+      "description": "Descrição",
+      "descriptionPlaceholder": "Ex: Compra no supermercado",
+      "date": "Data",
+      "cancel": "Cancelar",
+      "save": "Salvar transação",
+      "saving": "Salvando…",
+      "errors": {
+        "required": "Este campo é obrigatório",
+        "minAmount": "O valor deve ser maior que 0",
+        "loadAccounts": "Não foi possível carregar as contas",
+        "loadCategories": "Não foi possível carregar as categorias",
+        "save": "Não foi possível salvar a transação. Tente novamente."
+      }
+    }
   }
 }

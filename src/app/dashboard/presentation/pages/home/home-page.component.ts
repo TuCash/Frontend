@@ -3,7 +3,7 @@
  * Home Page Component - Dashboard principal con datos reales
  */
 
-import { Component, inject, OnInit, signal, computed, OnDestroy } from '@angular/core';
+import { Component, inject, OnInit, signal, computed, OnDestroy, ComponentRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router, NavigationEnd } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -14,6 +14,8 @@ import { filter } from 'rxjs/operators';
 import { IamQueryService } from '../../../../iam/application/internal/queryservices/iam-query.service';
 import { DashboardQueryService } from '../../../application/internal/queryservices/dashboard-query.service';
 import { TransactionQueryService } from '../../../../transactions/application/internal/queryservices/transaction-query.service';
+import { ModalService } from '../../../../shared/infrastructure/services/modal.service';
+import { WizardContainerComponent } from '../../../../onboarding/presentation/components/wizard-container/wizard-container.component';
 
 import { GetPulseQuery } from '../../../domain/model/queries/get-pulse.query';
 import { GetLeaksQuery } from '../../../domain/model/queries/get-leaks.query';
@@ -39,8 +41,11 @@ export class HomePageComponent implements OnInit, OnDestroy {
   private readonly iamQueryService = inject(IamQueryService);
   private readonly dashboardQueryService = inject(DashboardQueryService);
   private readonly transactionQueryService = inject(TransactionQueryService);
+  private readonly modalService = inject(ModalService);
   private readonly router = inject(Router);
   private routerSubscription?: Subscription;
+  private onboardingModalRef?: ComponentRef<WizardContainerComponent>;
+  private hasCheckedOnboarding = false;
 
   // State signals
   readonly authUser = this.iamQueryService.getCurrentUser();
@@ -94,6 +99,52 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.routerSubscription?.unsubscribe();
+    // Clean up onboarding modal if still open
+    if (this.onboardingModalRef) {
+      this.modalService.close(this.onboardingModalRef);
+    }
+  }
+
+  /**
+   * Check if user needs onboarding (no accounts)
+   */
+  private checkOnboarding(accounts: AccountResource[]): void {
+    // Only check once per session to avoid showing wizard on every navigation
+    if (this.hasCheckedOnboarding) {
+      return;
+    }
+    this.hasCheckedOnboarding = true;
+
+    // Show onboarding wizard if user has no accounts
+    if (accounts.length === 0) {
+      this.showOnboardingWizard();
+    }
+  }
+
+  /**
+   * Open the onboarding wizard modal
+   */
+  private showOnboardingWizard(): void {
+    this.onboardingModalRef = this.modalService.open(
+      WizardContainerComponent,
+      {
+        onClose: () => {
+          if (this.onboardingModalRef) {
+            this.modalService.close(this.onboardingModalRef);
+            this.onboardingModalRef = undefined;
+          }
+        },
+        onComplete: () => {
+          if (this.onboardingModalRef) {
+            this.modalService.close(this.onboardingModalRef);
+            this.onboardingModalRef = undefined;
+          }
+          // Reload dashboard data after completing onboarding
+          this.loadDashboardData();
+        }
+      },
+      { fullscreen: true }
+    );
   }
 
   loadDashboardData(): void {
@@ -111,6 +162,9 @@ export class HomePageComponent implements OnInit, OnDestroy {
         next: (accounts) => {
           console.log('✅ Accounts loaded:', accounts);
           this.accounts.set(accounts);
+
+          // Check if user needs onboarding (no accounts)
+          this.checkOnboarding(accounts);
 
           // Calcular balance total desde las cuentas
           const totalAccountBalance = accounts.reduce((sum, acc) => sum + acc.balance, 0);

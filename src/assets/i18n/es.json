@@ -491,7 +491,51 @@
     }
   },
   "common": {
-    "comingSoon": "Muy pronto podrás gestionar esta sección."
+    "comingSoon": "Muy pronto podrás gestionar esta sección.",
+    "back": "Atrás",
+    "saving": "Guardando...",
+    "loading": "Cargando..."
+  },
+  "onboarding": {
+    "optional": "Opcional",
+    "steps": {
+      "welcome": "Bienvenida",
+      "account": "Cuenta",
+      "transaction": "Transacción",
+      "summary": "Listo"
+    },
+    "welcome": {
+      "title": "¡Bienvenido a TuCash, {{name}}!",
+      "subtitle": "Tu asistente financiero personal",
+      "feature1": "Administra todas tus cuentas en un solo lugar",
+      "feature2": "Registra ingresos y gastos fácilmente",
+      "feature3": "Establece metas de ahorro",
+      "feature4": "Controla tus presupuestos por categoría",
+      "cta": "Empezar"
+    },
+    "account": {
+      "title": "Crea tu primera cuenta",
+      "subtitle": "Agrega una cuenta bancaria, billetera o efectivo"
+    },
+    "transaction": {
+      "title": "Registra tu primera transacción",
+      "subtitle": "Comienza a llevar el control de tus finanzas",
+      "skip": "Saltar este paso",
+      "skipHint": "Podrás hacerlo más tarde desde el botón +",
+      "noCategories": "Presiona + para crear tu primera categoría"
+    },
+    "summary": {
+      "title": "¡Todo listo!",
+      "subtitle": "Ya puedes empezar a usar TuCash",
+      "accountCreated": "Cuenta creada:",
+      "transactionCreated": "Primera transacción registrada",
+      "transactionSkipped": "Transacción omitida (puedes hacerlo luego)",
+      "suggestionsTitle": "¿Qué puedes hacer ahora?",
+      "suggestion1": "Explora tu dashboard financiero",
+      "suggestion2": "Establece una meta de ahorro",
+      "suggestion3": "Crea un presupuesto mensual",
+      "cta": "Explorar TuCash"
+    }
   },
   "fab": {
     "menu": "Menú de acciones",
@@ -527,6 +571,10 @@
     "balance": "Balance",
     "count": "{{count}} transacciones",
     "loadMore": "Ver más transacciones",
+    "types": {
+      "income": "Ingreso",
+      "expense": "Egreso"
+    },
     "summary": {
       "title": "Resumen del mes"
     },
@@ -561,6 +609,7 @@
       "amount": "Monto",
       "account": "Cuenta",
       "category": "Categoría",
+      "selectCategory": "Selecciona una categoría",
       "addCategory": "Agregar categoría",
       "cancelCategory": "Cancelar",
       "categoryName": "Nombre de la categoría",

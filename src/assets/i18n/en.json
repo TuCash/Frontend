@@ -512,7 +512,51 @@
     }
   },
   "common": {
-    "comingSoon": "This section will be available soon."
+    "comingSoon": "This section will be available soon.",
+    "back": "Back",
+    "saving": "Saving...",
+    "loading": "Loading..."
+  },
+  "onboarding": {
+    "optional": "Optional",
+    "steps": {
+      "welcome": "Welcome",
+      "account": "Account",
+      "transaction": "Transaction",
+      "summary": "Done"
+    },
+    "welcome": {
+      "title": "Welcome to TuCash, {{name}}!",
+      "subtitle": "Your personal finance assistant",
+      "feature1": "Manage all your accounts in one place",
+      "feature2": "Easily track income and expenses",
+      "feature3": "Set savings goals",
+      "feature4": "Control your budgets by category",
+      "cta": "Get Started"
+    },
+    "account": {
+      "title": "Create your first account",
+      "subtitle": "Add a bank account, wallet, or cash"
+    },
+    "transaction": {
+      "title": "Record your first transaction",
+      "subtitle": "Start tracking your finances",
+      "skip": "Skip this step",
+      "skipHint": "You can do this later from the + button",
+      "noCategories": "Press + to create your first category"
+    },
+    "summary": {
+      "title": "All set!",
+      "subtitle": "You can now start using TuCash",
+      "accountCreated": "Account created:",
+      "transactionCreated": "First transaction recorded",
+      "transactionSkipped": "Transaction skipped (you can do it later)",
+      "suggestionsTitle": "What can you do now?",
+      "suggestion1": "Explore your financial dashboard",
+      "suggestion2": "Set a savings goal",
+      "suggestion3": "Create a monthly budget",
+      "cta": "Explore TuCash"
+    }
   },
   "fab": {
     "menu": "Actions menu",
@@ -523,6 +567,22 @@
     "newIncome": "New Income",
     "newExpense": "New Expense"
   },
+  "accounts": {
+    "form": {
+      "title": "New Account",
+      "name": "Account name",
+      "namePlaceholder": "E.g.: Savings account, Debit card...",
+      "currency": "Currency",
+      "cancel": "Cancel",
+      "save": "Save account",
+      "saving": "Saving…",
+      "errors": {
+        "required": "This field is required",
+        "minLength": "Name must be at least 3 characters",
+        "save": "We couldn't save the account. Please try again."
+      }
+    }
+  },
   "transactions": {
     "title": "Transactions",
     "loading": "Loading transactions…",
@@ -532,6 +592,10 @@
     "balance": "Balance",
     "count": "{{count}} transactions",
     "loadMore": "Load more transactions",
+    "types": {
+      "income": "Income",
+      "expense": "Expense"
+    },
     "summary": {
       "title": "Monthly summary"
     },
@@ -566,6 +630,7 @@
       "amount": "Amount",
       "account": "Account",
       "category": "Category",
+      "selectCategory": "Select a category",
       "description": "Description",
       "descriptionPlaceholder": "e.g., Grocery shopping",
       "date": "Date",
