@@ -5,7 +5,7 @@
 
 import { Component, inject, input, output, signal, OnInit, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { forkJoin } from 'rxjs';
 
@@ -16,6 +16,7 @@ import { CreateCategoryCommand } from '../../../../transactions/domain/model/com
 import { GetAllCategoriesQuery } from '../../../../transactions/domain/model/queries/get-all-categories.query';
 import { TransactionResource } from '../../../../transactions/presentation/resources/transaction.resource';
 import { CategoryResource } from '../../../../transactions/presentation/resources/category.resource';
+import { AccountResource } from '../../../../transactions/presentation/resources/account.resource';
 import { getTodayFormatted } from '../../../../shared/utils/date.utils';
 
 type TransactionType = 'INCOME' | 'EXPENSE';
@@ -81,6 +82,9 @@ type TransactionType = 'INCOME' | 'EXPENSE';
                 min="0.01"
               />
             </div>
+            @if (getFieldError('amount'); as error) {
+              <span class="field-error">{{ error | translate }}</span>
+            }
           </div>
 
           <!-- Category Section -->
@@ -603,6 +607,13 @@ type TransactionType = 'INCOME' | 'EXPENSE';
       cursor: not-allowed;
     }
 
+    .field-error {
+      display: block;
+      margin-top: 0.35rem;
+      color: #e53935;
+      font-size: 0.875rem;
+    }
+
     .error-text {
       font-size: 0.75rem;
       color: #e53935;
@@ -752,6 +763,7 @@ export class StepTransactionComponent implements OnInit {
   readonly saveError = signal('');
   readonly selectedType = signal<TransactionType>('EXPENSE');
   readonly allCategories = signal<CategoryResource[]>([]);
+  readonly account = signal<AccountResource | null>(null);
 
   // New category form state
   readonly showNewCategoryForm = signal(false);
@@ -786,6 +798,7 @@ export class StepTransactionComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.loadAccount();
     this.loadCategories();
   }
 
@@ -793,10 +806,33 @@ export class StepTransactionComponent implements OnInit {
     this.transactionForm = this.fb.group({
       type: ['EXPENSE', Validators.required],
       categoryId: [null, Validators.required],
-      amount: [null, [Validators.required, Validators.min(0.01)]],
+      amount: [null, [Validators.required, Validators.min(0.01), this.expenseLimitValidator()]],
       description: [''],
       transactionDate: [getTodayFormatted(), Validators.required],
     });
+
+    // Listen to type changes
+    this.transactionForm.get('type')?.valueChanges.subscribe((type: TransactionType) => {
+      this.selectedType.set(type);
+      // Reset category when type changes
+      this.transactionForm.patchValue({ categoryId: null });
+      // Revalidate amount against balance when switching between income/expense
+      this.transactionForm.get('amount')?.updateValueAndValidity({ onlySelf: true });
+    });
+  }
+
+  private loadAccount(): void {
+    this.transactionQueryService.handleGetAccountById(this.accountId())
+      .subscribe({
+        next: (account) => {
+          this.account.set(account);
+          // Revalidate amount now that we have account balance
+          this.transactionForm.get('amount')?.updateValueAndValidity({ onlySelf: true });
+        },
+        error: (error) => {
+          console.error('Error loading account:', error);
+        }
+      });
   }
 
   private loadCategories(categoryIdToSelect?: number): void {
@@ -935,6 +971,14 @@ export class StepTransactionComponent implements OnInit {
       return;
     }
 
+    // Extra guard: prevent expenses above account balance
+    const amountControl = this.transactionForm.get('amount');
+    amountControl?.updateValueAndValidity({ onlySelf: true });
+    if (amountControl?.errors?.['insufficientFunds']) {
+      this.transactionForm.markAllAsTouched();
+      return;
+    }
+
     this.isSaving.set(true);
     this.saveError.set('');
 
@@ -962,8 +1006,43 @@ export class StepTransactionComponent implements OnInit {
       });
   }
 
+  getFieldError(fieldName: string): string | null {
+    const field = this.transactionForm.get(fieldName);
+    if (field && field.invalid && field.touched) {
+      if (field.errors?.['required']) {
+        return 'transactions.form.errors.required';
+      }
+      if (field.errors?.['min']) {
+        return 'transactions.form.errors.minAmount';
+      }
+      if (field.errors?.['insufficientFunds']) {
+        return 'transactions.form.errors.insufficientFunds';
+      }
+    }
+    return null;
+  }
+
   isFieldInvalid(fieldName: string): boolean {
     const field = this.transactionForm.get(fieldName);
     return !!(field && field.invalid && field.touched);
+  }
+
+  // Custom validators
+  private expenseLimitValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const form = control.parent as FormGroup | null;
+      if (!form) return null;
+
+      const type = form.get('type')?.value as TransactionType | undefined;
+      if (type !== 'EXPENSE') return null;
+
+      const account = this.account();
+      if (!account) return null;
+
+      const amount = control.value as number | null;
+      if (amount === null || amount === undefined) return null;
+
+      return amount > account.balance ? { insufficientFunds: true } : null;
+    };
   }
 }

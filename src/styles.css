@@ -440,7 +440,7 @@ a {
    =================================== */
 .modal-overlay--fullscreen {
   padding: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .modal-overlay--fullscreen .modal-container {
@@ -451,6 +451,9 @@ a {
   border-radius: 0;
   display: flex;
   flex-direction: column;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
 }
 
 @media (min-width: 768px) {
