@@ -6,7 +6,7 @@
 import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -132,7 +132,7 @@ export class TransactionFormComponent implements OnInit {
       type: [this.selectedType(), Validators.required],
       accountId: [null, Validators.required],
       categoryId: [null, Validators.required],
-      amount: [null, [Validators.required, Validators.min(0.01)]],
+      amount: [null, [Validators.required, Validators.min(0.01), this.expenseLimitValidator()]],
       description: [''],
       transactionDate: [getTodayFormatted(), Validators.required],
     });
@@ -142,6 +142,13 @@ export class TransactionFormComponent implements OnInit {
       this.selectedType.set(type);
       // Reset category when type changes
       this.transactionForm.patchValue({ categoryId: null });
+      // Revalidate amount against balance when switching between income/expense
+      this.transactionForm.get('amount')?.updateValueAndValidity({ onlySelf: true });
+    });
+
+    // Revalidate amount when account changes
+    this.transactionForm.get('accountId')?.valueChanges.subscribe(() => {
+      this.transactionForm.get('amount')?.updateValueAndValidity({ onlySelf: true });
     });
   }
 
@@ -169,6 +176,9 @@ export class TransactionFormComponent implements OnInit {
           if (accounts.length > 0 && !this.transactionForm.get('accountId')?.value) {
             this.transactionForm.patchValue({ accountId: accounts[0].id });
           }
+
+          // Revalidate amount now that we have balances
+          this.transactionForm.get('amount')?.updateValueAndValidity({ onlySelf: true });
 
           // Load categories
           this.loadCategories();
@@ -249,6 +259,14 @@ export class TransactionFormComponent implements OnInit {
       return;
     }
 
+    // Extra guard: prevent expenses above account balance
+    const amountControl = this.transactionForm.get('amount');
+    amountControl?.updateValueAndValidity({ onlySelf: true });
+    if (amountControl?.errors?.['insufficientFunds']) {
+      this.transactionForm.markAllAsTouched();
+      return;
+    }
+
     this.isSaving.set(true);
     this.saveError.set('');
 
@@ -304,6 +322,9 @@ export class TransactionFormComponent implements OnInit {
       if (field.errors?.['min']) {
         return 'transactions.form.errors.minAmount';
       }
+      if (field.errors?.['insufficientFunds']) {
+        return 'transactions.form.errors.insufficientFunds';
+      }
     }
     return null;
   }
@@ -311,6 +332,28 @@ export class TransactionFormComponent implements OnInit {
   isFieldInvalid(fieldName: string): boolean {
     const field = this.transactionForm.get(fieldName);
     return !!(field && field.invalid && field.touched);
+  }
+
+  // Custom validators
+  private expenseLimitValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const form = control.parent as FormGroup | null;
+      if (!form) return null;
+
+      const type = form.get('type')?.value as TransactionType | undefined;
+      if (type !== 'EXPENSE') return null;
+
+      const accountId = form.get('accountId')?.value as number | null;
+      if (!accountId) return null;
+
+      const account = this.accounts().find(acc => acc.id === accountId);
+      if (!account) return null;
+
+      const amount = control.value as number | null;
+      if (amount === null || amount === undefined) return null;
+
+      return amount > account.balance ? { insufficientFunds: true } : null;
+    };
   }
 
   // New category methods

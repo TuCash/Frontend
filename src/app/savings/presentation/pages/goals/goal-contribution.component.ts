@@ -5,7 +5,7 @@
 
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SavingsCommandService } from '../../../application/internal/commandservices/savings-command.service';
@@ -53,8 +53,13 @@ export class GoalContributionComponent implements OnInit {
   private initForm(): void {
     this.contributionForm = this.fb.group({
       accountId: [null, Validators.required],
-      amount: [null, [Validators.required, Validators.min(0.01)]],
+      amount: [null, [Validators.required, Validators.min(0.01), this.contributionLimitValidator()]],
       description: [''],
+    });
+
+    // Revalidate amount when account changes
+    this.contributionForm.get('accountId')?.valueChanges.subscribe(() => {
+      this.contributionForm.get('amount')?.updateValueAndValidity({ onlySelf: true });
     });
   }
 
@@ -66,6 +71,8 @@ export class GoalContributionComponent implements OnInit {
     this.transactionQueryService.handleGetAllAccounts(new GetAllAccountsQuery()).subscribe({
       next: (accounts) => {
         this.accounts.set(accounts);
+        // Revalidate amount now that balances are available
+        this.contributionForm.get('amount')?.updateValueAndValidity({ onlySelf: true });
         this.loadContributions();
       },
       error: (error) => {
@@ -91,6 +98,14 @@ export class GoalContributionComponent implements OnInit {
 
   onSubmit(): void {
     if (this.contributionForm.invalid) {
+      this.contributionForm.markAllAsTouched();
+      return;
+    }
+
+    // Prevent contributions above account balance
+    const amountControl = this.contributionForm.get('amount');
+    amountControl?.updateValueAndValidity({ onlySelf: true });
+    if (amountControl?.errors?.['insufficientFunds']) {
       this.contributionForm.markAllAsTouched();
       return;
     }
@@ -170,6 +185,7 @@ export class GoalContributionComponent implements OnInit {
     if (field && field.invalid && field.touched) {
       if (field.errors?.['required']) return 'goals.contributions.errors.required';
       if (field.errors?.['min']) return 'goals.contributions.errors.minAmount';
+      if (field.errors?.['insufficientFunds']) return 'goals.contributions.errors.insufficientFunds';
     }
     return null;
   }
@@ -177,5 +193,23 @@ export class GoalContributionComponent implements OnInit {
   isFieldInvalid(fieldName: string): boolean {
     const field = this.contributionForm.get(fieldName);
     return !!(field && field.invalid && field.touched);
+  }
+
+  private contributionLimitValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const form = control.parent as FormGroup | null;
+      if (!form) return null;
+
+      const accountId = form.get('accountId')?.value as number | null;
+      if (!accountId) return null;
+
+      const account = this.accounts().find(acc => acc.id === accountId);
+      if (!account) return null;
+
+      const amount = control.value as number | null;
+      if (amount === null || amount === undefined) return null;
+
+      return amount > account.balance ? { insufficientFunds: true } : null;
+    };
   }
 }

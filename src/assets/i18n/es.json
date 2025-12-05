@@ -232,7 +232,8 @@
       "errors": {
         "required": "Este campo es requerido",
         "minAmount": "El monto debe ser mayor a 0",
-        "save": "No pudimos guardar el aporte. Inténtalo nuevamente."
+        "insufficientFunds": "No puedes aportar un monto mayor al saldo de la cuenta",
+        "save": "No pudimos guardar el aporte. Int�ntalo nuevamente."
       }
     }
   },
@@ -276,6 +277,7 @@
       "errors": {
         "required": "Este campo es requerido",
         "minAmount": "El monto debe ser mayor a 0",
+        "maxBalance": "El l\u00edmite no puede superar tu saldo disponible",
         "minDate": "La fecha no puede ser en el pasado",
         "endDateBeforeStart": "La fecha fin debe ser posterior a la fecha inicio",
         "loadCategories": "No pudimos cargar las categorías",
@@ -643,6 +645,7 @@
       "errors": {
         "required": "Este campo es requerido",
         "minAmount": "El monto debe ser mayor a 0",
+        "insufficientFunds": "No puedes registrar un egreso mayor al saldo de la cuenta",
         "loadAccounts": "No pudimos cargar las cuentas",
         "loadCategories": "No pudimos cargar las categorías",
         "save": "No pudimos guardar la transacción. Inténtalo nuevamente.",
@@ -652,3 +655,13 @@
     }
   }
 }
+
+
+
+
+
+
+
+
+
+

@@ -203,6 +203,7 @@
       "errors": {
         "required": "Este campo é obrigatório",
         "minAmount": "O valor deve ser maior que 0",
+        "maxBalance": "O limite n\u00e3o pode ultrapassar seu saldo dispon\u00edvel",
         "minDate": "A data limite deve ser no futuro",
         "save": "Não foi possível salvar a meta. Tente novamente."
       }
@@ -226,6 +227,7 @@
       "errors": {
         "required": "Este campo é obrigatório",
         "minAmount": "O valor deve ser maior que 0",
+        "insufficientFunds": "Voc\u00ea n\u00e3o pode contribuir um valor maior que o saldo da conta",
         "save": "Não foi possível salvar o aporte. Tente novamente."
       }
     }
@@ -270,6 +272,7 @@
       "errors": {
         "required": "Este campo é obrigatório",
         "minAmount": "O valor deve ser maior que 0",
+        "maxBalance": "O limite n\u00e3o pode ultrapassar seu saldo dispon\u00edvel",
         "minDate": "A data não pode ser no passado",
         "endDateBeforeStart": "A data fim deve ser posterior à data início",
         "loadCategories": "Não foi possível carregar as categorias",
@@ -653,6 +656,7 @@
       "errors": {
         "required": "Este campo é obrigatório",
         "minAmount": "O valor deve ser maior que 0",
+        "insufficientFunds": "Voc� n�o pode registrar uma despesa acima do saldo da conta",
         "loadAccounts": "Não foi possível carregar as contas",
         "loadCategories": "Não foi possível carregar as categorias",
         "save": "Não foi possível salvar a transação. Tente novamente."
@@ -660,3 +664,11 @@
     }
   }
 }
+
+
+
+
+
+
+
+

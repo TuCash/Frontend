@@ -5,14 +5,17 @@
 
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { forkJoin } from 'rxjs';
 
 import { SavingsCommandService } from '../../../application/internal/commandservices/savings-command.service';
 import { TransactionQueryService } from '../../../../transactions/application/internal/queryservices/transaction-query.service';
 import { CreateBudgetCommand } from '../../../domain/model/commands/create-budget.command';
 import { GetAllCategoriesQuery } from '../../../../transactions/domain/model/queries/get-all-categories.query';
+import { GetAllAccountsQuery } from '../../../../transactions/domain/model/queries/get-all-accounts.query';
 import { CategoryResource } from '../../../../transactions/presentation/resources/category.resource';
+import { AccountResource } from '../../../../transactions/presentation/resources/account.resource';
 import { getTodayFormatted, getTomorrowFormatted, getFirstDayOfMonth, getLastDayOfMonth } from '../../../../shared/utils/date.utils';
 
 @Component({
@@ -38,6 +41,8 @@ export class BudgetFormComponent implements OnInit {
   readonly loadError = signal('');
   readonly saveError = signal('');
   readonly categories = signal<CategoryResource[]>([]);
+  readonly accounts = signal<AccountResource[]>([]);
+  readonly totalBalance = signal(0);
   readonly selectedPeriod = signal<string>('MONTHLY');
 
   // Minimum dates for validation
@@ -60,7 +65,7 @@ export class BudgetFormComponent implements OnInit {
   private initForm(): void {
     this.budgetForm = this.fb.group({
       categoryId: [null, Validators.required],
-      limitAmount: [null, [Validators.required, Validators.min(0.01)]],
+      limitAmount: [null, [Validators.required, Validators.min(0.01), this.limitMaxBalanceValidator()]],
       period: ['MONTHLY', Validators.required],
       startDate: [getTodayFormatted(), [Validators.required, this.minDateValidator()]],
       endDate: [getLastDayOfMonth(), [Validators.required, this.minDateValidator(), this.endDateValidator()]],
@@ -147,25 +152,32 @@ export class BudgetFormComponent implements OnInit {
     this.isLoading.set(true);
     this.loadError.set('');
 
-    // Load only EXPENSE categories for budgets
-    this.transactionQueryService.handleGetAllCategories(new GetAllCategoriesQuery('EXPENSE'))
-      .subscribe({
-        next: (categories) => {
-          console.log('✅ Categories loaded for budgets:', categories);
-          this.categories.set(categories);
-          this.isLoading.set(false);
+    forkJoin({
+      categories: this.transactionQueryService.handleGetAllCategories(new GetAllCategoriesQuery('EXPENSE')),
+      accounts: this.transactionQueryService.handleGetAllAccounts(new GetAllAccountsQuery())
+    }).subscribe({
+      next: ({ categories, accounts }) => {
+        console.log('ƒo. Categories loaded for budgets:', categories);
+        console.log('ƒo. Accounts loaded for budgets:', accounts);
+        this.categories.set(categories);
+        this.accounts.set(accounts);
+        this.updateTotalBalance(accounts);
+        this.isLoading.set(false);
 
-          // Preselect first category if available
-          if (categories.length > 0) {
-            this.budgetForm.patchValue({ categoryId: categories[0].id });
-          }
-        },
-        error: (error) => {
-          console.error('❌ Error loading categories:', error);
-          this.loadError.set('budgets.form.errors.loadCategories');
-          this.isLoading.set(false);
-        },
-      });
+        // Preselect first category if available
+        if (categories.length > 0) {
+          this.budgetForm.patchValue({ categoryId: categories[0].id });
+        }
+
+        // Revalidate limit amount now that we have a balance reference
+        this.budgetForm.get('limitAmount')?.updateValueAndValidity({ onlySelf: true });
+      },
+      error: (error) => {
+        console.error('ƒ?O Error loading categories or accounts:', error);
+        this.loadError.set('budgets.form.errors.loadCategories');
+        this.isLoading.set(false);
+      },
+    });
   }
 
   onSubmit(): void {
@@ -196,7 +208,7 @@ export class BudgetFormComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.error('❌ Error creating budget:', error);
+        console.error('ƒ?O Error creating budget:', error);
         this.saveError.set('budgets.form.errors.save');
         this.isSaving.set(false);
       },
@@ -225,6 +237,9 @@ export class BudgetFormComponent implements OnInit {
       if (field.errors?.['endDateBeforeStart']) {
         return 'budgets.form.errors.endDateBeforeStart';
       }
+      if (field.errors?.['exceedsBalance']) {
+        return 'budgets.form.errors.maxBalance';
+      }
     }
     return null;
   }
@@ -232,5 +247,22 @@ export class BudgetFormComponent implements OnInit {
   isFieldInvalid(fieldName: string): boolean {
     const field = this.budgetForm.get(fieldName);
     return !!(field && field.invalid && field.touched);
+  }
+
+  private updateTotalBalance(accounts: AccountResource[]): void {
+    const total = accounts.reduce((sum, acc) => sum + (acc.balance || 0), 0);
+    this.totalBalance.set(total);
+  }
+
+  private limitMaxBalanceValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value as number | null;
+      if (value === null || value === undefined) return null;
+
+      const available = this.totalBalance();
+      if (!available) return null;
+
+      return value > available ? { exceedsBalance: true } : null;
+    };
   }
 }

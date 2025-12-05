@@ -253,6 +253,7 @@
       "errors": {
         "required": "This field is required",
         "minAmount": "Amount must be greater than 0",
+        "insufficientFunds": "You can't contribute more than the account balance",
         "save": "We couldn't save the contribution. Please try again."
       }
     }
@@ -297,6 +298,7 @@
       "errors": {
         "required": "This field is required",
         "minAmount": "Amount must be greater than 0",
+        "maxBalance": "The limit cannot exceed your available balance",
         "minDate": "Date cannot be in the past",
         "endDateBeforeStart": "End date must be after start date",
         "loadCategories": "We couldn't load categories",
@@ -657,6 +659,7 @@
       "errors": {
         "required": "This field is required",
         "minAmount": "Amount must be greater than 0",
+        "insufficientFunds": "You can't register an expense above the account balance",
         "loadAccounts": "We couldn't load accounts",
         "loadCategories": "We couldn't load categories",
         "save": "We couldn't save the transaction. Please try again."
